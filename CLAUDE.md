@@ -19,9 +19,9 @@ informativeness; **H4** greedy RS-cover ≥ information-greedy and ≥ concept s
 ## Status
 | | |
 |---|---|
-| Phase | **M5 complete — E1 has run.** Result is provisional pending the convergence diagnostic. |
+| Phase | **M5 complete; E1 run and its convergence caveat diagnosed.** M6–M8 infrastructure built (margin oracle, generators, selection). |
 | Experiments run | **E1 (40 runs).** H1 supported: `Acc(C)` = 0.987 / 0.495 / 0.298 / 0.002 for `\|RS\|` = 1 / 2 / 5 / 10. `α̂ ∈ RS` in 29/29 gated runs. See `RESULTS.md` §6. |
-| Open caveat | E1 had **differential convergence failure** (exclusions 5,6,0,0). Diagnostic running; E1 may need re-preregistration and a re-run. |
+| Open caveat | E1's differential convergence is **robust across 5 recipes** — an effect of `\|RS\|` itself, not a tuning artifact (new exploratory H5). `\|RS\|`=1 and 2 means rest on 5 and 4 runs: thin. Headline `\|RS\|`=1 vs 10 contrast is unaffected. |
 | Paper | Not started; skeleton at M10. |
 
 ## Architecture (one line each)
@@ -59,4 +59,4 @@ No fabricated numbers. `RESULTS.md` carries only numbers traceable to a run mani
 labelled a *"potential research gap"* until E1 has run. Negative results are preserved, not buried.
 
 ## Next action
-Resolve E1's differential-convergence caveat via `experiments/diag_convergence.py` (dev tasks only). If a better frozen recipe exists, re-preregister and re-run E1. Then M6 (generators) → E2.
+Preregister and run **E2**: the margin-vs-binary study (H2) over the generator families, with convergence rate as an additional readout to test the new H5.

@@ -158,20 +158,55 @@ probability* of correct grounding. **It is a post-hoc observation on 29 runs in 
 is not evidence yet.** It requires its own preregistration and its own runs (planned for E2) before
 being treated as anything more than a hypothesis.
 
-### Caveat that materially qualifies this result
+### The convergence caveat — diagnosed, and it is part of the phenomenon
 
-**Differential convergence failure.** Exclusion rates were 5, 6, 0, 0 across the four conditions:
-the *low*-`|RS|` conditions had many runs that never fit the label (`Acc(Y)` 0.42–0.87 versus ≈0.975
-for converged runs), with non-injective `α̂ ∉ RS` — degenerate concept collapse, not shortcuts.
+E1's exclusion rates were uneven: 5, 6, 0, 0 across `|RS|` = 1, 2, 5, 10. The *low*-`|RS|`
+conditions had many runs that never fit the label (`Acc(Y)` 0.42–0.87 versus ≈0.975 when converged).
+That is the obvious attack on E1, so it was diagnosed before the result was accepted.
 
-This violates P4's spirit even though gated `Acc(Y)` is flat, and it is the obvious line of attack
-on this result: conditions that are supposed to be matched are not equally easy to *optimise*.
-The direction of the bias is not obviously favourable or unfavourable — the excluded runs failed
-rather than shortcutted — but the asymmetry is real and unexplained.
+`experiments/diag_convergence.py` (50 runs, **dev tasks only**, `tuning_mode=True`) tried five frozen
+recipes on the two extreme conditions:
 
-`experiments/diag_convergence.py` tests candidate recipes on **dev tasks only** to find one that
-converges reliably. **If a better frozen recipe exists, E1 will be re-preregistered and re-run
-before any of the above is treated as settled.** Until then this result is reported as *provisional*.
+| recipe | `w=2` (`\|RS\|`=1) converged | `w=9` (`\|RS\|`=10) converged |
+|---|---|---|
+| baseline (E1's) | 1/5 | **5/5** |
+| lower lr (3e-4) | 1/5 | **5/5** |
+| smaller batch (64) | 3/5 | **5/5** |
+| longer (30 epochs) | 2/5 | **5/5** |
+| lower lr + longer | 2/5 | **5/5** |
+
+**The asymmetry is robust across every recipe tried.** It is not a hyperparameter artifact, and no
+tuning removes it. The `|RS|`=10 condition converged 25/25; the `|RS|`=1 condition never exceeded 3/5.
+
+E1's own data shows the same monotone pattern in convergence rate:
+
+| `\|RS\|` | 1 | 2 | 5 | 10 |
+|---|---|---|---|---|
+| runs passing the gate | 5/10 | 4/10 | 10/10 | 10/10 |
+
+**Interpretation (a mechanism hypothesis, not a demonstrated cause).** A task with `|RS|` shortcuts
+has `|RS|` distinct global optima of the training objective. More shortcuts means more targets for
+SGD to hit, so the *optimisation* problem gets easier as the *identification* problem gets harder.
+Identifiability and optimisability appear to trade off — driven by the same quantity.
+
+This is consistent with all the evidence to hand but is not proven by it; establishing it would need
+a finer sweep over `|RS|` with convergence rate as the response, which is now a planned E2 readout
+rather than a claim.
+
+**What it means for E1.** The differential exclusion is *not* a nuisance confound that better tuning
+would remove — it is an effect of the manipulated variable itself. Two consequences, both stated
+rather than resolved:
+
+1. Among converged runs the comparison stands: gated `Acc(Y)` is flat at 0.972–0.978 across all four
+   conditions, so the surviving runs are matched on how well they fit their own objective.
+2. The `|RS|`=1 and `|RS|`=2 means rest on 5 and 4 runs respectively. **That is thin**, and the
+   `|RS|`=2 confidence interval [0.003, 0.986] spans essentially the whole range — it is reported
+   because hiding a wide interval would be worse, but it carries little weight on its own.
+
+E1's headline contrast (`|RS|`=1 versus `|RS|`=10, difference 0.985, Cliff's delta +1.000, complete
+separation) does not depend on the thin middle conditions. **E1 is no longer labelled provisional
+on this ground**; the caveat is now a documented property of the design rather than an open question.
+The remaining limits are the ordinary ones: one task family, one architecture, `k = 10`, CPU scale.
 
 ## 7. Training experiments still outstanding
 

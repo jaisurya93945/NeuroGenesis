@@ -33,6 +33,20 @@ budget curve (not at one cherry-picked point).
 | `alpha_hat ∉ RS(T)` frequently | Deterministic-RS theory under-specifies what SGD finds (mixtures, finite data). Publishable alone; invisible to `Acc(C)`. |
 | information-greedy matches greedy-RS | The RS machinery adds nothing over "pick informative tasks". **This is the headline negative and gets reported as such, not buried.** |
 
+## Emerged from evidence (exploratory — needs its own preregistration)
+
+**H5 — identifiability and optimisability trade off.** A task with `|RS|` shortcuts has `|RS|`
+global optima, so convergence rate should *increase* with `|RS|` even as grounding *decreases*.
+
+Support so far: E1 gate-passing rates 5/10, 4/10, 10/10, 10/10 for `|RS|` = 1, 2, 5, 10; and a
+5-recipe diagnostic in which `|RS|`=10 converged 25/25 while `|RS|`=1 never exceeded 3/5
+(`RESULTS.md` §6). Not yet a claim — a finer `|RS|` sweep with convergence rate as the response
+variable is the test, planned as an E2 readout.
+
+**H6 — SGD selects near-uniformly among permitted shortcuts.** Fraction grounded tracked `1/|RS|`
+in E1 (1.00, 0.50, 0.30, 0.00 vs 1.00, 0.50, 0.20, 0.10). Post-hoc on 29 runs in one family;
+needs its own preregistration and runs.
+
 ## Standing commitments
 
 - Novelty is described as a **"potential research gap"**, never as "novel", until E1 has run.
