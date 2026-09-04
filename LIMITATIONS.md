@@ -30,6 +30,20 @@ Written before results exist, so it cannot be shaped to flatter them.
   outside what this artifact can detect, and absence of an effect will be reported as
   "not detected at this scale", never as "does not exist".
 
+## What the evidence has already cost this project
+
+Two proposed contributions did not survive contact with data, and are recorded here rather than
+quietly dropped:
+
+- **H2 (margin over binary identifiability) — falsified by E2.** It had been the project's headline
+  candidate. `ΔR²` = 0.0015.
+- **H6 (uniform selection among shortcuts) — withdrawn** after failing to replicate across E1's re-run.
+- **H5 (identifiability/optimisability trade-off) — demoted** to a modular-family observation after
+  E2 found Spearman +0.034 on heterogeneous tasks.
+
+What remains is H1/H3 — real, robust, and a generalisation of known results rather than a new
+mechanism. That is a smaller claim than the project set out to make, and it is stated as such.
+
 ## Threats to validity
 
 | Threat | Status |

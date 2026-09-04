@@ -9,7 +9,11 @@ them at M5. Everything not listed here is exploratory and will be labelled as su
 Mean `Acc(C)` decreases monotonically in `|RS|`. On the mod-10 family, `Acc(C)(|RS|=1) − Acc(C)(|RS|=10) > 0.5`.
 *Null H1₀:* `Acc(C)` is independent of `|RS|`; grounding is set by optimisation bias, not symmetry.
 
-**H2 — the margin is the better predictor.** *(most likely the real contribution)*
+**H2 — FALSIFIED by E2.** *(had been flagged as "most likely the real contribution")*
+Adding the margin to a model that already knows whether `|RS| = 1` explains a further **0.15%** of
+variance (`ΔR²` = 0.0015 [0.0004, 0.0042]). The decisive cell failed outright: identifiable tasks
+with margin < 0.01 ground at 0.953 versus 0.990 for margin > 0.1 — a gap of 0.04 against >0.3
+predicted. Binary identifiability is doing the work. See `RESULTS.md` §7.2. Original statement:
 `margin(T)` predicts `Acc(C)` better than binary identifiability and better than `log|RS|`.
 Tested by nested-model `ΔR²` with a bootstrap CI. Motivation: a task can be identifiable only via a
 handful of very low-probability support tuples (`generators/threadbare.py` constructs exactly these).
@@ -35,7 +39,9 @@ budget curve (not at one cherry-picked point).
 
 ## Emerged from evidence (exploratory — needs its own preregistration)
 
-**H5 — identifiability and optimisability trade off.** A task with `|RS|` shortcuts has `|RS|`
+**H5 — NOT SUPPORTED outside the modular family (E2).** Convergence rate vs `log|RS|` across
+152 heterogeneous tasks: Spearman **+0.034**, indistinguishable from zero. The E1 pattern appears to
+be specific to modular arithmetic at `k=10`. Demoted to a family-specific observation. Original: A task with `|RS|` shortcuts has `|RS|`
 global optima, so convergence rate should *increase* with `|RS|` even as grounding *decreases*.
 
 Support so far: E1 gate-passing rates 5/10, 4/10, 10/10, 10/10 for `|RS|` = 1, 2, 5, 10; and a
@@ -48,6 +54,11 @@ tracked `1/|RS|` in E1's first execution (1.00, 0.50, 0.30, 0.00). The re-run af
 gave 1.00, **1.00**, 0.30, 0.10 — the `|RS|`=2 cell breaks it. Withdrawn after one replication.
 It was labelled exploratory and never claimed; recorded here because withdrawn hypotheses are part
 of the record, not something to quietly drop.
+
+**H7 — NEW, from E2's P5 near-miss.** The deterministic RS set under-specifies what SGD finds:
+`α̂ ∈ RS(T)` held for only 78.4% of converged non-grounding runs on heterogeneous tasks (100% in
+E1's narrow family). Roughly one in five failures lands outside the predicted set — plausibly
+approximate shortcuts `RS_ε` or stochastic optima. Needs its own preregistration.
 
 ## Standing commitments
 

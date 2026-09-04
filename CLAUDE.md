@@ -19,7 +19,7 @@ informativeness; **H4** greedy RS-cover ≥ information-greedy and ≥ concept s
 ## Status
 | | |
 |---|---|
-| Phase | **M5 complete; E1 run and its convergence caveat diagnosed.** M6–M8 infrastructure built (margin oracle, generators, selection). |
+| Phase | **E1 and E2 both run.** E2 falsified H2 (the proposed contribution); the core H1/H3 claim survived and generalised. |
 | Experiments run | **E1, run twice** (before/after a seeding fix). Post-fix `Acc(C)` = 0.986 / 0.988 / 0.297 / 0.100 for `\|RS\|` = 1/2/5/10. P2 met (Δ=0.886, Cliff's δ +0.96); **P1 monotonicity NOT met**; `α̂ ∈ RS` 100% in both runs. See `RESULTS.md` §6. |
 | Open caveat | Thin cells (`\|RS\|`=1,2 keep 5 and 3 of 10 runs) are **unstable across the re-run**; 10-run cells reproduced to 3 decimals. Nothing is concluded from the middle of the table. Exploratory H6 withdrawn — did not replicate. |
 | Paper | Not started; skeleton at M10. |
@@ -59,4 +59,4 @@ No fabricated numbers. `RESULTS.md` carries only numbers traceable to a run mani
 labelled a *"potential research gap"* until E1 has run. Negative results are preserved, not buried.
 
 ## Next action
-Preregister and run **E2**: the margin-vs-binary study (H2) over the generator families, with convergence rate as an additional readout to test the new H5.
+Decide the project's direction after H2's falsification: the defensible contribution is now H1/H3 (binary identifiability predicts grounding across families) plus the new H7 (22% of shortcuts fall outside deterministic RS theory). E3/E4 unchanged but lower priority than H7.

@@ -1,20 +1,32 @@
 # ROADMAP.md
 
 ## NOW
-**Resolve E1's differential-convergence caveat.** E1 has run and supports H1 (`RESULTS.md` §6), but
-exclusion rates were 5, 6, 0, 0 — the low-`|RS|` conditions had many runs that never fit the label.
-`experiments/diag_convergence.py` searches for a frozen recipe that converges reliably, on **dev
-tasks only**. If one exists, E1 is re-preregistered and re-run before the result is treated as settled.
+**Decide the direction after H2's falsification.** E2 killed the project's proposed refinement:
+the margin adds 0.15% of variance over binary identifiability, and the decisive cell failed outright
+(`RESULTS.md` §7.2). What survives is stronger but less novel — `log|RS|` predicts grounding across
+152 heterogeneous tasks (partial Spearman −0.775), which is a *generalisation* of known results
+rather than a new mechanism.
+
+The most promising remaining thread is **H7**, which E2 produced by accident: only 78.4% of
+converged non-grounding runs land inside the deterministic RS set, against 100% in E1's narrow
+family. One failure in five is a shortcut the theory does not predict. That is a gap in the
+*formalism*, not just in the empirics, and it is the kind of thing the field would want to know.
 
 ## NEXT
+- **H7 preregistration and experiment.** Characterise the out-of-set relabellings: are they
+  approximate shortcuts (`RS_ε` for small ε), stochastic/mixture optima, or artefacts of the `α̂`
+  mode-recovery estimator? The third possibility must be ruled out first — it is the cheapest
+  explanation and would be a measurement bug rather than a finding.
+- **Implement `RS_ε`** (approximate shortcuts) in the oracle. `measures.margin` already computes the
+  minimum violation mass; the ε-relaxed *set* is the natural next object.
 
 ## LATER
-- **M6** — generators: planted-monoid, support-density, and `threadbare` (identifiable but tiny
-  margin — the decisive cell for H2). Tier-S renderer + tier-agreement check.
-- **M7** — margin oracle via clingo `#minimize`; **E2**.
-- **M8** — `selection.py` (greedy cover, exhaustive) + **E3**.
-- **M9** — continual strategies + **E4** (RS lock-in).
-- **M10** — figures, `reproduce.sh`, paper scaffold, reviewer simulation, literature re-sweep.
+- **E3** — active selection. Infrastructure is built and validated (`selection.py`, D7 pool), but its
+  motivation weakened: if the binary property is what matters, selecting for it is still sensible,
+  though the "margin-aware selection" angle is gone with H2.
+- **E4** — continual / RS lock-in.
+- Tier-M transfer check for E2's 20 overlap tasks.
+- Paper scaffold, reviewer simulation, literature re-sweep.
 
 ## DO NOT BUILD YET
 Distributed execution; a web dashboard; a general probabilistic-logic engine (exact marginalisation
@@ -31,10 +43,11 @@ mixture-optimum LP feasibility (named v1 scope limit); relational non-functional
 
 ## POTENTIAL FUTURE PAPERS
 Only if the evidence arrives — listed as questions, not plans.
-1. Does the *margin* (not binary identifiability) govern symbol grounding? (H2, if it holds)
+1. ~~Does the *margin* govern symbol grounding?~~ **Answered: no** (E2, H2 falsified).
 2. RS lock-in: hysteresis of shortcuts under sequential constraint arrival. (E4)
 3. Minimum identifying supervision support: complexity and approximation guarantees. (theory)
-4. Do trained NeSy models leave the deterministic RS set? (if `rs_membership` is routinely low)
+4. **Do trained NeSy models leave the deterministic RS set?** E2 says yes, ~22% of the time on
+   heterogeneous tasks. Now the leading candidate (H7).
 
 ## BLOCKING PREREQUISITE FOR SUBMISSION
 Re-read all `[S]`-marked primary sources in `LITERATURE.md` from a network that can reach arXiv and
