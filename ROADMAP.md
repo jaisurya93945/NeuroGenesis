@@ -1,9 +1,10 @@
 # ROADMAP.md
 
 ## NOW
-**M5 — preregistration, then E1.** Write `paper/preregistration.md` fixing the predicted directions
-*before* the confirmatory runs, then execute E1: `w ∈ {2,1,4,9}` (`|RS| ∈ {1,2,5,10}`) × 10 seeds.
-**First falsifiable result.**
+**Resolve E1's differential-convergence caveat.** E1 has run and supports H1 (`RESULTS.md` §6), but
+exclusion rates were 5, 6, 0, 0 — the low-`|RS|` conditions had many runs that never fit the label.
+`experiments/diag_convergence.py` searches for a frozen recipe that converges reliably, on **dev
+tasks only**. If one exists, E1 is re-preregistered and re-run before the result is treated as settled.
 
 ## NEXT
 
