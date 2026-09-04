@@ -40,8 +40,16 @@ two splits (asserted in tests).
 
 ## Determinism and provenance
 
-- `data_seed` (pairing, subsampling, splits) is separate from `init_seed` (weights, batch order),
-  so run-to-run variance can be decomposed into data vs initialisation.
+- `data_seed` (pairing, subsampling, splits) is separate from `init_seed` (weight
+  initialisation and batch order), so run-to-run variance can be decomposed into data vs
+  initialisation. Verified by `tests/test_determinism.py`: the same seed reproduces a run
+  exactly, and different seeds do not.
+
+  *This was broken until commit `8a4e1f1`+1.* `runner.run` built the encoder **before**
+  `train` called `torch.manual_seed`, so weight initialisation came from whatever global RNG
+  state existed and `init_seed` did not determine the run. It was caught when two invocations
+  of an identical config differed by 0.9 in `Acc(C)`. E1 was re-run after the fix; the
+  pre-fix records are kept at `results/runs/archived_e1_preseedfix.jsonl`.
 - Every run record carries: commit SHA, config hash (sha256 of canonical JSON), seeds, package
   versions, hardware, wall-clock runtime.
 - Results are **append-only JSONL** and are never hand-edited. All tables and figures are generated

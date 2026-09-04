@@ -17,6 +17,7 @@ from collections.abc import Iterable, Iterator
 from pathlib import Path
 
 import numpy as np
+import torch
 
 from .config import RunConfig, environment_fingerprint
 from .data import mnist
@@ -114,6 +115,10 @@ def run(cfg: RunConfig, store: Path | None = DEFAULT_STORE, verbose: bool = Fals
     train_ds, eval_sets = build_datasets(cfg, task)
 
     in_dim = cfg.data.dim if cfg.data.tier == "S" else None
+    # Seed BEFORE the encoder exists: torch initialises weights at construction
+    # time, so seeding afterwards (as train() also does, for batch order) leaves
+    # the initialisation uncontrolled and the run unreproducible.
+    torch.manual_seed(cfg.model.init_seed)
     enc = build_encoder(cfg.model.encoder, k=task.space.k, **({"in_dim": in_dim} if in_dim else {}))
     tcfg = TrainConfig(
         epochs=cfg.optim.epochs,

@@ -9,6 +9,10 @@
   Kept committed while the file stays small (currently ~100 KB for 40 runs). If a sweep pushes it
   past a few MB it moves to a compressed archive and this note gets updated — the principle is that
   the evidence ships with the claims, not that the file is unconditionally tracked.
+- `runs/archived_e1_preseedfix.jsonl` — **committed, superseded.** The original 40 E1 runs,
+  produced before the seeding bug was fixed (see `REPRODUCIBILITY.md`). Kept because raw data is
+  never deleted, but **not** the basis of any current claim: those runs cannot be regenerated from
+  their recorded seeds.
 - `e1_summary.json` — **committed.** Derived; regenerate with `scripts/analyze_e1.py`.
 - `figures/` — **committed.** Derived; regenerate with the same script.
 - `oracle_cache/` — **committed.** The oracle is exact and deterministic, so caching lets

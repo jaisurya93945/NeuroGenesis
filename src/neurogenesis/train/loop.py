@@ -90,6 +90,9 @@ def train(
 ) -> TrainResult:
     """Train one NeSy model and evaluate it on every provided split."""
     torch.set_num_threads(cfg.num_threads)
+    # Controls dropout/batch-order randomness from here on. It does NOT control
+    # weight initialisation -- the encoder is already constructed by now, so its
+    # caller must seed before building it (see runner.run).
     torch.manual_seed(init_seed)
 
     device = torch.device(cfg.device)
