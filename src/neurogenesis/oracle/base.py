@@ -62,11 +62,20 @@ class RSResult:
 
     @property
     def n_permutations(self) -> int:
-        """How many shortcuts are bijections (pure relabellings, no collapse)."""
+        """How many shortcuts are bijections (pure relabellings, no collapse).
+
+        In ``per_slot`` mode each entry is an ``(n_slots, k)`` stack and counts as a
+        permutation only if *every* slot map is one. Handling the two shapes
+        separately matters: treating a ``(n_slots, k)`` stack as a flat vector
+        silently misreports, which is exactly the kind of quiet wrongness this
+        project cannot afford.
+        """
         if self.count == 0:
             return 0
-        k = self.maps.shape[1]
-        return int(sum(len(np.unique(m)) == k for m in self.maps))
+        k = self.maps.shape[-1]
+        if self.maps.ndim == 2:
+            return int(sum(len(np.unique(m)) == k for m in self.maps))
+        return int(sum(all(len(np.unique(slot)) == k for slot in m) for m in self.maps))
 
     @property
     def n_collapsing(self) -> int:
@@ -75,14 +84,18 @@ class RSResult:
 
     def contains(self, alpha: np.ndarray) -> bool:
         """Whether a given relabelling is in this set."""
+        if self.count == 0:
+            return False
         alpha = np.asarray(alpha, dtype=np.int8)
-        return bool((self.maps == alpha).all(axis=1).any())
+        axes = tuple(range(1, self.maps.ndim))
+        return bool((self.maps == alpha).all(axis=axes).any())
 
     def sorted_maps(self) -> np.ndarray:
         """Maps in canonical lexicographic order, for differential testing."""
         if self.count == 0:
             return self.maps
-        order = np.lexsort(self.maps.T[::-1])
+        flat = self.maps.reshape(self.count, -1)
+        order = np.lexsort(flat.T[::-1])
         return self.maps[order]
 
     def __and__(self, other: RSResult) -> RSResult:
