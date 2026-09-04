@@ -19,8 +19,8 @@ informativeness; **H4** greedy RS-cover ≥ information-greedy and ≥ concept s
 ## Status
 | | |
 |---|---|
-| Phase | M2 complete (oracle triple-validated). M3 next (loss + oracle↔loss binding). |
-| Experiments run | **None yet.** No training results exist. |
+| Phase | M4 complete (stack validated end-to-end). M5 next: preregistration, then **E1**. |
+| Experiments run | **None yet.** M4 reproduces published MNIST-Addition numbers as a stack check; E1 is next. |
 | Paper | Not started; skeleton at M10. |
 
 ## Architecture (one line each)
@@ -31,6 +31,11 @@ informativeness; **H4** greedy RS-cover ≥ information-greedy and ≥ concept s
   relational, margins). `base.py` makes `mode`/`closure` mandatory, un-defaulted arguments.
 - `generators/algebraic.py` — modular-linear family with closed-form `|RS| = gcd(sum w, m)`.
 - `data/mnist.py` — checksum-verified idx loader, two mirrors, no torchvision.
+- `models/` — `losses.py` exact-marginalisation NeSy loss; `nesy.py` shared-encoder predictor;
+  `TabularEncoder` realises a chosen `α` exactly, which is what makes the oracle↔loss test possible.
+- `metrics.py` — `Acc(C)`, `F1(C)`, collapse, `α̂` recovery, `rs_membership`.
+- `config.py` / `runner.py` — frozen dataclasses, config-hash run identity, append-only JSONL,
+  resume-by-hash, full provenance. The confirmatory-seed leakage guard raises rather than warns.
 
 ## Key commands
 ```bash
@@ -53,4 +58,4 @@ No fabricated numbers. `RESULTS.md` carries only numbers traceable to a run mani
 labelled a *"potential research gap"* until E1 has run. Negative results are preserved, not buried.
 
 ## Next action
-M3 — exact-marginalisation NeSy loss + `test_predicted_rs_achieves_zero_loss`, which binds the oracle's combinatorial claim to the objective the trainer actually optimises.
+M5 — write `paper/preregistration.md` fixing E1's predicted directions, then run E1 (40 runs, ~45 min).

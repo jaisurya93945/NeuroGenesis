@@ -56,13 +56,51 @@ too: the natural opposing-shift shortcut (`α₀(x)=x+t`, `α₁(x)=x−t`) is b
 that obstruction and does admit per-slot shortcuts. The oracle was right and the initial test
 expectation was wrong; both cases are now asserted.
 
-## 3. Data integrity (M0) — PASSING
+## 3. Oracle ↔ loss binding (M3) — PASSING
+
+The oracle makes a *combinatorial* claim; the trainer optimises a *numerical* objective. This is
+the test that they are the same statement. For a given `α`, it hand-builds the encoder emitting
+`α(ground truth)`, pushes it through the **real** `semantic_nll`, and asserts
+
+> `loss == 0` and `Acc(Y) == 1`  **iff**  `α ∈ RS(T)`
+
+Reproduce: `.venv/bin/pytest tests/test_oracle_vs_loss.py -q` → **12 passed**.
+
+| Check | Scope | Result |
+|---|---|---|
+| every oracle shortcut achieves zero loss | 5 structured tasks, all shortcuts | holds |
+| every non-shortcut incurs loss (guards against a vacuous oracle) | 40 sampled non-shortcuts per task | holds |
+| **exhaustive iff over every map in `[k]^[k]`** | `k=4` addition + 2 modular tasks | holds |
+| iff on sparse random supports (where total-vs-partial could diverge) | 25 tasks, all maps | holds |
+
+## 4. Training stack validation (M4) — PASSING
+
+MNIST-Addition, `k=10`, full support (`|RS| = 1`), SmallCNN (61,706 params), 15 epochs,
+1 CPU thread, seed 0:
+
+| | |
+|---|---|
+| test `Acc(Y)` | **0.9764** |
+| test `Acc(C)` | **0.9882** |
+| test `F1(C)` | 0.9881 |
+| concept collapse `Cls(C)` | 0.000 |
+| recovered `α̂` | identity — and `rs_membership = True` |
+| runtime | 66.9 s (4.5 s/epoch) |
+
+`Acc(C) ≈ 0.99` on identifiable MNIST-Addition is consistent with published DeepProbLog-family
+results, which is the point of the check: the stack reproduces a known number before being used to
+produce unknown ones. Runtime is 4× inside the 5-min/run budget.
+
+*This is a stack-validation result, not a research finding: that an identifiable task grounds
+correctly is already known. The research question is what happens as `|RS|` grows — E1, not yet run.*
+
+## 5. Data integrity (M0) — PASSING
 
 MNIST fetched from `ossci-datasets.s3.amazonaws.com`, all four idx files sha256-verified
 (hashes recorded in `src/neurogenesis/data/mnist.py`). Shapes `(60000,28,28)` / `(10000,28,28)`;
 per-digit train counts `[5923, 6742, 5958, 6131, 5842, 5421, 5918, 6265, 5851, 5949]`.
 
-## 4. Training experiments
+## 6. Training experiments
 
-**None run yet.** E1–E4 are specified in `EXPERIMENTS.md` and are not yet executed. No claim about
+**E1–E4 not run yet.** They are specified in `EXPERIMENTS.md` and are not yet executed. No claim about
 the relationship between identifiability and empirical grounding is made anywhere in this repo.
