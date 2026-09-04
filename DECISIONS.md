@@ -76,3 +76,37 @@ bimodal, giving a large effect size and high power at 10 seeds.
 
 **Trade-off.** Modular arithmetic is less "natural" than plain addition. Mitigated by including
 plain MNIST-Addition and a restricted-support variant as anchors to the published literature.
+
+## D7 — the auxiliary-task pool had to be redesigned to make E3 non-vacuous
+
+**Decision.** E3 uses `divisor_modular_pool`, whose candidates are individually
+insufficient, rather than the generic predicate pool first written.
+
+**Evidence.** With the generic pool, *every* method — greedy RS-cover, information-greedy, and
+**uniform random** — made `y = (c₁+9c₂) mod 10` identifiable with a **single** auxiliary task.
+A predicate such as `c₀ mod 3` is invariant under no cyclic shift of a 10-element space, so it
+annihilates all nine non-identity shortcuts at once. Every method looks equally good and the
+experiment measures nothing. This is the "everything works, so nothing is learned" failure mode
+flagged as Risk #2 in the plan.
+
+**Why the replacement is principled, not rigged.** `c₀ mod q` is invariant under shift `u` exactly
+when `q | u`. Restricting to moduli that **divide** `k` gives every candidate a genuine partial
+invariance — each kills some shifts and spares others — so reaching identifiability requires a
+*combination*. That is a real weighted set-cover instance, which is the structure E3 is supposed to
+be about. The pool also contains shift-invariant distractors (`(c₀−c₁) mod k`), which are perfectly
+natural auxiliary predicates that happen to eliminate nothing.
+
+**Disclosure, because it matters.** This pool was designed **after** observing that the generic one
+was trivial. That is legitimate experimental *design* — no E3 outcome had been measured, and the
+change makes the comparison possible rather than favourable — but it is design-after-observation
+and is recorded as such. E3's confirmatory runs are preregistered separately, against this pool,
+before they are executed.
+
+**Observed on the design pool (not an E3 result — no training involved, oracle only):** greedy
+reaches identifiability at budget 2 and matches the exhaustive optimum; information-greedy fails at
+budget 3, spending its budget on the shift-invariant distractors, which carry high label entropy and
+zero shortcut coverage. That separation is what E3 will test with training in the loop.
+
+**Trade-off.** A hand-designed pool is less "natural" than a scraped one. Mitigated by
+`individually_insufficient()`, a generic filter that turns *any* pool into one where selection
+matters, so the finding does not depend on this particular hand-built set.
