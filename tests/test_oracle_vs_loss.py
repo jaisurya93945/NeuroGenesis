@@ -27,9 +27,8 @@ import pytest
 torch = pytest.importorskip("torch")
 pytestmark = pytest.mark.needs_torch
 
-from tests.test_oracle_differential import random_task  # noqa: E402
-
 from neurogenesis.generators.algebraic import addition_task, modular_task  # noqa: E402
+from neurogenesis.generators.random_tasks import random_task  # noqa: E402
 from neurogenesis.models.nesy import NeSyModel, TabularEncoder  # noqa: E402
 from neurogenesis.oracle import enumerate as en  # noqa: E402
 
