@@ -138,3 +138,88 @@ def train(
         runtime_s=runtime,
         n_params=sum(p.numel() for p in model.parameters()),
     )
+
+
+def train_multitask(
+    tasks: list[Task],
+    encoder: nn.Module,
+    train_ds: TupleDataset,
+    eval_sets: dict[str, TupleDataset],
+    cfg: TrainConfig,
+    init_seed: int,
+    rs: RSResult | None = None,
+    n_concept_labels: int = 0,
+    concept_weight: float = 1.0,
+) -> TrainResult:
+    """Train one shared encoder against several tasks jointly.
+
+    ``tasks[0]`` is the primary task; the rest are the selected auxiliaries.
+    Concept metrics are computed on the shared encoder, which is the whole point --
+    the question is whether adding auxiliary *knowledge* grounds the *same* concepts
+    better.
+
+    ``n_concept_labels`` enables the competing baseline: direct supervision on that
+    many ground-truth concept labels, the expensive mitigation the JAIR survey asks
+    us to beat. Setting it makes this function the concept-supervision arm rather
+    than the selection arm, so the two are trained by identical code and differ only
+    in what supervision they receive.
+    """
+    from ..models.losses import concept_supervision_loss
+    from ..models.nesy import MultiTaskNeSyModel
+
+    torch.set_num_threads(cfg.num_threads)
+    torch.manual_seed(init_seed)
+    device = torch.device(cfg.device)
+
+    model = MultiTaskNeSyModel(encoder, tasks).to(device)
+    opt = torch.optim.Adam(model.parameters(), lr=cfg.lr, weight_decay=cfg.weight_decay)
+    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=cfg.epochs, eta_min=cfg.lr_final)
+
+    x_all = torch.from_numpy(train_ds.x)
+    if x_all.ndim == 4:
+        x_all = x_all.unsqueeze(2)
+    labels = torch.from_numpy(
+        np.stack([t.label_of(train_ds.concepts) for t in tasks], axis=1)
+    ).long()
+    concepts = torch.from_numpy(train_ds.concepts).long()
+
+    # A fixed prefix carries concept supervision, so the annotation budget is a
+    # count of labels rather than a probability.
+    sup_mask = torch.zeros(len(train_ds), dtype=torch.bool)
+    if n_concept_labels > 0:
+        n_ex = min(len(train_ds), max(1, n_concept_labels // tasks[0].space.n_slots))
+        sup_mask[:n_ex] = True
+
+    rng = np.random.default_rng(init_seed)
+    t0 = time.perf_counter()
+    history = []
+    for epoch in range(cfg.epochs):
+        model.train()
+        total, nb = 0.0, 0
+        for idx in _batches(len(train_ds), cfg.batch_size, rng):
+            xb = x_all[idx].to(device)
+            loss = model.loss(xb, labels[idx].to(device))
+            if n_concept_labels > 0:
+                sel = sup_mask[idx]
+                if bool(sel.any()):
+                    slot_lp = model.slot_log_probs(xb[sel])
+                    loss = (
+                        loss
+                        + concept_weight
+                        * concept_supervision_loss(slot_lp, concepts[idx][sel].to(device)).mean()
+                    )
+            opt.zero_grad(set_to_none=True)
+            loss.backward()
+            opt.step()
+            total += float(loss.detach())
+            nb += 1
+        sched.step()
+        history.append({"epoch": epoch, "train_loss": total / max(nb, 1)})
+
+    runtime = time.perf_counter() - t0
+    return TrainResult(
+        metrics={name: evaluate(model, ds, tasks[0].space.k, rs) for name, ds in eval_sets.items()},
+        history=history,
+        runtime_s=runtime,
+        n_params=sum(p.numel() for p in model.parameters()),
+    )

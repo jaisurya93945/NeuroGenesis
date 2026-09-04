@@ -6,7 +6,7 @@ import torch
 from torch import nn
 
 from ..tasks import Task
-from .losses import build_label_mask, label_log_probs, semantic_nll
+from .losses import build_label_mask, label_log_probs, semantic_nll  # noqa: F401
 
 
 class NeSyModel(nn.Module):
@@ -72,3 +72,61 @@ class TabularEncoder(nn.Module):
         out = torch.zeros(idx.shape[0], self.k, device=x.device)
         out[torch.arange(idx.shape[0], device=x.device), self.alpha[idx]] = self.logit_scale
         return out
+
+
+class MultiTaskNeSyModel(nn.Module):
+    """One shared encoder supervised by several tasks at once.
+
+    This is the object the selection question is actually about. ``RS(T_1 and ...
+    and T_m) = intersection of RS(T_i)`` is a statement about a *single* concept
+    map constrained by several pieces of knowledge simultaneously -- so testing
+    whether shrinking that intersection improves grounding requires training one
+    encoder against all the selected tasks jointly, not training separately and
+    combining afterwards.
+
+    Every task must share the concept space. Each contributes its own marginalised
+    likelihood over the same latent concepts; the losses are averaged so that the
+    total gradient scale does not grow with the number of selected tasks (which
+    would otherwise confound "more tasks" with "larger learning rate").
+    """
+
+    def __init__(self, encoder: nn.Module, tasks: list[Task]) -> None:
+        super().__init__()
+        if not tasks:
+            raise ValueError("need at least one task")
+        k, n = tasks[0].space.k, tasks[0].space.n_slots
+        for t in tasks[1:]:
+            if t.space.k != k or t.space.n_slots != n:
+                raise ValueError("all tasks must share the concept space")
+        self.encoder = encoder
+        self.tasks = tasks
+        self.n_slots = n
+        self.k = k
+        for i, t in enumerate(tasks):
+            self.register_buffer(f"mask_{i}", build_label_mask(t), persistent=False)
+
+    def _mask(self, i: int) -> torch.Tensor:
+        return getattr(self, f"mask_{i}")
+
+    def slot_log_probs(self, x: torch.Tensor) -> torch.Tensor:
+        """``(B, n_slots, ...) -> (B, n_slots, k)`` normalised log-probabilities."""
+        b = x.shape[0]
+        flat = x.reshape(b * self.n_slots, *x.shape[2:])
+        logits = self.encoder(flat)
+        return torch.log_softmax(logits, dim=-1).reshape(b, self.n_slots, self.k)
+
+    def loss(self, x: torch.Tensor, labels: torch.Tensor) -> torch.Tensor:
+        """Mean semantic NLL across tasks. ``labels`` is ``(B, n_tasks)``."""
+        slot_lp = self.slot_log_probs(x)
+        total = None
+        for i in range(len(self.tasks)):
+            li = semantic_nll(slot_lp, labels[:, i], self._mask(i)).mean()
+            total = li if total is None else total + li
+        return total / len(self.tasks)
+
+    @torch.no_grad()
+    def predict(self, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+        """Predicted label for the **primary** task (index 0), plus concepts."""
+        slot_lp = self.slot_log_probs(x)
+        primary = label_log_probs(slot_lp, self._mask(0))
+        return primary.argmax(dim=1), slot_lp.argmax(dim=2)
