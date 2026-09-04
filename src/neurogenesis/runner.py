@@ -23,6 +23,9 @@ from .config import RunConfig, environment_fingerprint
 from .data import mnist
 from .data.tuples import make_synthetic_codebook, render_mnist, render_synthetic
 from .generators.algebraic import addition_task, modular_task
+from .generators.planted import random_planted
+from .generators.random_tasks import random_task
+from .generators.support import rarefy_against, swap_map
 from .models.encoders import build_encoder
 from .oracle import enumerate as en
 from .oracle.base import RSResult
@@ -37,16 +40,22 @@ ORACLE_ARGS = dict(mode="shared", closure="total", allow_noninjective=True)
 def build_task(cfg: RunConfig) -> Task:
     """Materialise the task named by the config."""
     spec = cfg.task
+    rng = np.random.default_rng(spec.seed)
     if spec.family == "algebraic":
         task = modular_task(list(spec.weights), spec.m, k=spec.k)
     elif spec.family == "addition":
-        k = spec.k or spec.m
-        task = addition_task(k=k, n_slots=len(spec.weights))
+        task = addition_task(k=spec.k or spec.m, n_slots=spec.n_slots)
+    elif spec.family == "planted":
+        task, _ = random_planted(spec.k or spec.m, spec.n_slots, rng, kind=spec.planted_kind)
+    elif spec.family == "random":
+        task = random_task(rng, spec.k or spec.m, spec.n_slots, 1.0)
+    elif spec.family == "rarefied":
+        base = addition_task(k=spec.k or spec.m, n_slots=spec.n_slots)
+        task = rarefy_against(base, swap_map(base.space.k, *spec.swap), spec.rarity)
     else:
         raise ValueError(f"unknown task family {spec.family!r}")
 
     if spec.support_density < 1.0:
-        rng = np.random.default_rng(spec.seed)
         grid = task.all_tuples()
         n_keep = max(1, int(round(spec.support_density * len(grid))))
         keep = grid[rng.choice(len(grid), size=n_keep, replace=False)]

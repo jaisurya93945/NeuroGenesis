@@ -26,13 +26,25 @@ import yaml
 
 @dataclass(frozen=True)
 class TaskSpec:
-    """How to build the task. ``seed`` also enforces the dev/confirmatory split."""
+    """How to build the task. ``seed`` also enforces the dev/confirmatory split.
+
+    ``family`` selects a generator:
+      ``algebraic`` -- ``y = (sum w_i c_i) mod m``, closed-form ``|RS|``
+      ``addition``  -- ``y = sum c_i`` over the integers
+      ``planted``   -- a chosen symmetry monoid, ``RS`` measured not assumed
+      ``random``    -- random total label table (null family, no planted structure)
+      ``rarefied``  -- identifiable with a deliberately tiny margin (the H2 cell)
+    """
 
     family: str = "algebraic"
     weights: tuple[int, ...] = (1, 1)
     m: int = 10
     k: int | None = None
+    n_slots: int = 2
     support_density: float = 1.0
+    planted_kind: str = "cyclic"
+    rarity: float = 1.0
+    swap: tuple[int, int] = (0, 1)
     seed: int = 0
 
 

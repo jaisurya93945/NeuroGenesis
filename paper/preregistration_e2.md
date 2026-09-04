@@ -35,7 +35,7 @@ than left to chance.
 
 ## 3. Design
 
-**Tasks (~200).** Four generator families, each contributing a spread of `|RS|` and margin:
+**Tasks: 166 exactly** (39 algebraic, 42 rarefied, 36 planted, 31 addition/support-thinned, 18 random). Five generator families, each contributing a spread of `|RS|` and margin:
 
 | Family | What it varies | Why included |
 |---|---|---|
@@ -45,12 +45,35 @@ than left to chance.
 | `rarefied` | Margin at fixed `\|RS\| = 1` | **The decisive cell** — separates margin from the binary property |
 | `random` | Nothing (null family) | Guards against conclusions that hold only on designed tasks |
 
-**Perception.** Tier S (synthetic vectors, `dim=32`) at a noise level calibrated on **dev tasks
-only** to sit in the regime where the task is learnable but not trivial. 5 seeds per task.
-Approximately 1000 runs; Tier S costs ~1 s/run, so this is roughly 20 minutes on 4 cores.
+**Perception.** Tier S (synthetic vectors, `dim=32`). 5 seeds per task, 166 tasks, **830 runs**.
 
-**Tier transfer check.** ~20 tasks are additionally run at Tier M (MNIST). If Tier S and Tier M
-disagree in rank order, Tier S conclusions are demoted and reported as tier-specific.
+**Calibration outcome (dev tasks only, recorded before any confirmatory run).** Frozen recipe:
+`noise=0.1`, `epochs=30`, `n_train=8000`, MLP encoder, ~2.8 s/run. Verified on dev tasks that
+identifiable tasks *do* ground under this recipe:
+
+| dev task | `\|RS\|` | `Acc(Y)` | `Acc(C)` |
+|---|---|---|---|
+| addition k=10 | 1 | 1.000 | **1.000** |
+| addition k=6 | 1 | 1.000 | **1.000** |
+| random k=6, full support | 1 | 1.000 | **1.000** |
+| planted cyclic k=6 | 3 | 1.000 | 1.000 |
+| mod-10 `w=9` | 10 | 1.000 | 0.000 |
+| **mod-10 `w=2`** | **1** | **0.490** | **0.000** |
+
+**A known, declared limitation of the substrate.** The modular family at `k=10` does *not* converge
+on Tier S — `Acc(Y)` peaks around 0.5 regardless of epochs (10→60), training-set size (8k→25k) or
+noise (0.1→0.5). Modular arithmetic mod 10 has no ordinal structure for the encoder to exploit, and
+it is the *identifiable* members that fail hardest, consistent with H5. Every other family grounds
+correctly, so Tier S remains a valid substrate.
+
+Consequence, stated in advance rather than discovered later: modular `k=10` runs will mostly be
+removed by the convergence gate. Their exclusion rate is reported per family, and **no conclusion is
+drawn from the modular arm on Tier S**. The modular family's role in this project is Tier M (E1),
+where it does converge.
+
+**Tier transfer check.** 20 of the 166 tasks are additionally run at Tier M (MNIST digits), 3 seeds
+each, as a separate follow-up sweep. If Tier S and Tier M disagree in rank order on those 20, the
+Tier S conclusions are demoted and reported as tier-specific rather than general.
 
 ## 4. Predictions (fixed now)
 
@@ -69,7 +92,7 @@ Reported as partial Spearman with bootstrap CI **and** the residual scatter, not
 
 **P4 (H5, the new hypothesis from E1's diagnostic).** Convergence rate — the fraction of runs
 passing the gate — **increases** with `|RS|`. E1 saw 5/10, 4/10, 10/10, 10/10; E2 tests it across
-~200 tasks with `|RS|` spanning a wide range. Direction: positive Spearman between `log|RS|` and
+166 tasks with `|RS|` spanning a wide range. Direction: positive Spearman between `log|RS|` and
 per-task convergence rate.
 
 **P5 (`rs_membership`).** Among converged non-grounding runs, `α̂ ∈ RS(T)` in ≥ 80% of cases,
@@ -79,7 +102,7 @@ in its own right.
 
 ## 5. Analysis plan (fixed now)
 
-- **Unit of analysis: the task** (n ≈ 200), response = mean `Acc(C)` over its seeds. Runs are not
+- **Unit of analysis: the task** (n = 166 before exclusions), response = mean `Acc(C)` over its seeds. Runs are not
   the unit; that would treat seeds as independent evidence about the `|RS|` relationship.
 - **Convergence gate** as in E1: a run enters the `Acc(C)` analysis only if its `Acc(Y)` ≥ 0.95 ×
   the best `Acc(Y)` among that task's own seeds. Exclusion rates reported per family. Note the gate
