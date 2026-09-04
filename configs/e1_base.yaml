@@ -1,0 +1,25 @@
+# E1 -- the minimal falsifiable experiment. See paper/preregistration.md.
+experiment: e1
+task:
+  family: algebraic
+  weights: [1, 1]     # overridden per condition: w in {2, 1, 4, 9}
+  m: 10
+  support_density: 1.0
+  seed: 0
+data:
+  tier: M
+  n_train: 25000
+  n_val: 5000
+  n_test: 5000
+  data_seed: 0
+model:
+  encoder: cnn
+  init_seed: 0
+optim:
+  epochs: 15
+  batch_size: 128
+  lr: 0.001
+  lr_final: 0.0001
+device: cpu
+num_threads: 1
+tuning_mode: false
