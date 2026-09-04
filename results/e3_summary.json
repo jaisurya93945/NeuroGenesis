@@ -1,0 +1,1012 @@
+{
+  "n_runs": 512,
+  "n_gated": 512,
+  "gate": 0.99,
+  "k6": {
+    "base_only_b0": {
+      "n": 8,
+      "acc_c": 0.25,
+      "frac_grounded": 0.25,
+      "rs_count": 6,
+      "chosen": [],
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "greedy_rs_b1": {
+      "n": 8,
+      "acc_c": 0.375,
+      "frac_grounded": 0.375,
+      "rs_count": 2,
+      "chosen": [
+        "aux_div_mod3_c0"
+      ],
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "greedy_rs_b2": {
+      "n": 8,
+      "acc_c": 1.0,
+      "frac_grounded": 1.0,
+      "rs_count": 1,
+      "chosen": [
+        "aux_div_mod3_c0",
+        "aux_div_mod2_c0"
+      ],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "greedy_rs_b3": {
+      "n": 8,
+      "acc_c": 1.0,
+      "frac_grounded": 1.0,
+      "rs_count": 1,
+      "chosen": [
+        "aux_div_mod3_c0",
+        "aux_div_mod2_c0"
+      ],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "information_greedy_b1": {
+      "n": 8,
+      "acc_c": 0.25,
+      "frac_grounded": 0.25,
+      "rs_count": 6,
+      "chosen": [
+        "aux_inv_diff"
+      ],
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "information_greedy_b2": {
+      "n": 8,
+      "acc_c": 0.125,
+      "frac_grounded": 0.125,
+      "rs_count": 6,
+      "chosen": [
+        "aux_inv_diff",
+        "aux_inv_diff2"
+      ],
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "information_greedy_b3": {
+      "n": 8,
+      "acc_c": 0.25,
+      "frac_grounded": 0.25,
+      "rs_count": 2,
+      "chosen": [
+        "aux_inv_diff",
+        "aux_inv_diff2",
+        "aux_div_mod3_sum"
+      ],
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "exhaustive_optimal_b1": {
+      "n": 8,
+      "acc_c": 0.375,
+      "frac_grounded": 0.375,
+      "rs_count": 2,
+      "chosen": [
+        "aux_div_mod3_c0"
+      ],
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "exhaustive_optimal_b2": {
+      "n": 8,
+      "acc_c": 1.0,
+      "frac_grounded": 1.0,
+      "rs_count": 1,
+      "chosen": [
+        "aux_div_mod2_c0",
+        "aux_div_mod3_c0"
+      ],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "exhaustive_optimal_b3": {
+      "n": 8,
+      "acc_c": 1.0,
+      "frac_grounded": 1.0,
+      "rs_count": 1,
+      "chosen": [
+        "aux_div_mod2_c0",
+        "aux_div_mod3_c0"
+      ],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "random_b1": {
+      "n": 40,
+      "acc_c": 0.175,
+      "frac_grounded": 0.175,
+      "rs_count": 6,
+      "chosen": [
+        "aux_div_mod2_sum"
+      ],
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "random_b2": {
+      "n": 40,
+      "acc_c": 0.375,
+      "frac_grounded": 0.375,
+      "rs_count": 2,
+      "chosen": [
+        "aux_div_mod2_sum",
+        "aux_div_mod3_sum"
+      ],
+      "values": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    "random_b3": {
+      "n": 40,
+      "acc_c": 0.675,
+      "frac_grounded": 0.675,
+      "rs_count": 1,
+      "chosen": [
+        "aux_div_mod2_c0",
+        "aux_inv_diff2",
+        "aux_div_mod3_c0"
+      ],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "distractors_only_b2": {
+      "n": 8,
+      "acc_c": 0.125,
+      "frac_grounded": 0.125,
+      "rs_count": 6,
+      "chosen": [
+        "aux_inv_diff",
+        "aux_inv_diff2"
+      ],
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "all_tasks_b6": {
+      "n": 8,
+      "acc_c": 1.0,
+      "frac_grounded": 1.0,
+      "rs_count": 1,
+      "chosen": [
+        "aux_div_mod2_c0",
+        "aux_div_mod2_sum",
+        "aux_div_mod3_c0",
+        "aux_div_mod3_sum",
+        "aux_inv_diff",
+        "aux_inv_diff2"
+      ],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "concept_sup_25_b0": {
+      "n": 8,
+      "acc_c": 0.7505416666666667,
+      "frac_grounded": 0.75,
+      "rs_count": 6,
+      "chosen": [],
+      "values": [
+        0.0036666666666666666,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0006666666666666666
+      ]
+    },
+    "concept_sup_50_b0": {
+      "n": 8,
+      "acc_c": 1.0,
+      "frac_grounded": 1.0,
+      "rs_count": 6,
+      "chosen": [],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "concept_sup_100_b0": {
+      "n": 8,
+      "acc_c": 1.0,
+      "frac_grounded": 1.0,
+      "rs_count": 6,
+      "chosen": [],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "concept_sup_200_b0": {
+      "n": 8,
+      "acc_c": 1.0,
+      "frac_grounded": 1.0,
+      "rs_count": 6,
+      "chosen": [],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "concept_sup_400_b0": {
+      "n": 8,
+      "acc_c": 1.0,
+      "frac_grounded": 1.0,
+      "rs_count": 6,
+      "chosen": [],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "k8": {
+    "base_only_b0": {
+      "n": 8,
+      "acc_c": 0.0,
+      "frac_grounded": 0.0,
+      "rs_count": 8,
+      "chosen": [],
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "greedy_rs_b1": {
+      "n": 8,
+      "acc_c": 0.375,
+      "frac_grounded": 0.375,
+      "rs_count": 2,
+      "chosen": [
+        "aux_div_mod4_c0"
+      ],
+      "values": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    "greedy_rs_b2": {
+      "n": 8,
+      "acc_c": 0.375,
+      "frac_grounded": 0.375,
+      "rs_count": 2,
+      "chosen": [
+        "aux_div_mod4_c0"
+      ],
+      "values": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    "greedy_rs_b3": {
+      "n": 8,
+      "acc_c": 0.375,
+      "frac_grounded": 0.375,
+      "rs_count": 2,
+      "chosen": [
+        "aux_div_mod4_c0"
+      ],
+      "values": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    "information_greedy_b1": {
+      "n": 8,
+      "acc_c": 0.0,
+      "frac_grounded": 0.0,
+      "rs_count": 8,
+      "chosen": [
+        "aux_inv_diff"
+      ],
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "information_greedy_b2": {
+      "n": 8,
+      "acc_c": 0.125,
+      "frac_grounded": 0.125,
+      "rs_count": 8,
+      "chosen": [
+        "aux_inv_diff",
+        "aux_inv_diff2"
+      ],
+      "values": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "information_greedy_b3": {
+      "n": 8,
+      "acc_c": 0.125,
+      "frac_grounded": 0.125,
+      "rs_count": 4,
+      "chosen": [
+        "aux_inv_diff",
+        "aux_inv_diff2",
+        "aux_div_mod4_sum"
+      ],
+      "values": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "exhaustive_optimal_b1": {
+      "n": 8,
+      "acc_c": 0.375,
+      "frac_grounded": 0.375,
+      "rs_count": 2,
+      "chosen": [
+        "aux_div_mod4_c0"
+      ],
+      "values": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    "exhaustive_optimal_b2": {
+      "n": 8,
+      "acc_c": 0.375,
+      "frac_grounded": 0.375,
+      "rs_count": 2,
+      "chosen": [
+        "aux_div_mod4_c0"
+      ],
+      "values": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    "exhaustive_optimal_b3": {
+      "n": 8,
+      "acc_c": 0.375,
+      "frac_grounded": 0.375,
+      "rs_count": 2,
+      "chosen": [
+        "aux_div_mod4_c0"
+      ],
+      "values": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    "random_b1": {
+      "n": 40,
+      "acc_c": 0.025,
+      "frac_grounded": 0.025,
+      "rs_count": 8,
+      "chosen": [
+        "aux_div_mod2_sum"
+      ],
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "random_b2": {
+      "n": 40,
+      "acc_c": 0.125,
+      "frac_grounded": 0.125,
+      "rs_count": 4,
+      "chosen": [
+        "aux_div_mod2_sum",
+        "aux_div_mod4_sum"
+      ],
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "random_b3": {
+      "n": 40,
+      "acc_c": 0.275,
+      "frac_grounded": 0.275,
+      "rs_count": 2,
+      "chosen": [
+        "aux_div_mod2_c0",
+        "aux_inv_diff2",
+        "aux_div_mod4_c0"
+      ],
+      "values": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    "distractors_only_b2": {
+      "n": 8,
+      "acc_c": 0.125,
+      "frac_grounded": 0.125,
+      "rs_count": 8,
+      "chosen": [
+        "aux_inv_diff",
+        "aux_inv_diff2"
+      ],
+      "values": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "all_tasks_b6": {
+      "n": 8,
+      "acc_c": 0.375,
+      "frac_grounded": 0.375,
+      "rs_count": 2,
+      "chosen": [
+        "aux_div_mod2_c0",
+        "aux_div_mod2_sum",
+        "aux_div_mod4_c0",
+        "aux_div_mod4_sum",
+        "aux_inv_diff",
+        "aux_inv_diff2"
+      ],
+      "values": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    "concept_sup_25_b0": {
+      "n": 8,
+      "acc_c": 1.0,
+      "frac_grounded": 1.0,
+      "rs_count": 8,
+      "chosen": [],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "concept_sup_50_b0": {
+      "n": 8,
+      "acc_c": 1.0,
+      "frac_grounded": 1.0,
+      "rs_count": 8,
+      "chosen": [],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "concept_sup_100_b0": {
+      "n": 8,
+      "acc_c": 1.0,
+      "frac_grounded": 1.0,
+      "rs_count": 8,
+      "chosen": [],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "concept_sup_200_b0": {
+      "n": 8,
+      "acc_c": 1.0,
+      "frac_grounded": 1.0,
+      "rs_count": 8,
+      "chosen": [],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "concept_sup_400_b0": {
+      "n": 8,
+      "acc_c": 1.0,
+      "frac_grounded": 1.0,
+      "rs_count": 8,
+      "chosen": [],
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "P1": {
+    "greedy_budget": 2,
+    "info_budget": null,
+    "met": true
+  },
+  "P2": {
+    "met": true
+  },
+  "P3": {
+    "met": true
+  },
+  "P4": {
+    "greedy_budget": 2,
+    "concept_min_labels": 50,
+    "tau_table": {
+      "25": {
+        "greedy_cost": 50,
+        "concept_cost": 50,
+        "winner": "tie"
+      },
+      "50": {
+        "greedy_cost": 100,
+        "concept_cost": 50,
+        "winner": "concept"
+      },
+      "100": {
+        "greedy_cost": 200,
+        "concept_cost": 50,
+        "winner": "concept"
+      },
+      "200": {
+        "greedy_cost": 400,
+        "concept_cost": 50,
+        "winner": "concept"
+      },
+      "400": {
+        "greedy_cost": 800,
+        "concept_cost": 50,
+        "winner": "concept"
+      }
+    },
+    "met": false
+  },
+  "P5": {
+    "diff": 0.125,
+    "met": false
+  }
+}

@@ -19,7 +19,7 @@ informativeness; **H4** greedy RS-cover ≥ information-greedy and ≥ concept s
 ## Status
 | | |
 |---|---|
-| Phase | **E1 and E2 both run.** E2 falsified H2 (the proposed contribution); the core H1/H3 claim survived and generalised. |
+| Phase | **E1, E2, E3 all run.** Five of seven hypotheses failed, including both proposed contributions (H2 margin, H4 selection-on-cost). H1/H3 survive. |
 | Experiments run | **E1, run twice** (before/after a seeding fix). Post-fix `Acc(C)` = 0.986 / 0.988 / 0.297 / 0.100 for `\|RS\|` = 1/2/5/10. P2 met (Δ=0.886, Cliff's δ +0.96); **P1 monotonicity NOT met**; `α̂ ∈ RS` 100% in both runs. See `RESULTS.md` §6. |
 | Open caveat | Thin cells (`\|RS\|`=1,2 keep 5 and 3 of 10 runs) are **unstable across the re-run**; 10-run cells reproduced to 3 decimals. Nothing is concluded from the middle of the table. Exploratory H6 withdrawn — did not replicate. |
 | Paper | Not started; skeleton at M10. |
@@ -59,4 +59,4 @@ No fabricated numbers. `RESULTS.md` carries only numbers traceable to a run mani
 labelled a *"potential research gap"* until E1 has run. Negative results are preserved, not buried.
 
 ## Next action
-Decide the project's direction after H2's falsification: the defensible contribution is now H1/H3 (binary identifiability predicts grounding across families) plus the new H7 (22% of shortcuts fall outside deterministic RS theory). E3/E4 unchanged but lower priority than H7.
+**A direction decision is needed and it is the user's call** — see `ROADMAP.md` NOW. The design contribution is gone; what remains is a well-evidenced negative result plus a solid analysis finding.

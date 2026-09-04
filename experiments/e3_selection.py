@@ -94,7 +94,7 @@ def _run(job: tuple[int, dict, int]) -> dict:
     tr = render_synthetic(base, N_TRAIN, book, NOISE, rng)
     te = render_synthetic(base, N_EVAL, book, NOISE, rng, "test")
 
-    enc = build_encoder("mlp", k=k, in_dim=DIM)
+    enc = build_encoder("mlp", k=k, in_dim=DIM, seed=seed)
     res = train_multitask(
         tasks,
         enc,

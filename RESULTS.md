@@ -313,6 +313,79 @@ affected**; only the diagnostic was.
 | **H6** (uniform shortcut selection) | withdrawn after E1's re-run |
 | **H7** (deterministic theory under-specifies SGD) | **rejected** — the shortfall was incomplete convergence; 97.1% membership among converged models |
 
-## 8. Training experiments still outstanding
+## 8. E3 — does selecting tasks by shortcut coverage beat the alternatives? (M8)
 
-E3 (active selection) and E4 (continual) are specified in `EXPERIMENTS.md` and have not been run.
+Preregistered in `paper/preregistration_e3.md`; analysis code committed before the data existed.
+512 runs (2 instances × 32 cells × 8 seeds), absolute gate `Acc(Y) ≥ 0.99` — **100% of runs passed**.
+Reproduce: `python scripts/analyze_e3.py`.
+
+**E3 was run twice.** The first execution reintroduced the seeding bug (the E3 driver built the
+encoder before seeding torch), so its runs were not reproducible. Caught when an exploratory sweep
+disagreed with the main run at the same setting. Archived at
+`results/runs/archived_e3_preseedfix.jsonl`; numbers below are the deterministic re-run.
+
+### 8.1 Primary instance, `y = (c₁ + 5·c₂) mod 6`, `|RS| = 6`
+
+| method | budget | `\|RS\|` | test `Acc(C)` [95% CI] | grounded | chosen |
+|---|---|---|---|---|---|
+| base only | 0 | 6 | 0.250 [0.000, 0.625] | 0.25 | — |
+| greedy RS-cover | 1 | 2 | 0.375 [0.125, 0.750] | 0.38 | mod3_c0 |
+| **greedy RS-cover** | **2** | **1** | **1.000 [1.000, 1.000]** | **1.00** | mod3_c0, mod2_c0 |
+| information-greedy | 1 | 6 | 0.250 [0.000, 0.625] | 0.25 | **inv_diff** (a distractor) |
+| information-greedy | 2 | 6 | 0.125 [0.000, 0.375] | 0.12 | both distractors |
+| information-greedy | 3 | 2 | 0.250 [0.000, 0.625] | 0.25 | 2 distractors + mod3_sum |
+| exhaustive optimum | 2 | 1 | 1.000 [1.000, 1.000] | 1.00 | mod2_c0, mod3_c0 |
+| random (5 draws) | 2 | 2 | 0.375 [0.225, 0.525] | 0.38 | — |
+| random (5 draws) | 3 | 1 | 0.675 [0.525, 0.825] | 0.68 | — |
+| **concept supervision** | **50 labels** | 6 | **1.000 [1.000, 1.000]** | **1.00** | — |
+
+### 8.2 The method works exactly as designed — and still loses
+
+- **P1 MET.** Greedy grounds at task budget **2**; information-greedy **never** grounds at any
+  budget tried. It spends its budget on the shift-invariant distractors, which carry high label
+  entropy and eliminate no shortcuts.
+- **P2 MET.** Greedy matches the exhaustive optimum on final `|RS|` at every budget. The *search* is
+  not the weak point.
+- **P3 MET.** Greedy beats random at matched budget: +0.625 [0.475, 0.775] at budget 2, +0.325
+  [0.175, 0.475] at budget 3. (Budget 1's interval includes zero.)
+- **P4 NOT MET.** **This is the one that mattered.** The cheapest concept supervision that grounds is
+  **50 labels**. Greedy needs 2 authored auxiliary tasks. Over the preregistered range
+  `τ ∈ {25, 50, 100, 200, 400}`, greedy *ties* at `τ = 25` and loses everywhere above it. It would
+  win only if authoring a symbolic rule cost **less than 25 concept labels** — and labelling 25 digits
+  is plainly cheaper than writing and validating a rule.
+
+**So: no design contribution.** The preregistration committed to saying exactly that if P4 failed.
+The selection machinery is correct, beats its ablations, and matches the optimum — and none of that
+matters, because the baseline it needed to beat is simply cheaper.
+
+The secondary `k = 8` instance is worse for the method: greedy plateaus at `|RS| = 2` and reaches
+only 0.375, while concept supervision grounds at 25 labels.
+
+- **P5 NOT MET, but on a threshold I set badly.** Distractors moved `Acc(C)` from 0.250 to 0.125,
+  `|Δ| = 0.125` against a 0.05 threshold. With 8 seeds and a near-binary outcome, the mean is
+  quantised in steps of 0.125 — *one seed* — so a 0.05 threshold could not have been met by anything
+  except an exact tie. The mechanism is verified independently: the distractors leave `|RS| = 6`
+  unchanged by the oracle. The prediction was untestable as written; that is my error, not evidence
+  that distractors help.
+
+### 8.3 Where the project stands
+
+| hypothesis | outcome |
+|---|---|
+| H1 identifiability predicts grounding | **supported** (E1, E2) |
+| H3 survives confound controls | **supported** (E2, partial Spearman −0.775) |
+| H2 margin beats binary | **falsified** (E2) |
+| H4 selection beats the baselines on cost | **falsified** (E3, P4) |
+| H5 identifiability/optimisability trade-off | not supported outside one family |
+| H6 uniform shortcut selection | withdrawn |
+| H7 theory under-specifies SGD | rejected (97.1% membership among converged models) |
+
+**Five of seven hypotheses failed.** What survives is real and well-measured, but it is *analysis*:
+the shortcut count predicts grounding across heterogeneous task families, and the oracle predicts
+which wrong grounding a converged model adopts. Both generalise existing results rather than
+establishing a new mechanism, and the design/intervention question the project was built around has
+a negative answer.
+
+That is the honest state. It is a publishable negative — the cost comparison against concept
+supervision is exactly the question the JAIR 2026 survey poses, and answering it "no, on this
+instance class" is informative — but it is not the contribution the project set out to make.

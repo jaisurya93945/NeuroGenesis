@@ -1,30 +1,39 @@
 # ROADMAP.md
 
 ## NOW
-**E3 — active selection.** With H2, H5, H6 and H7 all gone, the surviving claim is H1/H3: binary
-identifiability predicts grounding across heterogeneous task families (partial Spearman −0.775), and
-the oracle predicts *which* wrong grounding a converged model adopts (97.1%). Both are solid, and
-both are about *analysis*. E3 is the remaining piece that would make this a **design** contribution:
-choosing tasks to collapse the shortcut space at minimum annotation cost.
+**A direction decision, and it is the user's to make.** E3 answered the design question and the
+answer is no (`RESULTS.md` §8). Five of seven hypotheses have failed, including both proposed
+contributions. The machinery is correct and well-tested; the science did not go where it was aimed.
 
-Infrastructure is built and validated (`selection.py`, the D7 divisor-modular pool, exhaustive
-optimum for small pools). What it needs is a preregistration and a run with training in the loop.
-The honest framing is that E3 now carries the project: if greedy RS-cover does not beat
-information-greedy and concept supervision at matched budget, there is no design contribution here.
+Three defensible options, in the order I would rank them:
 
-**Use an absolute convergence criterion, not the relative gate.** E2's `Acc(Y) ≥ 0.95 × best-in-task`
-was too permissive and produced a spurious 19% "theory gap" that was really unfinished training
-(`RESULTS.md` §7.5). E3/E4 gate on an absolute threshold.
+**A. Write up the negative result as it stands.** The cost comparison against concept supervision is
+precisely the question the JAIR 2026 survey poses, and "no, not on this instance class" is a real
+answer supported by 1382 preregistered runs. Add: a Tier-M replication, a wider instance class than
+`mod k`, and an honest scope statement. This is the shortest path to something submittable, most
+likely as a workshop paper or a short empirical note. Its weakness is that a negative result on one
+instance family is thin.
 
-## NEXT
-- Preregister E3 (predictions, budget curve, `τ` sensitivity band) before running it.
-- Tier-M transfer check for a subset of E2's tasks.
-- E4 (continual / RS lock-in).
+**B. Attack the cost model instead of the method.** E3's verdict rests entirely on "50 concept
+labels < 2 authored rules". That is an *empirical* claim about annotation effort that nobody has
+measured, and it decides the whole question. Measuring it — or finding a regime where rules are
+genuinely cheap (rules reused across many tasks, rules already existing as domain knowledge,
+rules covering large concept spaces where labelling scales but rule-writing does not) — could
+overturn P4 legitimately. The `k`-scaling angle is the strongest: concept-label cost grows with
+`k`, rule cost may not.
 
-## LATER
-- Implement `RS_ε` (approximate shortcuts) in the oracle. No longer motivated by H7, but still the
-  natural generalisation of `measures.margin`, and cheap.
-- Paper scaffold, reviewer simulation, literature re-sweep.
+**C. Change the question to one the evidence supports.** The most robust result in the project is
+that the oracle predicts *which* wrong grounding a converged model adopts (97.1%). That is a
+prediction about failure modes, not a mitigation. "Given a task, which shortcut will your model
+take?" is answerable, useful for diagnosis, and already largely evidenced.
+
+**I recommend B**, because it is the only option that could restore a design contribution and its
+central claim is genuinely untested rather than already refuted. But this is a research-direction
+call with no purely technical answer, so it goes to the user.
+
+## NEXT (independent of the choice above)
+- Tier-M replication of E3's primary instance — everything after E1 is synthetic-perception only.
+- E4 (continual / RS lock-in) remains unrun and is unaffected by E3's outcome.
 
 ## DO NOT BUILD YET
 Distributed execution; a web dashboard; a general probabilistic-logic engine (exact marginalisation

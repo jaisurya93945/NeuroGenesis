@@ -54,8 +54,18 @@ class MLPEncoder(nn.Module):
         return self.net(x)
 
 
-def build_encoder(kind: str, k: int, **kwargs) -> nn.Module:
-    """Factory so configs can name an encoder without importing torch classes."""
+def build_encoder(kind: str, k: int, *, seed: int | None = None, **kwargs) -> nn.Module:
+    """Factory so configs can name an encoder without importing torch classes.
+
+    ``seed`` seeds torch immediately before construction. Pass it. Weights are drawn
+    at construction time, so seeding *afterwards* leaves the initialisation
+    uncontrolled and the run unreproducible -- a bug this project has now shipped
+    twice (once in ``runner.run``, once in the E3 driver), each time invisible until
+    two supposedly identical configs disagreed. Making the seed an argument of the
+    factory removes the ordering hazard rather than relying on callers remembering it.
+    """
+    if seed is not None:
+        torch.manual_seed(seed)
     if kind == "cnn":
         return SmallCNN(k=k, **kwargs)
     if kind == "mlp":

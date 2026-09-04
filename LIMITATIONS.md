@@ -44,10 +44,19 @@ quietly dropped:
   once out-of-set runs were shown to be the unconverged ones (2.9% out-of-set among runs reaching
   `Acc(Y) ≥ 0.999`, vs 19.0% unrestricted).
 
+- **H4 (selection beats the baselines on cost) — falsified by E3.** The method works as designed and
+  still loses: concept supervision grounds with 50 labels, greedy needs 2 authored rules.
+
 What remains is H1/H3 — real, robust, and a generalisation of known results rather than a new
 mechanism — plus the corrected membership result (97.1%), which strengthens the *existing* theory
 rather than replacing it. That is a smaller claim than the project set out to make, and it is stated
-as such. The remaining route to a design contribution is E3.
+as such. E3 was the remaining route to a design contribution and it closed. **The project's honest status
+is a well-executed negative result**, not the mitigation it set out to build.
+
+**The single load-bearing assumption in that negative result** is the cost model: `cost(rule) = τ`
+versus `cost(concept label) = 1`. E3's verdict reduces to "50 concept labels are cheaper than 2
+authored rules". Nobody has measured that, here or in the literature, and it decides the entire
+question. It is the most attackable point of the finding and is flagged as such rather than buried.
 
 ## Threats to validity
 

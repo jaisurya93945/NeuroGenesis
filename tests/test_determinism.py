@@ -52,3 +52,53 @@ def test_different_data_seed_gives_a_different_run():
     a = run(_cfg(0, data_seed=0), store=None)["metrics"]["test"]
     b = run(_cfg(0, data_seed=1), store=None)["metrics"]["test"]
     assert a["acc_c"] != b["acc_c"] or a["alpha_hat"] != b["alpha_hat"]
+
+
+def test_build_encoder_seed_controls_initialisation():
+    """The structural guard: seeding must be an argument, not a caller convention.
+
+    This project shipped the same reproducibility bug twice -- ``runner.run`` and
+    then the E3 driver both built the encoder before seeding torch, leaving weight
+    initialisation uncontrolled. Both times it was invisible until two supposedly
+    identical configs disagreed. ``build_encoder(seed=...)`` removes the ordering
+    hazard; this test keeps it removed.
+    """
+    import torch
+
+    from neurogenesis.models.encoders import build_encoder
+
+    def weights(seed: int | None) -> torch.Tensor:
+        enc = build_encoder("mlp", k=6, in_dim=32, seed=seed)
+        return next(enc.parameters()).detach().clone()
+
+    torch.manual_seed(999)
+    a = weights(0)
+    torch.manual_seed(12345)  # deliberately disturb global RNG state in between
+    b = weights(0)
+    assert torch.equal(a, b), "same seed must give identical initial weights"
+    assert not torch.equal(a, weights(1)), "different seeds must differ"
+
+
+def test_multitask_training_is_deterministic():
+    """The E3 path, which is where the bug recurred."""
+    import numpy as np
+
+    from neurogenesis.data.tuples import make_synthetic_codebook, render_synthetic
+    from neurogenesis.generators.algebraic import modular_task
+    from neurogenesis.models.encoders import build_encoder
+    from neurogenesis.train.loop import TrainConfig, train_multitask
+
+    base = modular_task([1, 5], 6)
+    book = make_synthetic_codebook(6, 32, np.random.default_rng(12345))
+
+    def once() -> float:
+        rng = np.random.default_rng(0)
+        tr = render_synthetic(base, 1200, book, 0.1, rng)
+        te = render_synthetic(base, 400, book, 0.1, rng, "test")
+        enc = build_encoder("mlp", k=6, in_dim=32, seed=0)
+        res = train_multitask(
+            [base], enc, tr, {"test": te}, TrainConfig(epochs=3, encoder="mlp"), 0
+        )
+        return res.metrics["test"].acc_c
+
+    assert once() == once()

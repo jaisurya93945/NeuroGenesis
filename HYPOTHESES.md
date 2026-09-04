@@ -24,7 +24,7 @@ handful of very low-probability support tuples (`generators/threadbare.py` const
 `H(Y)`, `|Y|`, `k`, `n`, render noise, and the realised-vs-declared support gap. Partial Spearman
 with bootstrap CI; residual scatter shown, not just a coefficient.
 
-**H4 — selection beats the standard mitigation.** Greedy RS-cover selection ≥ information-greedy
+**H4 — FALSIFIED by E3.** Greedy RS-cover works as designed (grounds at budget 2, matches the exhaustive optimum, beats information-greedy which never grounds and random by +0.625) but **loses on cost**: the cheapest concept supervision that grounds needs 50 labels, so greedy wins only if authoring a rule costs under 25 labels. See `RESULTS.md` §8.2. Original statement: Greedy RS-cover selection ≥ information-greedy
 selection and ≥ per-concept supervision at matched annotation cost, on `Acc(C)`, across the whole
 budget curve (not at one cherry-picked point).
 
