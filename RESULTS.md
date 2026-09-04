@@ -100,7 +100,79 @@ MNIST fetched from `ossci-datasets.s3.amazonaws.com`, all four idx files sha256-
 (hashes recorded in `src/neurogenesis/data/mnist.py`). Shapes `(60000,28,28)` / `(10000,28,28)`;
 per-digit train counts `[5923, 6742, 5958, 6131, 5842, 5421, 5918, 6265, 5851, 5949]`.
 
-## 6. Training experiments
+## 6. E1 — does provable identifiability predict symbol grounding? (M5)
 
-**E1–E4 not run yet.** They are specified in `EXPERIMENTS.md` and are not yet executed. No claim about
-the relationship between identifiability and empirical grounding is made anywhere in this repo.
+Preregistered in `paper/preregistration.md`, committed at `f367b1c` **before** any run.
+40 runs (4 conditions × 10 seeds), `y = (c₁ + w·c₂) mod 10` on MNIST digits.
+Reproduce: `bash scripts/reproduce_e1.sh`. Raw records: `results/runs/runs.jsonl`.
+
+### Primary result
+
+| `\|RS\|` | `w` | n (gated) | excluded | test `Acc(C)` mean [95% CI] | test `Acc(Y)` | fraction grounded | `α̂ ∈ RS` |
+|---|---|---|---|---|---|---|---|
+| 1 | 2 | 5 | 5 | **0.9866** [0.9853, 0.9876] | 0.9775 | **1.00** | 1.00 |
+| 2 | 1 | 4 | 6 | 0.4946 [0.0032, 0.9860] | 0.9718 | 0.50 | 1.00 |
+| 5 | 4 | 10 | 0 | 0.2977 [0.1002, 0.5935] | 0.9762 | 0.30 | 1.00 |
+| 10 | 9 | 10 | 0 | **0.0016** [0.0011, 0.0020] | 0.9737 | **0.00** | 1.00 |
+
+- **P1 (monotone non-increasing in `|RS|`): MET.** Means 0.9866 → 0.4946 → 0.2977 → 0.0016.
+  Permutation trend test `p = 0.00005` (reported once, as preregistered; no stars).
+- **P2 (`Acc(C)[|RS|=1] − Acc(C)[|RS|=10] > 0.5`): MET.** Difference **0.9850** [0.9836, 0.9861],
+  Cliff's delta **+1.000** (complete separation).
+- **P3 (identifiable condition grounds in ≥9/10 seeds): partially met.** All 5 *converged* seeds
+  grounded (5/5); the other 5 failed the convergence gate — see the caveat below.
+- **P4 (`Acc(Y)` comparable across conditions): MET among gated runs** (0.972–0.978, right panel of
+  the figure) **but FAILED on exclusion rates** — see caveat.
+- **P5 (`α̂ ∈ RS(T)` in ≥80% of non-grounding runs): MET, at 100%.** Every gated run in every
+  condition recovered an `α̂` inside the oracle-predicted set — 29/29 including all 19 shortcut runs.
+
+**H1 is supported in this family.** `Acc(C)` is bimodal exactly as the design predicted: every run
+lands at ≈0.99 or ≈0.00, never between. Label accuracy is flat at ≈0.975 throughout, confirming the
+field's premise that shortcuts cost nothing in `Acc(Y)`.
+
+### The recovered shortcuts are exactly the predicted ones
+
+Theory says the shortcuts of `y=(c₁+w·c₂) mod 10` are the shifts `u` with `u(1+w) ≡ 0 (mod 10)`.
+The empirically recovered `α̂` match that set exactly, with nothing outside it:
+
+| `w` | predicted shift set | shifts actually observed |
+|---|---|---|
+| 2 | {0} | {0} |
+| 1 | {0, 5} | {0, 5} |
+| 4 | {0, 2, 4, 6, 8} | {0, 2, 4, 6, 8} — all five |
+| 9 | {0,…,9} | {2,4,5,6,7,8,9} — seven of ten, **never 0** |
+
+### Exploratory observation (NOT preregistered — labelled as such)
+
+The fraction of runs that ground tracks `1/|RS|` closely:
+
+| `\|RS\|` | 1 | 2 | 5 | 10 |
+|---|---|---|---|---|
+| fraction grounded | 1.00 | 0.50 | 0.30 | 0.00 |
+| `1/\|RS\|` | 1.00 | 0.50 | 0.20 | 0.10 |
+
+This is consistent with SGD selecting **approximately uniformly at random** among the permitted
+shortcuts, showing no intrinsic preference for the ground-truth grounding. If it holds up it is a
+sharper statement than H1 — symmetry would not merely *permit* shortcuts, it would *set the
+probability* of correct grounding. **It is a post-hoc observation on 29 runs in one task family and
+is not evidence yet.** It requires its own preregistration and its own runs (planned for E2) before
+being treated as anything more than a hypothesis.
+
+### Caveat that materially qualifies this result
+
+**Differential convergence failure.** Exclusion rates were 5, 6, 0, 0 across the four conditions:
+the *low*-`|RS|` conditions had many runs that never fit the label (`Acc(Y)` 0.42–0.87 versus ≈0.975
+for converged runs), with non-injective `α̂ ∉ RS` — degenerate concept collapse, not shortcuts.
+
+This violates P4's spirit even though gated `Acc(Y)` is flat, and it is the obvious line of attack
+on this result: conditions that are supposed to be matched are not equally easy to *optimise*.
+The direction of the bias is not obviously favourable or unfavourable — the excluded runs failed
+rather than shortcutted — but the asymmetry is real and unexplained.
+
+`experiments/diag_convergence.py` tests candidate recipes on **dev tasks only** to find one that
+converges reliably. **If a better frozen recipe exists, E1 will be re-preregistered and re-run
+before any of the above is treated as settled.** Until then this result is reported as *provisional*.
+
+## 7. Training experiments still outstanding
+
+E2, E3 and E4 are specified in `EXPERIMENTS.md` and have not been run.

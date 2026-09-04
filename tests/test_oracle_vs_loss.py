@@ -27,10 +27,11 @@ import pytest
 torch = pytest.importorskip("torch")
 pytestmark = pytest.mark.needs_torch
 
+from tests.test_oracle_differential import random_task  # noqa: E402
+
 from neurogenesis.generators.algebraic import addition_task, modular_task  # noqa: E402
 from neurogenesis.models.nesy import NeSyModel, TabularEncoder  # noqa: E402
 from neurogenesis.oracle import enumerate as en  # noqa: E402
-from tests.test_oracle_differential import random_task  # noqa: E402
 
 ARGS = dict(mode="shared", closure="total", allow_noninjective=True, limit=200_000)
 
@@ -102,8 +103,7 @@ def test_exhaustive_equivalence_on_small_tasks():
             oracle_says = alpha.tobytes() in in_rs
             loss_says = loss < 1e-5
             assert oracle_says == loss_says, (
-                f"{task.name}: alpha={alpha_t} oracle={oracle_says} "
-                f"loss={loss:.4g} -> disagreement"
+                f"{task.name}: alpha={alpha_t} oracle={oracle_says} loss={loss:.4g} -> disagreement"
             )
             if oracle_says:
                 assert acc_y == 1.0
