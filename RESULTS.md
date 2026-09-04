@@ -257,17 +257,50 @@ high-`|RS|` ones 10/10. On a heterogeneous task set that pattern does not genera
 likely reading: it was a property of *modular arithmetic at k=10*, not of identifiability. H5 is
 demoted to a family-specific observation.
 
-### 7.5 A near-miss that opens a real question
+### 7.5 The P5 near-miss was a convergence artefact — and the theory comes out *stronger*
 
-`α̂ ∈ RS(T)` held for **78.4%** of converged non-grounding runs (n=185), against 80% predicted and
-**100%** in E1.
+`α̂ ∈ RS(T)` held for 78.4% of converged non-grounding runs, against 80% predicted and 100% in E1.
+That looked like a gap in the formalism, and `HYPOTHESES.md` recorded it as a new H7:
+"the deterministic RS set under-specifies what SGD finds". Before claiming it, the cheap
+explanations were tested (`scripts/diagnose_h7.py`).
 
-So on a heterogeneous task set, roughly **one in five** models that fails to ground lands on a
-relabelling the deterministic oracle does **not** predict. E1's perfect record was a property of its
-narrow family. This is the outcome flagged in advance as "publishable in its own right": the
-deterministic RS set under-specifies what SGD actually finds — plausibly because finite data admits
-approximate shortcuts (`RS_ε`) and stochastic optima that the deterministic theory excludes by
-construction. Characterising those is now the most interesting open question in this project.
+**It does not survive.** Out-of-set runs are systematically *less converged*:
+
+| | out-of-set runs | in-set runs |
+|---|---|---|
+| mean `Acc(Y)` | **0.9084** | **1.0000** |
+| `α̂` coverage | 1.000 | 1.000 |
+
+Coverage is perfect in both, so the mode estimator is not at fault. Stratifying by how well each run
+fitted its own objective is decisive:
+
+| require `Acc(Y) ≥` | n | fraction outside RS | median violation mass |
+|---|---|---|---|
+| 0.0 (all gated runs) | 210 | **19.0%** | 0.0099 |
+| 0.95 | 195 | 12.8% | 0.0030 |
+| 0.99 | 188 | 9.6% | 0.0030 |
+| **0.999** | 175 | **2.9%** | 0.0010 |
+
+**Among models that actually learned the task, 97.1% land on a relabelling the oracle predicted in
+advance.** The 19% figure is dominated by runs that had not finished learning — they are not
+choosing an unpredicted shortcut, they are not yet choosing anything.
+
+So the correct reading is the opposite of the one E2's raw P5 suggested: **the deterministic RS
+theory is more accurate than the preregistered test implied, not less.** H7 is rejected.
+
+**Methodological lesson, recorded because it will recur.** The preregistered convergence gate
+(`Acc(Y) ≥ 0.95 × best-in-task`) is appropriate for comparing *accuracy* across conditions but is
+too permissive for *membership* questions: a task whose seeds all top out at 0.92 passes its own
+gate at 0.92, and a half-learned encoder has no well-defined relabelling to test. Membership
+questions need an absolute convergence criterion, and E3/E4 will use one.
+
+**A bug this triage caught in the triage itself.** The first version of the diagnostic did not
+exclude tasks whose oracle enumeration hit the 200,000-map limit. On a truncated result
+`RSResult.contains` can return `False` for a genuine shortcut that simply fell outside the
+enumerated prefix — which produced six impossible cases with *exactly zero* violation mass reported
+as "outside RS". Noticing that a shortcut cannot both violate nothing and be outside the set is what
+exposed it. `analyze_e2.py` had excluded truncated tasks all along, so **P5 = 0.784 was never
+affected**; only the diagnostic was.
 
 ### 7.6 Status of the hypotheses after E2
 
@@ -278,6 +311,7 @@ construction. Characterising those is now the most interesting open question in 
 | **H3** (survives confound controls) | supported |
 | **H5** (identifiability/optimisability trade-off) | not supported outside the modular family |
 | **H6** (uniform shortcut selection) | withdrawn after E1's re-run |
+| **H7** (deterministic theory under-specifies SGD) | **rejected** — the shortfall was incomplete convergence; 97.1% membership among converged models |
 
 ## 8. Training experiments still outstanding
 

@@ -40,9 +40,14 @@ quietly dropped:
 - **H6 (uniform selection among shortcuts) — withdrawn** after failing to replicate across E1's re-run.
 - **H5 (identifiability/optimisability trade-off) — demoted** to a modular-family observation after
   E2 found Spearman +0.034 on heterogeneous tasks.
+- **H7 (deterministic theory under-specifies SGD) — rejected in the same session it was proposed**,
+  once out-of-set runs were shown to be the unconverged ones (2.9% out-of-set among runs reaching
+  `Acc(Y) ≥ 0.999`, vs 19.0% unrestricted).
 
 What remains is H1/H3 — real, robust, and a generalisation of known results rather than a new
-mechanism. That is a smaller claim than the project set out to make, and it is stated as such.
+mechanism — plus the corrected membership result (97.1%), which strengthens the *existing* theory
+rather than replacing it. That is a smaller claim than the project set out to make, and it is stated
+as such. The remaining route to a design contribution is E3.
 
 ## Threats to validity
 

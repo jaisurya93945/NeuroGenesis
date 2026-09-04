@@ -1,0 +1,48 @@
+{
+  "n_converged_nongrounding": 210,
+  "n_inside": 170,
+  "n_outside": 40,
+  "frac_inside": 0.8095238095238095,
+  "coverage_outside_mean": 1.0,
+  "coverage_inside_mean": 1.0,
+  "acc_y_outside_mean": 0.9084166666666667,
+  "acc_y_inside_mean": 1.0,
+  "violation_percentiles": {
+    "10": 0.0009990009990009992,
+    "25": 0.002991026919242274,
+    "50": 0.0099009900990099,
+    "75": 0.3097165991902834,
+    "90": 0.502
+  },
+  "frac_within_eps": {
+    "0.001": 0.2,
+    "0.01": 0.525,
+    "0.05": 0.625,
+    "0.1": 0.625,
+    "0.25": 0.7
+  },
+  "frac_near_shortcut_eps05": 0.625,
+  "stratified_by_convergence": {
+    "0.0": {
+      "n": 210,
+      "frac_outside": 0.19047619047619047,
+      "median_viol": 0.0099009900990099
+    },
+    "0.95": {
+      "n": 195,
+      "frac_outside": 0.1282051282051282,
+      "median_viol": 0.002991026919242274
+    },
+    "0.99": {
+      "n": 188,
+      "frac_outside": 0.09574468085106383,
+      "median_viol": 0.002991026919242274
+    },
+    "0.999": {
+      "n": 175,
+      "frac_outside": 0.02857142857142857,
+      "median_viol": 0.0009990009990009992
+    }
+  },
+  "verdict": "H7 DOES NOT SURVIVE: out-of-set maps are explained by incomplete convergence"
+}

@@ -44,7 +44,8 @@
   "P5": {
     "frac_in_rs": 0.7837837837837838,
     "n": 185,
-    "met": false
+    "met": false,
+    "n_truncated_tasks_excluded": 0
   },
   "rows": [
     {
@@ -60,7 +61,8 @@
       "label_entropy": 1.6094379124341005,
       "n_labels": 5,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "d1ed656dbd73b9ae93d0ee942b56886f",
@@ -75,7 +77,8 @@
       "label_entropy": 1.6094379124341005,
       "n_labels": 5,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "b134a1f5e258531263d7ae494382e0b6",
@@ -90,7 +93,8 @@
       "label_entropy": 1.6094379124341005,
       "n_labels": 5,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "14502fa2753bfd7f5e5275dabe340fcd",
@@ -105,7 +109,8 @@
       "label_entropy": 1.6094379124341005,
       "n_labels": 5,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "becb2645b5dd7ab20c3da081bd0c183e",
@@ -120,7 +125,8 @@
       "label_entropy": 1.791759469228055,
       "n_labels": 6,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "02e24b918fd8b95e611997df31c2fcc3",
@@ -135,7 +141,8 @@
       "label_entropy": 1.791759469228055,
       "n_labels": 6,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "990700a87f23e04e7356952da2695ae5",
@@ -150,7 +157,8 @@
       "label_entropy": 1.791759469228055,
       "n_labels": 6,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "d7fcb22e2286121b2f68d0054c4e552f",
@@ -165,7 +173,8 @@
       "label_entropy": 1.791759469228055,
       "n_labels": 6,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "b74ac8a5dd3762af3497b9f8b3ebeda0",
@@ -180,7 +189,8 @@
       "label_entropy": 1.791759469228055,
       "n_labels": 6,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "c2665d7e472972492b64d1b2c2d8938a",
@@ -195,7 +205,8 @@
       "label_entropy": 1.945910149055313,
       "n_labels": 7,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "dd8908e3e354f10533300919c9ae3a39",
@@ -210,7 +221,8 @@
       "label_entropy": 1.945910149055313,
       "n_labels": 7,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "fd2f8d4cbe69764c8c5fba8f59435895",
@@ -225,7 +237,8 @@
       "label_entropy": 1.945910149055313,
       "n_labels": 7,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "8491be518c20c291e8b57d9a76aa86ed",
@@ -240,7 +253,8 @@
       "label_entropy": 1.945910149055313,
       "n_labels": 7,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "4924433b5f3c035a43d5c73ce5534ab0",
@@ -255,7 +269,8 @@
       "label_entropy": 1.945910149055313,
       "n_labels": 7,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "d6a82af5317d56790cc1b6fcee4aa3b1",
@@ -270,7 +285,8 @@
       "label_entropy": 1.945910149055313,
       "n_labels": 7,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "dbee2bff40964058a1a79f3f48ed4a13",
@@ -285,7 +301,8 @@
       "label_entropy": 2.0794415416798357,
       "n_labels": 8,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "6c1a5c2960a2a8d89d1d9376903366bf",
@@ -300,7 +317,8 @@
       "label_entropy": 2.0794415416798357,
       "n_labels": 8,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "9bfee555364551fd13afe002d388e8d3",
@@ -315,7 +333,8 @@
       "label_entropy": 2.0794415416798357,
       "n_labels": 8,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "cdffd2d3fd53eacb2b6ae1ff2f936f6a",
@@ -330,7 +349,8 @@
       "label_entropy": 2.0794415416798357,
       "n_labels": 8,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "ff8d7d198c3e0cbed204fc4e89f6afe2",
@@ -345,7 +365,8 @@
       "label_entropy": 2.0794415416798357,
       "n_labels": 8,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "2e2428b2fb7b1b557727970d53bf238c",
@@ -360,7 +381,8 @@
       "label_entropy": 2.0794415416798357,
       "n_labels": 8,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "c73cd456c45b0cfc922cdd521907ed5e",
@@ -375,7 +397,8 @@
       "label_entropy": 2.0794415416798357,
       "n_labels": 8,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "ca48388a21e802b266a0b2ef607b6d43",
@@ -390,7 +413,8 @@
       "label_entropy": 2.1972245773362196,
       "n_labels": 9,
       "k": 9,
-      "support_size": 81
+      "support_size": 81,
+      "truncated": false
     },
     {
       "key": "048c1542fbcea45e8c213a8d922efdab",
@@ -405,7 +429,8 @@
       "label_entropy": 2.1972245773362196,
       "n_labels": 9,
       "k": 9,
-      "support_size": 81
+      "support_size": 81,
+      "truncated": false
     },
     {
       "key": "f7c55331daf570434415d5f0e8e5b4ff",
@@ -420,7 +445,8 @@
       "label_entropy": 2.1972245773362196,
       "n_labels": 9,
       "k": 9,
-      "support_size": 81
+      "support_size": 81,
+      "truncated": false
     },
     {
       "key": "b43e24282f140641f3cf49ebf03fe932",
@@ -435,7 +461,8 @@
       "label_entropy": 2.1972245773362196,
       "n_labels": 9,
       "k": 9,
-      "support_size": 81
+      "support_size": 81,
+      "truncated": false
     },
     {
       "key": "d257b835f5edcb29cedf7ab111aee336",
@@ -450,7 +477,8 @@
       "label_entropy": 2.1972245773362196,
       "n_labels": 9,
       "k": 9,
-      "support_size": 81
+      "support_size": 81,
+      "truncated": false
     },
     {
       "key": "7df1ea971721defe46dbb5fbd8bf97a2",
@@ -465,7 +493,8 @@
       "label_entropy": 2.1972245773362196,
       "n_labels": 9,
       "k": 9,
-      "support_size": 81
+      "support_size": 81,
+      "truncated": false
     },
     {
       "key": "7ff871ca25529391893158713fae8759",
@@ -480,7 +509,8 @@
       "label_entropy": 2.1972245773362196,
       "n_labels": 9,
       "k": 9,
-      "support_size": 81
+      "support_size": 81,
+      "truncated": false
     },
     {
       "key": "8ad799aa5f157ec3d79cc33c497f48bb",
@@ -495,7 +525,8 @@
       "label_entropy": 2.1972245773362196,
       "n_labels": 9,
       "k": 9,
-      "support_size": 81
+      "support_size": 81,
+      "truncated": false
     },
     {
       "key": "1f370159b01d30eee5068cef7f8a470e",
@@ -510,7 +541,8 @@
       "label_entropy": 2.302585092994046,
       "n_labels": 10,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "3d35fd00206ed7854c8a3319f31449b4",
@@ -525,7 +557,8 @@
       "label_entropy": 2.302585092994046,
       "n_labels": 10,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "d93bff6512d2fabef86196de380116b9",
@@ -540,7 +573,8 @@
       "label_entropy": 2.302585092994046,
       "n_labels": 10,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "3adf798c6abe62cc63156d3d5d562533",
@@ -555,7 +589,8 @@
       "label_entropy": 2.302585092994046,
       "n_labels": 10,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "1760a26d5ef3163c443b1e3834f7bb27",
@@ -570,7 +605,8 @@
       "label_entropy": 2.302585092994046,
       "n_labels": 10,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "95f6a7b27fc39df29d9245d6c9c05397",
@@ -585,7 +621,8 @@
       "label_entropy": 2.302585092994046,
       "n_labels": 10,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "e1676ac0cef3d388c5ee18cce2dce34a",
@@ -600,7 +637,8 @@
       "label_entropy": 2.302585092994046,
       "n_labels": 10,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "656e50c71f2bd7ab87990f1615f16b7b",
@@ -615,7 +653,8 @@
       "label_entropy": 2.302585092994046,
       "n_labels": 10,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "1df14bc54d674c885255394fea79210b",
@@ -630,7 +669,8 @@
       "label_entropy": 2.302585092994046,
       "n_labels": 10,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "94dd054b97f943ea2b68feae7b21044d",
@@ -645,7 +685,8 @@
       "label_entropy": 1.8407487285692812,
       "n_labels": 7,
       "k": 4,
-      "support_size": 16
+      "support_size": 16,
+      "truncated": false
     },
     {
       "key": "3e1cd9cc678c033163d3cce31c7a2fee",
@@ -660,7 +701,8 @@
       "label_entropy": 2.0788035486530783,
       "n_labels": 9,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "fb900de15eb31528654236af48631e0f",
@@ -675,7 +717,8 @@
       "label_entropy": 2.2696424583750856,
       "n_labels": 11,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "05cb9a9104e8e4aadd4e32dcebbb6b4d",
@@ -690,7 +733,8 @@
       "label_entropy": 2.4291370095050673,
       "n_labels": 13,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "477fd4d4545ef6c1b6f365b65063d97c",
@@ -705,7 +749,8 @@
       "label_entropy": 2.566252075258136,
       "n_labels": 15,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "b9d9c51995004df4cc334e28dc19ea5f",
@@ -720,7 +765,8 @@
       "label_entropy": 2.6865610306235133,
       "n_labels": 17,
       "k": 9,
-      "support_size": 81
+      "support_size": 81,
+      "truncated": false
     },
     {
       "key": "ab8bbd11218c452b864af4bd780f8d2d",
@@ -735,7 +781,8 @@
       "label_entropy": 2.7937720842487974,
       "n_labels": 19,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "8004d8a5a10f9179d4d7808d0f08cb74",
@@ -750,7 +797,8 @@
       "label_entropy": 3.2188758248682,
       "n_labels": 25,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "69d45dead7fdea349843df7bda292395",
@@ -765,7 +813,8 @@
       "label_entropy": 3.2188758248682,
       "n_labels": 25,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "6289c2014d4f455d628c3ddfdd97f243",
@@ -780,7 +829,8 @@
       "label_entropy": 3.2188758248682,
       "n_labels": 25,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "9ece599e8f13742cff3bee907915ce18",
@@ -795,7 +845,8 @@
       "label_entropy": 1.6094379124341005,
       "n_labels": 5,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "b89ac4e8d424d62a39bd6f702934a080",
@@ -810,7 +861,8 @@
       "label_entropy": 1.6094379124341005,
       "n_labels": 5,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "4240ebb021d44e6049232d4933142977",
@@ -825,7 +877,8 @@
       "label_entropy": 1.6094379124341005,
       "n_labels": 5,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "7a51ff2698afc103ffadc39c8c0951ac",
@@ -840,7 +893,8 @@
       "label_entropy": 2.6643580804202447,
       "n_labels": 16,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "1d2493952ad570487e206d0e02cb2432",
@@ -855,7 +909,8 @@
       "label_entropy": 2.6643580804202447,
       "n_labels": 16,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "f52606c409f3cccfed567717d15d56fb",
@@ -870,7 +925,8 @@
       "label_entropy": 2.6643580804202447,
       "n_labels": 16,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "353147b113d958e065f6c52d9190c377",
@@ -885,7 +941,8 @@
       "label_entropy": 3.5835189384561104,
       "n_labels": 36,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "d053caee48603f8143c2305f70e89ce6",
@@ -900,7 +957,8 @@
       "label_entropy": 3.5835189384561104,
       "n_labels": 36,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "089711c380307f11a7b7c3d21264461f",
@@ -915,7 +973,8 @@
       "label_entropy": 3.5835189384561104,
       "n_labels": 36,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "15aa32a17e87bee19246414099e27ef5",
@@ -930,7 +989,8 @@
       "label_entropy": 1.791759469228055,
       "n_labels": 6,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "4a3a4c4923a0cc8c9cb0e2d9e694af37",
@@ -945,7 +1005,8 @@
       "label_entropy": 1.791759469228055,
       "n_labels": 6,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "f0dc40d6f440683ddd802b9079373971",
@@ -960,7 +1021,8 @@
       "label_entropy": 2.890371757896165,
       "n_labels": 18,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "18f698d54a58b9170470878867c4e0d4",
@@ -975,7 +1037,8 @@
       "label_entropy": 2.4849066497880004,
       "n_labels": 16,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "f267533360a1156cb73bb878af636794",
@@ -990,7 +1053,8 @@
       "label_entropy": 2.4849066497880004,
       "n_labels": 16,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "2d91a30ecbc618eb467f4614f24d28a4",
@@ -1005,7 +1069,8 @@
       "label_entropy": 2.6593226977095163,
       "n_labels": 16,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "86dc38467e059be34433673d669f6c5b",
@@ -1020,7 +1085,8 @@
       "label_entropy": 1.966175517149571,
       "n_labels": 8,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "36ddb9aa1c7652c0718bcbca2ec26a65",
@@ -1035,7 +1101,8 @@
       "label_entropy": 3.8918202981106265,
       "n_labels": 49,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "8878e2fd446dfcd92e37ab7e3dbd1dbb",
@@ -1050,7 +1117,8 @@
       "label_entropy": 3.8918202981106265,
       "n_labels": 49,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "e42529aab63976f863757255b82a0696",
@@ -1065,7 +1133,8 @@
       "label_entropy": 3.8918202981106265,
       "n_labels": 49,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "166d7b9b3cb521a7f072d7aa78296037",
@@ -1080,7 +1149,8 @@
       "label_entropy": 1.945910149055313,
       "n_labels": 7,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "f6410b74bd4b6fdaed1f3570bea54811",
@@ -1095,7 +1165,8 @@
       "label_entropy": 1.945910149055313,
       "n_labels": 7,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "cf7aba8b632b78ecc252f9d7c2db141e",
@@ -1110,7 +1181,8 @@
       "label_entropy": 1.945910149055313,
       "n_labels": 7,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "69fc65a63af7921bdebb17179827558c",
@@ -1125,7 +1197,8 @@
       "label_entropy": 3.495736194933515,
       "n_labels": 36,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "f205d4354f41047bd250279070a7b124",
@@ -1140,7 +1213,8 @@
       "label_entropy": 2.9501526221093894,
       "n_labels": 25,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "89dd0f6b9588a85bb93616293d45477b",
@@ -1155,7 +1229,8 @@
       "label_entropy": 3.495736194933515,
       "n_labels": 36,
       "k": 7,
-      "support_size": 49
+      "support_size": 49,
+      "truncated": false
     },
     {
       "key": "778f4d24aa49c3c401548b7d18a9ac46",
@@ -1170,7 +1245,8 @@
       "label_entropy": 1.7478680974667573,
       "n_labels": 11,
       "k": 6,
-      "support_size": 7
+      "support_size": 7,
+      "truncated": false
     },
     {
       "key": "e3c7865178a8c13de52ae461a6d47656",
@@ -1185,7 +1261,8 @@
       "label_entropy": 1.7478680974667573,
       "n_labels": 11,
       "k": 6,
-      "support_size": 7
+      "support_size": 7,
+      "truncated": false
     },
     {
       "key": "f792a6024776e3094d57196112d5ce7f",
@@ -1200,7 +1277,8 @@
       "label_entropy": 1.6417347121875212,
       "n_labels": 11,
       "k": 6,
-      "support_size": 11
+      "support_size": 11,
+      "truncated": false
     },
     {
       "key": "12a3ad2d75f2191c24378aedfe913130",
@@ -1215,7 +1293,8 @@
       "label_entropy": 2.019814992492946,
       "n_labels": 11,
       "k": 6,
-      "support_size": 11
+      "support_size": 11,
+      "truncated": false
     },
     {
       "key": "0c22ad6417dac912b0e44d082e8ae046",
@@ -1230,7 +1309,8 @@
       "label_entropy": 2.106577333232116,
       "n_labels": 11,
       "k": 6,
-      "support_size": 14
+      "support_size": 14,
+      "truncated": false
     },
     {
       "key": "da32393041e07f0cdc16f63a40f8ab1b",
@@ -1245,7 +1325,8 @@
       "label_entropy": 2.1065773332321154,
       "n_labels": 11,
       "k": 6,
-      "support_size": 14
+      "support_size": 14,
+      "truncated": false
     },
     {
       "key": "e7619737586d650fec3d5d96f3125fba",
@@ -1260,7 +1341,8 @@
       "label_entropy": 2.0431918705451206,
       "n_labels": 11,
       "k": 6,
-      "support_size": 18
+      "support_size": 18,
+      "truncated": false
     },
     {
       "key": "fc01c4ae02904b120907700d77122145",
@@ -1275,7 +1357,8 @@
       "label_entropy": 1.9850531879046152,
       "n_labels": 11,
       "k": 6,
-      "support_size": 18
+      "support_size": 18,
+      "truncated": false
     },
     {
       "key": "c746819365468379f90f29240e391102",
@@ -1290,7 +1373,8 @@
       "label_entropy": 2.2451588719874653,
       "n_labels": 11,
       "k": 6,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "c1971cb0a9087e61c667a1505724ab40",
@@ -1305,7 +1389,8 @@
       "label_entropy": 2.12343225891592,
       "n_labels": 11,
       "k": 6,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "8a75be7984c155be44d52d3a18ac4e93",
@@ -1320,7 +1405,8 @@
       "label_entropy": 2.261743389003634,
       "n_labels": 11,
       "k": 6,
-      "support_size": 32
+      "support_size": 32,
+      "truncated": false
     },
     {
       "key": "65840661123476d0a667098afe65e044",
@@ -1335,7 +1421,8 @@
       "label_entropy": 2.228480846726689,
       "n_labels": 11,
       "k": 6,
-      "support_size": 32
+      "support_size": 32,
+      "truncated": false
     },
     {
       "key": "4659ee58d78a6e0c8508a48678314e45",
@@ -1350,7 +1437,8 @@
       "label_entropy": 2.2450352741261774,
       "n_labels": 15,
       "k": 8,
-      "support_size": 13
+      "support_size": 13,
+      "truncated": false
     },
     {
       "key": "9f693c46b8070b989155479bbd1883f5",
@@ -1365,7 +1453,8 @@
       "label_entropy": 2.2450352741261774,
       "n_labels": 15,
       "k": 8,
-      "support_size": 13
+      "support_size": 13,
+      "truncated": false
     },
     {
       "key": "a11da9159f36c7374c922c84d28baea3",
@@ -1380,7 +1469,8 @@
       "label_entropy": 2.2781179623110317,
       "n_labels": 15,
       "k": 8,
-      "support_size": 19
+      "support_size": 19,
+      "truncated": false
     },
     {
       "key": "95d19ce364c1cd8c22ca6a53f3512b90",
@@ -1395,7 +1485,8 @@
       "label_entropy": 2.2326944771870663,
       "n_labels": 15,
       "k": 8,
-      "support_size": 19
+      "support_size": 19,
+      "truncated": false
     },
     {
       "key": "999563e7c10439840888d8070575a4f1",
@@ -1410,7 +1501,8 @@
       "label_entropy": 2.2912985160856443,
       "n_labels": 15,
       "k": 8,
-      "support_size": 26
+      "support_size": 26,
+      "truncated": false
     },
     {
       "key": "836b370389f6f21f96b1b02d620d4a2c",
@@ -1425,7 +1517,8 @@
       "label_entropy": 2.3778116152577686,
       "n_labels": 15,
       "k": 8,
-      "support_size": 26
+      "support_size": 26,
+      "truncated": false
     },
     {
       "key": "34aa9d207ef89b44bfbd69c82939db89",
@@ -1440,7 +1533,8 @@
       "label_entropy": 2.4309010070665913,
       "n_labels": 15,
       "k": 8,
-      "support_size": 32
+      "support_size": 32,
+      "truncated": false
     },
     {
       "key": "d7efd86ea9cee5b741d59da4d30453ba",
@@ -1455,7 +1549,8 @@
       "label_entropy": 2.4742227058515875,
       "n_labels": 15,
       "k": 8,
-      "support_size": 32
+      "support_size": 32,
+      "truncated": false
     },
     {
       "key": "ff8fb75c20a8c12c95f325520365ae52",
@@ -1470,7 +1565,8 @@
       "label_entropy": 2.518198298009358,
       "n_labels": 15,
       "k": 8,
-      "support_size": 45
+      "support_size": 45,
+      "truncated": false
     },
     {
       "key": "d40609cd81dfce5bfadd3a872bf57d9c",
@@ -1485,7 +1581,8 @@
       "label_entropy": 2.5151217882741603,
       "n_labels": 15,
       "k": 8,
-      "support_size": 45
+      "support_size": 45,
+      "truncated": false
     },
     {
       "key": "8d710f479d547e3566cdc05ff1799ab0",
@@ -1500,7 +1597,8 @@
       "label_entropy": 2.548623358381462,
       "n_labels": 15,
       "k": 8,
-      "support_size": 58
+      "support_size": 58,
+      "truncated": false
     },
     {
       "key": "a69989067d115c72668419ff30c95883",
@@ -1515,7 +1613,8 @@
       "label_entropy": 2.535521348249953,
       "n_labels": 15,
       "k": 8,
-      "support_size": 58
+      "support_size": 58,
+      "truncated": false
     },
     {
       "key": "4d3bb4699c69e1efdb9328c0c2a8ae55",
@@ -1530,7 +1629,8 @@
       "label_entropy": 2.236307679486323,
       "n_labels": 11,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "fc97e7fb7f2aa75b97dcdc880c30db8c",
@@ -1545,7 +1645,8 @@
       "label_entropy": 2.22794751116468,
       "n_labels": 11,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "d1f79ba979faae4e32f047f1dde75897",
@@ -1560,7 +1661,8 @@
       "label_entropy": 2.129626125494729,
       "n_labels": 11,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "d844e125a127d20fd0ca65871490596f",
@@ -1575,7 +1677,8 @@
       "label_entropy": 2.124112914775451,
       "n_labels": 11,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "9b25376786fec34c97ee32ad8cffd8bd",
@@ -1590,7 +1693,8 @@
       "label_entropy": 2.047247742171912,
       "n_labels": 11,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "13eb9d230b0c5b2ad45dec9cd02c3c88",
@@ -1605,7 +1709,8 @@
       "label_entropy": 2.045110809872034,
       "n_labels": 11,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "46b61fff908da7ee627edc2a74587a30",
@@ -1620,7 +1725,8 @@
       "label_entropy": 2.011065634324501,
       "n_labels": 11,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "be93bfde08db748e04bbb25260fe8676",
@@ -1635,7 +1741,8 @@
       "label_entropy": 2.010296887918702,
       "n_labels": 11,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "d3de3e693a71bb7162fa3079636c3a0a",
@@ -1650,7 +1757,8 @@
       "label_entropy": 1.9945159902145357,
       "n_labels": 11,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "0825b139adffd135d6159ea253734453",
@@ -1665,7 +1773,8 @@
       "label_entropy": 1.9942790365891094,
       "n_labels": 11,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "569a2c7d4020afe510b45eef7887ff24",
@@ -1680,7 +1789,8 @@
       "label_entropy": 1.9887019442967762,
       "n_labels": 11,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "eecb40d643776e43fc1636df5f2c060e",
@@ -1695,7 +1805,8 @@
       "label_entropy": 1.988622343217813,
       "n_labels": 11,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "c5f56b7c606f2ddb499756fc8b7583f4",
@@ -1710,7 +1821,8 @@
       "label_entropy": 2.5168893189842283,
       "n_labels": 15,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "476be061aa0d5986552f0f578bda5653",
@@ -1725,7 +1837,8 @@
       "label_entropy": 2.57660528195642,
       "n_labels": 15,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "dc7d881880c45a0a42c85d97d324d318",
@@ -1740,7 +1853,8 @@
       "label_entropy": 2.440751067384267,
       "n_labels": 15,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "f6b96dd60fc76602db7fb8611c236819",
@@ -1755,7 +1869,8 @@
       "label_entropy": 2.548416613098746,
       "n_labels": 15,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "0ada8176322f895fc5fd424417502d5f",
@@ -1770,7 +1885,8 @@
       "label_entropy": 2.390694629597882,
       "n_labels": 15,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "e2812ba04b108c7a28ddc02fb85cd198",
@@ -1785,7 +1901,8 @@
       "label_entropy": 2.5266044733996784,
       "n_labels": 15,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "d9fb462528e1953c83d3769079ad7f15",
@@ -1800,7 +1917,8 @@
       "label_entropy": 2.370310694335454,
       "n_labels": 15,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "27706dc6fb4f737ba6635e852dad5c3a",
@@ -1815,7 +1933,8 @@
       "label_entropy": 2.5173018983767608,
       "n_labels": 15,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "54b631c864655a4139ff76818c287fbf",
@@ -1830,7 +1949,8 @@
       "label_entropy": 2.3613421941476482,
       "n_labels": 15,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "cfdae583c3713ff33dc0a41a051c2606",
@@ -1845,7 +1965,8 @@
       "label_entropy": 2.513125881378488,
       "n_labels": 15,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "7f800db30cbe6153c4cfd6e374d17558",
@@ -1860,7 +1981,8 @@
       "label_entropy": 2.3582676443420167,
       "n_labels": 15,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "b3fd6f0c94fea007f17cf99f6353a989",
@@ -1875,7 +1997,8 @@
       "label_entropy": 2.5116763895592324,
       "n_labels": 15,
       "k": 8,
-      "support_size": 64
+      "support_size": 64,
+      "truncated": false
     },
     {
       "key": "9ab4faadaf5186720c6bc7cca1ef4c91",
@@ -1890,7 +2013,8 @@
       "label_entropy": 2.7398233174065543,
       "n_labels": 19,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "21bd4c1b093bd3a326a7e0e3ebd42b29",
@@ -1905,7 +2029,8 @@
       "label_entropy": 2.802666596482936,
       "n_labels": 19,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "02db27816a2bcb6deee9e1f29379649b",
@@ -1920,7 +2045,8 @@
       "label_entropy": 2.681347767120539,
       "n_labels": 19,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "373de6b26cb7770ec47ccd0409ab8581",
@@ -1935,7 +2061,8 @@
       "label_entropy": 2.785903120661483,
       "n_labels": 19,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "c1c4e0ef328c2e2b4d0db136fca3f915",
@@ -1950,7 +2077,8 @@
       "label_entropy": 2.6466191578443827,
       "n_labels": 19,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "a29e6f94d2c8852ed10f5d6fe010ca40",
@@ -1965,7 +2093,8 @@
       "label_entropy": 2.7733010281832136,
       "n_labels": 19,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "c5663bd42b4b3630617c9e4854687723",
@@ -1980,7 +2109,8 @@
       "label_entropy": 2.6331599834142176,
       "n_labels": 19,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "39ee33d122b102692e893b87762b13a5",
@@ -1995,7 +2125,8 @@
       "label_entropy": 2.767985226081726,
       "n_labels": 19,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "d640ae02cd94e77c05d75765c3a2f053",
@@ -2010,7 +2141,8 @@
       "label_entropy": 2.627394769078128,
       "n_labels": 19,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "a780fc2ec06d10d0c717dc8ab27aff49",
@@ -2025,7 +2157,8 @@
       "label_entropy": 2.7656039662060157,
       "n_labels": 19,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "1569030212a1ee2eaca36530dcbf2bfd",
@@ -2040,7 +2173,8 @@
       "label_entropy": 2.6254533035163417,
       "n_labels": 19,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "aba323e679482e39d61090e702a35019",
@@ -2055,7 +2189,8 @@
       "label_entropy": 2.764777130161302,
       "n_labels": 19,
       "k": 10,
-      "support_size": 100
+      "support_size": 100,
+      "truncated": false
     },
     {
       "key": "32f0156e2e7d1ab015b1f4c3651bfbc7",
@@ -2070,7 +2205,8 @@
       "label_entropy": 0.48257756517701206,
       "n_labels": 2,
       "k": 4,
-      "support_size": 16
+      "support_size": 16,
+      "truncated": false
     },
     {
       "key": "bd30085d419a115957ec240f9cd5d440",
@@ -2085,7 +2221,8 @@
       "label_entropy": 1.0821955300387671,
       "n_labels": 4,
       "k": 4,
-      "support_size": 16
+      "support_size": 16,
+      "truncated": false
     },
     {
       "key": "e4fa08836657cdbbc46bf07dfa4290f9",
@@ -2100,7 +2237,8 @@
       "label_entropy": 1.3705023899189088,
       "n_labels": 4,
       "k": 4,
-      "support_size": 16
+      "support_size": 16,
+      "truncated": false
     },
     {
       "key": "507f66bfb7e27a3d052202abd1fc3612",
@@ -2115,7 +2253,8 @@
       "label_entropy": 1.3705023899189088,
       "n_labels": 4,
       "k": 4,
-      "support_size": 16
+      "support_size": 16,
+      "truncated": false
     },
     {
       "key": "fb68221d3d50370c9848458532cc1152",
@@ -2130,7 +2269,8 @@
       "label_entropy": 1.18030455699462,
       "n_labels": 4,
       "k": 4,
-      "support_size": 16
+      "support_size": 16,
+      "truncated": false
     },
     {
       "key": "f82577d277d3ffaa9135b4518f7c2c23",
@@ -2145,7 +2285,8 @@
       "label_entropy": 0.6853142072764582,
       "n_labels": 2,
       "k": 4,
-      "support_size": 16
+      "support_size": 16,
+      "truncated": false
     },
     {
       "key": "30043017b87cd7d1d25b9b60a2679aea",
@@ -2160,7 +2301,8 @@
       "label_entropy": 0.6923469670899616,
       "n_labels": 2,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "5fcbd6d10850e842c40a7f6db5bec704",
@@ -2175,7 +2317,8 @@
       "label_entropy": 1.0549201679861442,
       "n_labels": 3,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "df6e31e0fc0e8f296824744b8a54053b",
@@ -2190,7 +2333,8 @@
       "label_entropy": 0.942216333812959,
       "n_labels": 3,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "d6128ef019045bfc79c7bf1814dfbb21",
@@ -2205,7 +2349,8 @@
       "label_entropy": 1.068358338884637,
       "n_labels": 3,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "89fecbb775977d2163072db01645956d",
@@ -2220,7 +2365,8 @@
       "label_entropy": 1.3211643880367676,
       "n_labels": 4,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "7cd2e046bf03b1d90f98e5b552197ab5",
@@ -2235,7 +2381,8 @@
       "label_entropy": 1.068358338884637,
       "n_labels": 3,
       "k": 5,
-      "support_size": 25
+      "support_size": 25,
+      "truncated": false
     },
     {
       "key": "576e48efff4b2df556f226fc05e7c76b",
@@ -2250,7 +2397,8 @@
       "label_entropy": 1.0263306332944864,
       "n_labels": 3,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "62f693142f029bea7e0725889c75f2f6",
@@ -2265,7 +2413,8 @@
       "label_entropy": 1.0608569471580214,
       "n_labels": 3,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "c34aa9bdd7992f57a9c0f4698ae4b961",
@@ -2280,7 +2429,8 @@
       "label_entropy": 1.768230493616871,
       "n_labels": 6,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "8dd1d7e24758ab0d3eccb9e68aad6b86",
@@ -2295,7 +2445,8 @@
       "label_entropy": 1.540436736039458,
       "n_labels": 5,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "fbaf63298972d18a5c62dea8f9e651e7",
@@ -2310,7 +2461,8 @@
       "label_entropy": 1.0962947871994972,
       "n_labels": 3,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     },
     {
       "key": "0ee7ac7447795df7c7b2874242aba2fb",
@@ -2325,7 +2477,8 @@
       "label_entropy": 1.441031937017863,
       "n_labels": 5,
       "k": 6,
-      "support_size": 36
+      "support_size": 36,
+      "truncated": false
     }
   ]
 }

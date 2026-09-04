@@ -1,31 +1,29 @@
 # ROADMAP.md
 
 ## NOW
-**Decide the direction after H2's falsification.** E2 killed the project's proposed refinement:
-the margin adds 0.15% of variance over binary identifiability, and the decisive cell failed outright
-(`RESULTS.md` §7.2). What survives is stronger but less novel — `log|RS|` predicts grounding across
-152 heterogeneous tasks (partial Spearman −0.775), which is a *generalisation* of known results
-rather than a new mechanism.
+**E3 — active selection.** With H2, H5, H6 and H7 all gone, the surviving claim is H1/H3: binary
+identifiability predicts grounding across heterogeneous task families (partial Spearman −0.775), and
+the oracle predicts *which* wrong grounding a converged model adopts (97.1%). Both are solid, and
+both are about *analysis*. E3 is the remaining piece that would make this a **design** contribution:
+choosing tasks to collapse the shortcut space at minimum annotation cost.
 
-The most promising remaining thread is **H7**, which E2 produced by accident: only 78.4% of
-converged non-grounding runs land inside the deterministic RS set, against 100% in E1's narrow
-family. One failure in five is a shortcut the theory does not predict. That is a gap in the
-*formalism*, not just in the empirics, and it is the kind of thing the field would want to know.
+Infrastructure is built and validated (`selection.py`, the D7 divisor-modular pool, exhaustive
+optimum for small pools). What it needs is a preregistration and a run with training in the loop.
+The honest framing is that E3 now carries the project: if greedy RS-cover does not beat
+information-greedy and concept supervision at matched budget, there is no design contribution here.
+
+**Use an absolute convergence criterion, not the relative gate.** E2's `Acc(Y) ≥ 0.95 × best-in-task`
+was too permissive and produced a spurious 19% "theory gap" that was really unfinished training
+(`RESULTS.md` §7.5). E3/E4 gate on an absolute threshold.
 
 ## NEXT
-- **H7 preregistration and experiment.** Characterise the out-of-set relabellings: are they
-  approximate shortcuts (`RS_ε` for small ε), stochastic/mixture optima, or artefacts of the `α̂`
-  mode-recovery estimator? The third possibility must be ruled out first — it is the cheapest
-  explanation and would be a measurement bug rather than a finding.
-- **Implement `RS_ε`** (approximate shortcuts) in the oracle. `measures.margin` already computes the
-  minimum violation mass; the ε-relaxed *set* is the natural next object.
+- Preregister E3 (predictions, budget curve, `τ` sensitivity band) before running it.
+- Tier-M transfer check for a subset of E2's tasks.
+- E4 (continual / RS lock-in).
 
 ## LATER
-- **E3** — active selection. Infrastructure is built and validated (`selection.py`, D7 pool), but its
-  motivation weakened: if the binary property is what matters, selecting for it is still sensible,
-  though the "margin-aware selection" angle is gone with H2.
-- **E4** — continual / RS lock-in.
-- Tier-M transfer check for E2's 20 overlap tasks.
+- Implement `RS_ε` (approximate shortcuts) in the oracle. No longer motivated by H7, but still the
+  natural generalisation of `measures.margin`, and cheap.
 - Paper scaffold, reviewer simulation, literature re-sweep.
 
 ## DO NOT BUILD YET
@@ -46,8 +44,8 @@ Only if the evidence arrives — listed as questions, not plans.
 1. ~~Does the *margin* govern symbol grounding?~~ **Answered: no** (E2, H2 falsified).
 2. RS lock-in: hysteresis of shortcuts under sequential constraint arrival. (E4)
 3. Minimum identifying supervision support: complexity and approximation guarantees. (theory)
-4. **Do trained NeSy models leave the deterministic RS set?** E2 says yes, ~22% of the time on
-   heterogeneous tasks. Now the leading candidate (H7).
+4. ~~Do trained NeSy models leave the deterministic RS set?~~ **Answered: essentially no.** 97.1%
+   membership among converged models (H7 rejected).
 
 ## BLOCKING PREREQUISITE FOR SUBMISSION
 Re-read all `[S]`-marked primary sources in `LITERATURE.md` from a network that can reach arXiv and

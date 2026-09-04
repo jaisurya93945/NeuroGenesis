@@ -55,10 +55,12 @@ gave 1.00, **1.00**, 0.30, 0.10 — the `|RS|`=2 cell breaks it. Withdrawn after
 It was labelled exploratory and never claimed; recorded here because withdrawn hypotheses are part
 of the record, not something to quietly drop.
 
-**H7 — NEW, from E2's P5 near-miss.** The deterministic RS set under-specifies what SGD finds:
-`α̂ ∈ RS(T)` held for only 78.4% of converged non-grounding runs on heterogeneous tasks (100% in
-E1's narrow family). Roughly one in five failures lands outside the predicted set — plausibly
-approximate shortcuts `RS_ε` or stochastic optima. Needs its own preregistration.
+**H7 — REJECTED, same session it was proposed.** "The deterministic RS set under-specifies what
+SGD finds." Triage (`scripts/diagnose_h7.py`) shows the shortfall is incomplete convergence, not a
+gap in the formalism: out-of-set runs average `Acc(Y)` 0.908 versus 1.000 for in-set runs, and among
+runs reaching `Acc(Y) ≥ 0.999` only **2.9%** land outside RS (vs 19.0% unrestricted). **97.1%
+membership among models that actually learned the task** — the theory is *more* accurate than the
+preregistered test implied. See `RESULTS.md` §7.5.
 
 ## Standing commitments
 

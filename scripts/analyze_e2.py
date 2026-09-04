@@ -115,6 +115,10 @@ def main() -> None:  # noqa: C901 - a reporting script, linear by design
                 "n_labels": recs[0]["task"]["n_labels"],
                 "k": recs[0]["task"]["k"],
                 "support_size": recs[0]["task"]["support_size"],
+                # rs_membership is only meaningful when the oracle enumerated the
+                # WHOLE set. On a truncated result `contains` can return False for a
+                # genuine shortcut that simply was not among the first `limit` maps.
+                "truncated": bool(recs[0]["oracle"]["truncated"]),
                 "in_rs": [bool(r["metrics"]["test"]["rs_membership"]) for r in gated],
                 "grounded": [bool(r["metrics"]["test"]["acc_c"] > 0.9) for r in gated],
             }
@@ -204,11 +208,19 @@ def main() -> None:  # noqa: C901 - a reporting script, linear by design
     summary["P4"] = {"spearman": s4, "met": bool(s4 > 0)}
 
     # ---- P5: rs_membership among converged non-grounding runs --------------
-    memb = [m for r in ok for m, g in zip(r["in_rs"], r["grounded"], strict=True) if not g]
+    usable = [r for r in ok if not r["truncated"]]
+    n_trunc_rows = len(ok) - len(usable)
+    memb = [m for r in usable for m, g in zip(r["in_rs"], r["grounded"], strict=True) if not g]
     frac = float(np.mean(memb)) if memb else float("nan")
     print(f"\nP5  α̂ ∈ RS among converged NON-grounding runs: {frac:.3f} (n={len(memb)})")
+    print(f"    ({n_trunc_rows} tasks excluded: oracle truncated, membership undefined)")
     print(f"    P5 (predicted ≥ 0.8): {'MET' if frac >= 0.8 else 'NOT MET'}")
-    summary["P5"] = {"frac_in_rs": frac, "n": len(memb), "met": bool(frac >= 0.8)}
+    summary["P5"] = {
+        "frac_in_rs": frac,
+        "n": len(memb),
+        "met": bool(frac >= 0.8),
+        "n_truncated_tasks_excluded": n_trunc_rows,
+    }
 
     summary["rows"] = [{k: v for k, v in r.items() if k not in ("in_rs", "grounded")} for r in ok]
     args.out.parent.mkdir(parents=True, exist_ok=True)
