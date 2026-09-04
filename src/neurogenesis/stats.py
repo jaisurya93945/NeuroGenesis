@@ -115,3 +115,89 @@ def spearman(x: np.ndarray, y: np.ndarray) -> float:
     ry = ry - ry.mean()
     denom = np.sqrt((rx**2).sum() * (ry**2).sum())
     return float((rx * ry).sum() / denom) if denom > 0 else 0.0
+
+
+def _ols_r2(y: np.ndarray, X: np.ndarray) -> float:
+    """R^2 of an ordinary least-squares fit with an intercept."""
+    y = np.asarray(y, dtype=float)
+    X = np.asarray(X, dtype=float)
+    if X.ndim == 1:
+        X = X[:, None]
+    A = np.column_stack([np.ones(len(y)), X])
+    coef, *_ = np.linalg.lstsq(A, y, rcond=None)
+    resid = y - A @ coef
+    ss_res = float((resid**2).sum())
+    ss_tot = float(((y - y.mean()) ** 2).sum())
+    return 1.0 - ss_res / ss_tot if ss_tot > 0 else 0.0
+
+
+def nested_delta_r2(
+    y: np.ndarray,
+    base: np.ndarray,
+    full: np.ndarray,
+    n_boot: int = 10_000,
+    seed: int = 0,
+) -> tuple[float, Estimate]:
+    """``R^2(full) - R^2(base)``, with a bootstrap CI over resampled rows.
+
+    Used to ask whether the margin buys predictive power *over and above* the
+    binary property -- the direct test of H2. Reported with an interval because a
+    point estimate of a difference of fits is easy to over-read.
+    """
+    y = np.asarray(y, dtype=float)
+    base = np.asarray(base, dtype=float)
+    full = np.asarray(full, dtype=float)
+    observed = _ols_r2(y, full) - _ols_r2(y, base)
+
+    rng = np.random.default_rng(seed)
+    n = len(y)
+    boots = np.empty(n_boot)
+    for i in range(n_boot):
+        idx = rng.integers(0, n, size=n)
+        try:
+            boots[i] = _ols_r2(y[idx], full[idx]) - _ols_r2(y[idx], base[idx])
+        except np.linalg.LinAlgError:
+            boots[i] = np.nan
+    boots = boots[~np.isnan(boots)]
+    lo, hi = np.percentile(boots, [2.5, 97.5])
+    return observed, Estimate(observed, float(lo), float(hi), n)
+
+
+def partial_spearman(
+    x: np.ndarray, y: np.ndarray, controls: np.ndarray, n_boot: int = 10_000, seed: int = 0
+) -> Estimate:
+    """Spearman correlation of ``x`` and ``y`` after removing ``controls`` linearly.
+
+    Ranks first, then regresses out the (ranked) controls, then correlates the
+    residuals -- the standard non-parametric partial correlation. This is how H3
+    asks whether ``|RS|`` explains anything that label informativeness does not.
+    """
+    controls = np.asarray(controls, dtype=float)
+    if controls.ndim == 1:
+        controls = controls[:, None]
+
+    def resid(v: np.ndarray, ctl: np.ndarray) -> np.ndarray:
+        rv = _rankdata(v)
+        A = np.column_stack(
+            [np.ones(len(rv))] + [_rankdata(ctl[:, j]) for j in range(ctl.shape[1])]
+        )
+        coef, *_ = np.linalg.lstsq(A, rv, rcond=None)
+        return rv - A @ coef
+
+    observed = spearman(resid(x, controls), resid(y, controls))
+    rng = np.random.default_rng(seed)
+    n = len(x)
+    boots = []
+    for _ in range(n_boot // 10):  # partial correlation is costlier; 1000 resamples
+        idx = rng.integers(0, n, size=n)
+        try:
+            boots.append(
+                spearman(
+                    resid(np.asarray(x)[idx], controls[idx]),
+                    resid(np.asarray(y)[idx], controls[idx]),
+                )
+            )
+        except np.linalg.LinAlgError:
+            continue
+    lo, hi = np.percentile(boots, [2.5, 97.5]) if boots else (np.nan, np.nan)
+    return Estimate(float(observed), float(lo), float(hi), n)
