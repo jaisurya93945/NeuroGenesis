@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neurogenesis"
+version = "0.1.0"
+description = "Does provable identifiability predict empirical symbol grounding in neuro-symbolic learning?"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+dependencies = [
+    "numpy>=2.0",
+    "clingo==5.8.2",
+    "scipy>=1.14",
+    "pandas>=2.2",
+    "matplotlib>=3.9",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+# torch is separate: on a CPU-only host the PyPI wheel drags in ~4 GB of CUDA
+# libraries it cannot use.  See REPRODUCIBILITY.md for the CPU-only recipe.
+torch = ["torch>=2.9,<2.15"]
+dev = ["pytest>=8", "pytest-xdist>=3", "ruff>=0.6", "mypy>=1.11"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "slow: deselect with -m 'not slow'",
+    "needs_mnist: requires the MNIST cache (scripts/download_mnist.py)",
+    "needs_torch: requires torch",
+]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true

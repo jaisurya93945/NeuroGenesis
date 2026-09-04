@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Raw data is downloadable, never committed
+data/raw/
+
+# Run outputs are large + machine-generated; the oracle cache IS committed (see results/README.md)
+results/runs/
+results/figures/
+!results/oracle_cache/
