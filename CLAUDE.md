@@ -19,7 +19,7 @@ informativeness; **H4** greedy RS-cover ≥ information-greedy and ≥ concept s
 ## Status
 | | |
 |---|---|
-| Phase | M1 complete (oracle validated). M2 next (ASP backend). |
+| Phase | M2 complete (oracle triple-validated). M3 next (loss + oracle↔loss binding). |
 | Experiments run | **None yet.** No training results exist. |
 | Paper | Not started; skeleton at M10. |
 
@@ -53,4 +53,4 @@ No fabricated numbers. `RESULTS.md` carries only numbers traceable to a run mani
 labelled a *"potential research gap"* until E1 has run. Negative results are preserved, not buried.
 
 ## Next action
-M2 — clingo ASP backend + differential test against the DFS backend on 500 random tasks.
+M3 — exact-marginalisation NeSy loss + `test_predicted_rs_achieves_zero_loss`, which binds the oracle's combinatorial claim to the objective the trainer actually optimises.

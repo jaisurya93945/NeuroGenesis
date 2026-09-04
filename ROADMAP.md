@@ -1,13 +1,12 @@
 # ROADMAP.md
 
 ## NOW
-**M2 — clingo ASP backend + differential test** against the pruned-DFS backend on 500 random tasks
-(both injectivity settings, both closures). Two independent implementations of one definition is
-the main defence against the project's #1 risk.
+**M3 — NeSy loss (exact marginalisation) + `test_predicted_rs_achieves_zero_loss`.** Binds the
+oracle's combinatorial claim to the objective the trainer actually optimises: hand-construct the
+encoder that emits `α(ground truth)` and assert it reaches zero loss **iff** `α ∈ RS(T)`.
+*The real foundation — no training experiment means anything before this passes.*
 
 ## NEXT
-- **M3** — NeSy loss (exact marginalisation) + `test_predicted_rs_achieves_zero_loss`. Binds the
-  oracle's combinatorial claim to the objective the trainer actually optimises. *The real foundation.*
 - **M4** — training loop, metrics (`Acc(C)`, `F1(C)`, `Cls(C)`, `alpha_hat`, `rs_membership`),
   runtime verification against published MNIST-Addition numbers.
 - **M5** — `paper/preregistration.md`, then **E1**. First falsifiable result.
