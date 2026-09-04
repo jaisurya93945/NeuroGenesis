@@ -102,72 +102,78 @@ per-digit train counts `[5923, 6742, 5958, 6131, 5842, 5421, 5918, 6265, 5851, 5
 
 ## 6. E1 — does provable identifiability predict symbol grounding? (M5)
 
-Preregistered in `paper/preregistration.md`, committed at `f367b1c` **before** any run.
-40 runs (4 conditions × 10 seeds), `y = (c₁ + w·c₂) mod 10` on MNIST digits.
-Reproduce: `bash scripts/reproduce_e1.sh`. Raw records: `results/runs/runs.jsonl`.
+Preregistered in `paper/preregistration.md` **before** any run. 40 runs (4 conditions × 10 seeds),
+`y = (c₁ + w·c₂) mod 10` on MNIST digits. Reproduce: `bash scripts/reproduce_e1.sh`.
 
-### Primary result
+**E1 was run twice.** The first execution happened while a seeding bug meant `init_seed` did not
+control weight initialisation, so those runs could not be regenerated from their recorded seeds.
+The bug was fixed and E1 re-run. **The numbers below are the post-fix run**; the pre-fix records are
+archived at `results/runs/archived_e1_preseedfix.jsonl` and compared in §6.3.
+
+### 6.1 Primary result (post-fix)
 
 | `\|RS\|` | `w` | n (gated) | excluded | test `Acc(C)` mean [95% CI] | test `Acc(Y)` | fraction grounded | `α̂ ∈ RS` |
 |---|---|---|---|---|---|---|---|
-| 1 | 2 | 5 | 5 | **0.9866** [0.9853, 0.9876] | 0.9775 | **1.00** | 1.00 |
-| 2 | 1 | 4 | 6 | 0.4946 [0.0032, 0.9860] | 0.9718 | 0.50 | 1.00 |
-| 5 | 4 | 10 | 0 | 0.2977 [0.1002, 0.5935] | 0.9762 | 0.30 | 1.00 |
-| 10 | 9 | 10 | 0 | **0.0016** [0.0011, 0.0020] | 0.9737 | **0.00** | 1.00 |
+| 1 | 2 | 5 | 5 | **0.9858** [0.9842, 0.9869] | 0.9757 | 1.00 | 1.00 |
+| 2 | 1 | 3 | 7 | 0.9881 [0.9865, 0.9900] | 0.9763 | 1.00 | 1.00 |
+| 5 | 4 | 10 | 0 | 0.2965 [0.0015, 0.5917] | 0.9767 | 0.30 | 1.00 |
+| 10 | 9 | 10 | 0 | **0.0998** [0.0011, 0.2963] | 0.9723 | 0.10 | 1.00 |
 
-- **P1 (monotone non-increasing in `|RS|`): MET.** Means 0.9866 → 0.4946 → 0.2977 → 0.0016.
-  Permutation trend test `p = 0.00005` (reported once, as preregistered; no stars).
-- **P2 (`Acc(C)[|RS|=1] − Acc(C)[|RS|=10] > 0.5`): MET.** Difference **0.9850** [0.9836, 0.9861],
-  Cliff's delta **+1.000** (complete separation).
-- **P3 (identifiable condition grounds in ≥9/10 seeds): partially met.** All 5 *converged* seeds
-  grounded (5/5); the other 5 failed the convergence gate — see the caveat below.
-- **P4 (`Acc(Y)` comparable across conditions): MET among gated runs** (0.972–0.978, right panel of
-  the figure) **but FAILED on exclusion rates** — see caveat.
-- **P5 (`α̂ ∈ RS(T)` in ≥80% of non-grounding runs): MET, at 100%.** Every gated run in every
-  condition recovered an `α̂` inside the oracle-predicted set — 29/29 including all 19 shortcut runs.
+- **P1 (monotone non-increasing in `|RS|`): NOT MET.** `|RS|`=2 sits 0.002 *above* `|RS|`=1.
+  Both are ≈0.986 and the `|RS|`=2 cell has n=3, so this is noise in a thin condition rather than a
+  reversal — but the prediction as written failed, and it is recorded as failed.
+  Permutation trend test `p = 0.00010`.
+- **P2 (`Acc(C)[|RS|=1] − Acc(C)[|RS|=10] > 0.5`): MET.** Difference **0.8860** [0.6892, 0.9852],
+  Cliff's delta **+0.960**.
+- **P3:** all 5 converged seeds in the identifiable condition grounded (5/5); 5 failed the gate.
+- **P4:** gated `Acc(Y)` is flat (0.972–0.977) across all four conditions; exclusion rates are not.
+- **P5 (`α̂ ∈ RS(T)`): MET at 100%**, in every condition, in **both** executions — 57/57 gated runs
+  across the two runs combined. The single most robust finding in the experiment.
 
-**H1 is supported in this family.** `Acc(C)` is bimodal exactly as the design predicted: every run
-lands at ≈0.99 or ≈0.00, never between. Label accuracy is flat at ≈0.975 throughout, confirming the
-field's premise that shortcuts cost nothing in `Acc(Y)`.
+### 6.2 What is and is not established
 
-### The recovered shortcuts are exactly the predicted ones
+**Established.** Tasks with many provable shortcuts ground far worse than identifiable ones
+(`|RS|`=1 → 0.986 versus `|RS|`=10 → 0.100, complete-ish separation, Cliff's delta +0.96), while
+label accuracy is unaffected. Every model that converged landed on a relabelling the oracle had
+predicted in advance — never outside it.
 
-Theory says the shortcuts of `y=(c₁+w·c₂) mod 10` are the shifts `u` with `u(1+w) ≡ 0 (mod 10)`.
-The empirically recovered `α̂` match that set exactly, with nothing outside it:
+**Not established.** The *fine-grained ordering* across intermediate `|RS|`. The `|RS|`=2 condition
+retained only 3 of 10 runs after the convergence gate, and its mean moved by 0.49 between the two
+executions. Nothing should be concluded from the middle of this table.
 
-| `w` | predicted shift set | shifts actually observed |
-|---|---|---|
-| 2 | {0} | {0} |
-| 1 | {0, 5} | {0, 5} |
-| 4 | {0, 2, 4, 6, 8} | {0, 2, 4, 6, 8} — all five |
-| 9 | {0,…,9} | {2,4,5,6,7,8,9} — seven of ten, **never 0** |
+### 6.3 Before/after the seeding fix — the thin cells were never evidence
 
-### Exploratory observation (NOT preregistered — labelled as such)
+`scripts/compare_e1_reruns.py`:
 
-The fraction of runs that ground tracks `1/|RS|` closely:
-
-| `\|RS\|` | 1 | 2 | 5 | 10 |
+| `\|RS\|` | gated old→new | `Acc(C)` old | `Acc(C)` new | Δ |
 |---|---|---|---|---|
-| fraction grounded | 1.00 | 0.50 | 0.30 | 0.00 |
-| `1/\|RS\|` | 1.00 | 0.50 | 0.20 | 0.10 |
+| 1 | 5/10 → 5/10 | 0.9866 | 0.9858 | **−0.0008** |
+| 2 | 4/10 → 3/10 | 0.4946 | 0.9881 | **+0.4935** |
+| 5 | 10/10 → 10/10 | 0.2977 | 0.2965 | **−0.0012** |
+| 10 | 10/10 → 10/10 | 0.0016 | 0.0998 | +0.0982 |
 
-This is consistent with SGD selecting **approximately uniformly at random** among the permitted
-shortcuts, showing no intrinsic preference for the ground-truth grounding. If it holds up it is a
-sharper statement than H1 — symmetry would not merely *permit* shortcuts, it would *set the
-probability* of correct grounding. **It is a post-hoc observation on 29 runs in one task family and
-is not evidence yet.** It requires its own preregistration and its own runs (planned for E2) before
-being treated as anything more than a hypothesis.
+The pattern is clean and worth stating: **the two conditions with 10 gated runs reproduced to three
+decimal places; the conditions with ≤5 did not.** The well-powered cells are stable under a change
+that re-randomised every weight initialisation; the thin cells are not. That is the strongest
+available evidence that the thin cells carried no weight — and they were flagged as thin *before*
+this comparison existed.
 
-### The convergence caveat — diagnosed, and it is part of the phenomenon
+### 6.4 An exploratory pattern that did NOT replicate — withdrawn
 
-E1's exclusion rates were uneven: 5, 6, 0, 0 across `|RS|` = 1, 2, 5, 10. The *low*-`|RS|`
-conditions had many runs that never fit the label (`Acc(Y)` 0.42–0.87 versus ≈0.975 when converged).
-That is the obvious attack on E1, so it was diagnosed before the result was accepted.
+The first execution showed fraction-grounded tracking `1/|RS|` (1.00, 0.50, 0.30, 0.00 vs 1.00,
+0.50, 0.20, 0.10), and it was recorded as exploratory. The re-run gives **1.00, 1.00, 0.30, 0.10**.
+The `|RS|`=2 cell breaks the pattern outright.
 
-`experiments/diag_convergence.py` (50 runs, **dev tasks only**, `tuning_mode=True`) tried five frozen
-recipes on the two extreme conditions:
+**H6 is withdrawn.** It was labelled exploratory, never claimed, and did not survive one replication.
+This is what that label is for.
 
-| recipe | `w=2` (`\|RS\|`=1) converged | `w=9` (`\|RS\|`=10) converged |
+### 6.5 Convergence caveat — diagnosed, and part of the phenomenon
+
+Exclusion rates were uneven (5, 7, 0, 0 post-fix; 5, 6, 0, 0 pre-fix): low-`|RS|` conditions had
+many runs that never fit the label. `experiments/diag_convergence.py` (50 runs, **dev tasks only**)
+tried five frozen recipes:
+
+| recipe | `w=2` (`\|RS\|`=1) | `w=9` (`\|RS\|`=10) |
 |---|---|---|
 | baseline (E1's) | 1/5 | **5/5** |
 | lower lr (3e-4) | 1/5 | **5/5** |
@@ -175,38 +181,17 @@ recipes on the two extreme conditions:
 | longer (30 epochs) | 2/5 | **5/5** |
 | lower lr + longer | 2/5 | **5/5** |
 
-**The asymmetry is robust across every recipe tried.** It is not a hyperparameter artifact, and no
-tuning removes it. The `|RS|`=10 condition converged 25/25; the `|RS|`=1 condition never exceeded 3/5.
+**Robust across every recipe.** `|RS|`=10 converged 25/25; `|RS|`=1 never exceeded 3/5. Not a
+hyperparameter artifact.
 
-E1's own data shows the same monotone pattern in convergence rate:
+*Mechanism hypothesis, not demonstrated:* a task with `|RS|` shortcuts has `|RS|` global optima, so
+more shortcuts give SGD more targets. Optimisation gets easier exactly as identification gets
+harder. Recorded as exploratory **H5**; a finer `|RS|` sweep with convergence rate as the response
+is the test, planned as an E2 readout.
 
-| `\|RS\|` | 1 | 2 | 5 | 10 |
-|---|---|---|---|---|
-| runs passing the gate | 5/10 | 4/10 | 10/10 | 10/10 |
-
-**Interpretation (a mechanism hypothesis, not a demonstrated cause).** A task with `|RS|` shortcuts
-has `|RS|` distinct global optima of the training objective. More shortcuts means more targets for
-SGD to hit, so the *optimisation* problem gets easier as the *identification* problem gets harder.
-Identifiability and optimisability appear to trade off — driven by the same quantity.
-
-This is consistent with all the evidence to hand but is not proven by it; establishing it would need
-a finer sweep over `|RS|` with convergence rate as the response, which is now a planned E2 readout
-rather than a claim.
-
-**What it means for E1.** The differential exclusion is *not* a nuisance confound that better tuning
-would remove — it is an effect of the manipulated variable itself. Two consequences, both stated
-rather than resolved:
-
-1. Among converged runs the comparison stands: gated `Acc(Y)` is flat at 0.972–0.978 across all four
-   conditions, so the surviving runs are matched on how well they fit their own objective.
-2. The `|RS|`=1 and `|RS|`=2 means rest on 5 and 4 runs respectively. **That is thin**, and the
-   `|RS|`=2 confidence interval [0.003, 0.986] spans essentially the whole range — it is reported
-   because hiding a wide interval would be worse, but it carries little weight on its own.
-
-E1's headline contrast (`|RS|`=1 versus `|RS|`=10, difference 0.985, Cliff's delta +1.000, complete
-separation) does not depend on the thin middle conditions. **E1 is no longer labelled provisional
-on this ground**; the caveat is now a documented property of the design rather than an open question.
-The remaining limits are the ordinary ones: one task family, one architecture, `k = 10`, CPU scale.
+This means the differential exclusion is *not* a nuisance confound better tuning would remove — it
+is an effect of the manipulated variable. It also explains why the low-`|RS|` cells are thin: those
+are exactly the conditions that converge least often.
 
 ## 7. Training experiments still outstanding
 

@@ -43,9 +43,11 @@ Support so far: E1 gate-passing rates 5/10, 4/10, 10/10, 10/10 for `|RS|` = 1, 2
 (`RESULTS.md` §6). Not yet a claim — a finer `|RS|` sweep with convergence rate as the response
 variable is the test, planned as an E2 readout.
 
-**H6 — SGD selects near-uniformly among permitted shortcuts.** Fraction grounded tracked `1/|RS|`
-in E1 (1.00, 0.50, 0.30, 0.00 vs 1.00, 0.50, 0.20, 0.10). Post-hoc on 29 runs in one family;
-needs its own preregistration and runs.
+**H6 — WITHDRAWN.** "SGD selects near-uniformly among permitted shortcuts": fraction grounded
+tracked `1/|RS|` in E1's first execution (1.00, 0.50, 0.30, 0.00). The re-run after the seeding fix
+gave 1.00, **1.00**, 0.30, 0.10 — the `|RS|`=2 cell breaks it. Withdrawn after one replication.
+It was labelled exploratory and never claimed; recorded here because withdrawn hypotheses are part
+of the record, not something to quietly drop.
 
 ## Standing commitments
 

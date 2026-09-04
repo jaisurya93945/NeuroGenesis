@@ -20,8 +20,8 @@ informativeness; **H4** greedy RS-cover ≥ information-greedy and ≥ concept s
 | | |
 |---|---|
 | Phase | **M5 complete; E1 run and its convergence caveat diagnosed.** M6–M8 infrastructure built (margin oracle, generators, selection). |
-| Experiments run | **E1 (40 runs).** H1 supported: `Acc(C)` = 0.987 / 0.495 / 0.298 / 0.002 for `\|RS\|` = 1 / 2 / 5 / 10. `α̂ ∈ RS` in 29/29 gated runs. See `RESULTS.md` §6. |
-| Open caveat | E1's differential convergence is **robust across 5 recipes** — an effect of `\|RS\|` itself, not a tuning artifact (new exploratory H5). `\|RS\|`=1 and 2 means rest on 5 and 4 runs: thin. Headline `\|RS\|`=1 vs 10 contrast is unaffected. |
+| Experiments run | **E1, run twice** (before/after a seeding fix). Post-fix `Acc(C)` = 0.986 / 0.988 / 0.297 / 0.100 for `\|RS\|` = 1/2/5/10. P2 met (Δ=0.886, Cliff's δ +0.96); **P1 monotonicity NOT met**; `α̂ ∈ RS` 100% in both runs. See `RESULTS.md` §6. |
+| Open caveat | Thin cells (`\|RS\|`=1,2 keep 5 and 3 of 10 runs) are **unstable across the re-run**; 10-run cells reproduced to 3 decimals. Nothing is concluded from the middle of the table. Exploratory H6 withdrawn — did not replicate. |
 | Paper | Not started; skeleton at M10. |
 
 ## Architecture (one line each)
