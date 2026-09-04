@@ -10,35 +10,16 @@ implemented faithfully, and it is the project's main defence against its #1 risk
 
 from __future__ import annotations
 
-import itertools
-
 import numpy as np
 import pytest
 
-from neurogenesis.concepts import ConceptSpace
+from neurogenesis.generators.random_tasks import random_task
 from neurogenesis.oracle import asp
 from neurogenesis.oracle import enumerate as en
-from neurogenesis.tasks import Task
 
 # k <= 6 keeps the worst case (k**k = 46656 shortcuts under a nearly-empty support)
 # comfortably below the truncation limit, so counts are always exact and comparable.
 LIMIT = 200_000
-
-
-def random_task(rng: np.random.Generator, k: int, n: int, density: float) -> Task:
-    """A task with a random total label table and a random support."""
-    n_labels = int(rng.integers(2, max(3, k) + 1))
-    table = rng.integers(0, n_labels, size=(k,) * n).astype(np.int16)
-    grid = np.array(list(itertools.product(range(k), repeat=n)), dtype=np.int16)
-    n_keep = max(1, int(round(density * len(grid))))
-    support = grid[rng.choice(len(grid), size=n_keep, replace=False)]
-    return Task(
-        name=f"rand_k{k}_n{n}_d{density}",
-        space=ConceptSpace(k=k, n_slots=n),
-        label_table=table,
-        support=support,
-        n_labels=n_labels,
-    )
 
 
 def _cases():
