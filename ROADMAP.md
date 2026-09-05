@@ -1,12 +1,14 @@
 # ROADMAP.md
 
 ## NOW
-**Paper `results.md` and `discussion.md`** — the only sections still pending. Every number comes
-from the `analyze_*.py` scripts.
+**M13 — Tier-M replication.** Everything after E1 is synthetic-perception only. Replicate E3's
+primary instance and a `k ≤ 10` subset of E2 on MNIST digits. If the rank order disagrees with
+Tier S, every Tier-S conclusion is demoted to tier-specific, per `preregistration_e2.md` §3.
 
-## NEXT (independent of the choice above)
-- Tier-M replication of E3's primary instance — everything after E1 is synthetic-perception only.
-- E4 (continual / RS lock-in) remains unrun and is unaffected by E3's outcome.
+## DONE
+- E1–E5 complete (~2,600 runs), each preregistered in a data-free commit.
+- All paper sections written, including `results.md` and `discussion.md`. Every number comes from
+  the `analyze_*.py` scripts.
 
 ## DO NOT BUILD YET
 Distributed execution; a web dashboard; a general probabilistic-logic engine (exact marginalisation

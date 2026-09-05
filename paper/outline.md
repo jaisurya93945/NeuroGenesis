@@ -27,8 +27,8 @@
 | `related_work.md` | RS literature, the two 2026 analysis papers, what is new here | settled |
 | `method.md` | formal setting, the oracle and its triple validation, the loss, metrics | settled |
 | `experiments.md` | protocol, preregistration discipline, gates, seeds | settled |
-| `results.md` | E1–E5, generated from run records | pending E4/E5 |
-| `discussion.md` | why the negative matters; what would change it | pending E4/E5 |
+| `results.md` | E1–E5, generated from run records | written |
+| `discussion.md` | why the negative matters; what would change it | written |
 | `limitations.md` | from `LIMITATIONS.md`, incl. the cost model as load-bearing | settled |
 | `reproducibility.md` | environment, seeds, commands, the two seeding bugs found | settled |
 
