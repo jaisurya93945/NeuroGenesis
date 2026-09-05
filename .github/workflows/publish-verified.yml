@@ -1,0 +1,66 @@
+name: Publish verified commit
+
+# Commits pushed over plain git cannot carry a Verified badge: the badge
+# asserts a signature made with a key belonging to the author, and no
+# automation can hold such a key on their behalf.
+#
+# GitHub's GraphQL createCommitOnBranch is the exception — the server builds
+# the commit and signs it as it does so. Measured behaviour:
+#
+#   committer : GitHub <noreply@github.com>
+#   VERIFIED  : true      reason: valid
+#
+# Authorship follows the token:
+#   * secrets.RESUME_PAT  -> authored by you, Verified
+#   * GITHUB_TOKEN        -> authored by github-actions[bot], Verified
+#
+# Simpler alternative for everyday work: merge a pull request on github.com.
+# GitHub creates that merge commit itself, so it is signed and authored by
+# you with no setup at all. Use this workflow when you want a branch's tree
+# published without opening a PR.
+
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Branch whose tree should be published'
+        required: true
+        default: 'main'
+      target:
+        description: 'Branch to publish onto'
+        required: true
+        default: 'main'
+      message:
+        description: 'Commit message'
+        required: false
+        default: 'Publish verified snapshot'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source }}
+          fetch-depth: 0
+
+      - name: Refuse to publish a branch onto itself
+        if: inputs.source == inputs.target
+        run: |
+          echo "::error::source and target are both '${{ inputs.source }}'. \
+          Publishing a branch onto itself would make an empty commit."
+          exit 1
+
+      - name: Commit the tree through the signing API
+        env:
+          GH_TOKEN: ${{ secrets.RESUME_PAT || secrets.GITHUB_TOKEN }}
+          HEADLINE: ${{ inputs.message }}
+        run: python3 .github/scripts/commit-verified.py --all --branch "${{ inputs.target }}"
+
+      - name: Report the signature
+        env:
+          GH_TOKEN: ${{ secrets.RESUME_PAT || secrets.GITHUB_TOKEN }}
+        run: python3 .github/scripts/report-signature.py
