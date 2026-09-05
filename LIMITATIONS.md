@@ -62,9 +62,16 @@ must grow with vocabulary size while rule cost need not. It does not: label cost
 So the negative no longer rests on a contestable constant; it holds across a 5× range of vocabulary
 size and in the direction that makes selection *less* attractive, not more.
 
-What remains genuinely unmeasured is `τ` itself for real annotators on real domains. That is now the
-only route by which this conclusion could reverse, and it is an HCI/annotation-economics question
-rather than a machine-learning one.
+**What E5 measures, stated precisely.** E5 measures *annotation quantity under this project's
+operational cost model* — how many concept labels and how many authored rules the training protocol
+needs to reach `Acc(C) > 0.9`. It does **not** measure human annotation time or effort, and nothing
+here establishes how those quantities translate into real-world cost. No human-annotation
+measurement was performed.
+
+What remains genuinely unmeasured is therefore `τ` itself — the exchange rate between authoring a
+rule and providing a concept label for real annotators on real domains. That is the only route by
+which this conclusion could reverse, and it is an annotation-economics/HCI question rather than a
+machine-learning one.
 
 ## Threats to validity
 

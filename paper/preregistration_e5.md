@@ -88,3 +88,42 @@ the same prominence as any positive finding.
 
 No prediction is revised after seeing results. A flat `L(k)` ends the design contribution
 permanently, and `RESULTS.md` will say so with the same prominence a positive result would get.
+
+---
+
+## Addendum (written AFTER E5 ran — no prediction altered)
+
+Added in response to reviewer methodological instructions received after the confirmatory runs.
+**Nothing above this line was changed.** Predictions P1–P4, the fixed budget grids, the gate and the
+exclusion rules are exactly as committed in `f135125`, which contains no E5 data
+(`git log --diff-filter=A -- results/runs/e5.jsonl` shows the data first appearing six minutes later
+in `b3a06b3`).
+
+**1. What E5 actually measures.** *Annotation quantity under this project's operational cost model*
+— how many concept labels, and how many authored rules, this training protocol needs to reach
+`Acc(C) > 0.9`. It does **not** measure human annotation time or effort, and no human-annotation
+measurement was performed. The motivation hypothesised that concept supervision becomes more
+expensive as `k` grows; E5 tests the empirical behaviour of this protocol, not universal human-cost
+scaling. Reporting language has been corrected accordingly.
+
+**2. No bisection was used.** §3 said budgets would be found on fixed grids and that is what
+happened: **exhaustive** evaluation of all 8 label budgets × 4 rule budgets × 9 vocabulary sizes ×
+8 seeds = 864 runs. Grounding accuracy was therefore never assumed monotonic in budget, and the full
+budget-response curve is retained for every `k` and seed rather than only the minimum.
+
+**3. `τ` is a reporting parameter, not an experimental one.** The values `{25, 50, 100, 200, 400}`
+were enumerated in §4/P3 before the runs and applied at analysis time. The phrase "plausible `τ`"
+in the prose was loose; the enumerated set is what was tested, and no crossover was assumed —
+P3 reports "none within `k ≤ 30`" for every `τ ≥ 50`.
+
+**4. Which preregistered outcome occurred.** Of the interpretations fixed in advance, the observed
+result is unambiguously the third: **`L(k)` did not increase — it decreased** (Spearman −0.906).
+Therefore **H4 remains rejected**, and the vocabulary-scaling motivation is not supported. The
+prime-power regime (`k = 8, 16`) is reported separately as a **structural boundary of the divisor-rule
+family** — `R(k)` is undefined/infinite *within that family* — and was never mixed into the
+finite-cost crossover analysis.
+
+**5. Scaling model, as a secondary analysis over the tested range only.** The `L(k)` values
+(80, 40, 40, 40, 40, 20, 10 for `k` = 6, 10, 12, 15, 20, 24, 30) are decreasing, so neither a
+constant nor an increasing linear model is supported. No asymptotic claim is made in either
+direction; the finding is bounded to `6 ≤ k ≤ 30` in one cyclic shortcut-group family.

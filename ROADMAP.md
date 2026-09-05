@@ -2,7 +2,8 @@
 
 ## NOW
 **E4** — the last unrun experiment (preregistered, code committed, queued behind E5 for CPU). It is
-independent of the cost question and measures RS lock-in, which no prior work measures directly.
+independent of the cost question and measures RS lock-in. We have not identified prior work
+measuring that quantity directly, but the claim is provisional pending the literature re-sweep.
 
 Then the paper's `results.md` and `discussion.md`, which are the only sections still pending.
 

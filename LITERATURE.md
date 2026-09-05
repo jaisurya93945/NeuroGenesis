@@ -12,6 +12,18 @@ marked accordingly:
 A full re-read of primary sources is a **blocking prerequisite for paper submission** and is
 tracked in `ROADMAP.md`.
 
+## Status of this review: INCOMPLETE
+
+Re-verified on 2026-09-05: `arxiv.org` and `openreview.net` are **still unreachable** from this
+environment (both return no response through the egress proxy). Every entry below therefore remains
+`[S]` — assembled from search-result summaries, never read as a primary source.
+
+**This literature review is not complete, and no claim in this project may rest on it.** It is
+sufficient to establish that the area is active and to locate the open problem being answered; it is
+**not** sufficient to support any statement of novelty. Re-reading the primary sources from a network
+that can reach arXiv is a blocking prerequisite before submission language is written, and that
+requirement is recorded in `ROADMAP.md`.
+
 ## Core matrix
 
 | Work | Venue / year | Problem | Contribution | Relation to us |

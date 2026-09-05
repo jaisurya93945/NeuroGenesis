@@ -15,9 +15,10 @@ A model trained sequentially can:
 > **RS lock-in:** after phase 2, `α̂ ∈ RS(T₁) \ RS(T₁ ∧ T₂)` — the encoder is still implementing a
 > relabelling that the current constraint set rules out.
 
-This is hysteresis in shortcut space. It is cheap to measure with the oracle already built, and
-nothing in the literature measures it directly. It is the distinctive contribution of E4, and it is
-independent of E3's negative outcome.
+This is hysteresis in shortcut space. It is cheap to measure with the oracle already built. **We
+have not identified prior work measuring this quantity directly; that novelty claim is provisional
+pending the literature re-sweep** (`LITERATURE.md` is entirely `[S]`-marked search-summary material,
+not verified primary sources). It is independent of E3's negative outcome.
 
 ## 2. Design
 
@@ -82,3 +83,13 @@ final `Acc(C)` than the reverse order (6 → 3 → 1), difference > 0.05.
 
 No prediction is revised after seeing results. A zero lock-in rate is a real answer, not a failed
 experiment, and will be reported as one.
+
+---
+
+## Addendum (added after E4 ran — predictions unchanged)
+
+This section was written **after** E4's data existed and changes **no prediction**. It records one
+editorial correction made in response to reviewer instruction: the phrase "nothing in the literature
+measures it directly" was an absolute novelty claim and has been softened above to a provisional one
+pending the literature re-sweep. Predictions P1–P4, the analysis plan and the exclusion rules are
+exactly as committed before the runs.
