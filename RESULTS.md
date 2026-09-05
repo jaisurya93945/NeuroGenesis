@@ -454,3 +454,83 @@ preregistration to be more than a story.
 
 Six of eight hypotheses failed. What survives is analysis, not design, and the design question now
 has a decisive negative answer rather than an open one — which is a better outcome than ambiguity.
+
+## 10. E4 — do models keep shortcuts their constraints now forbid? Essentially never. (M12)
+
+Preregistered in `paper/preregistration_e4.md`, committed data-free. 120 streams;
+**98 pass the final-phase gate** `Acc(Y) ≥ 0.99`. Reproduce: `python scripts/analyze_e4.py`.
+
+| order | strategy | n | final `Acc(C)` [95% CI] | lock-in |
+|---|---|---|---|---|
+| greedy | naive | 8 | 0.456 [0.231, 0.669] | 0.00 |
+| greedy | replay | 7 | 0.877 [0.631, 1.000] | 0.00 |
+| greedy | ewc | 8 | 0.438 [0.252, 0.644] | 0.00 |
+| greedy | joint *(ref)* | 8 | 1.000 [1.000, 1.000] | 0.00 |
+| reverse | naive | 8 | 0.665 [0.559, 0.791] | 0.00 |
+| reverse | replay | 7 | **1.000** [1.000, 1.000] | 0.00 |
+| reverse | ewc | 8 | 0.528 [0.418, 0.675] | 0.00 |
+| alt-taskset | naive | 8 | 0.176 [0.021, 0.426] | 0.00 |
+| alt-taskset | joint *(ref)* | 8 | 0.750 [0.375, 1.000] | 0.00 |
+| *(all `cool` cells)* | | **1, 1, 3** | *unusable — see caveat 1* | |
+
+### The headline: RS lock-in is essentially absent
+
+**2 of 98 streams** show a model retaining a shortcut its current constraint set provably forbids —
+and both sit inside the one cell that is unusable (caveat 1). The analysis script reports P1 as
+"MET" on that basis; **that verdict should not be believed**. The honest reading is the preregistered
+alternative: *models escape forbidden shortcuts once the forbidding constraint arrives.*
+
+`preregistration_e4.md` P1 committed in advance to treating this as a real finding rather than a
+failed experiment, so it is reported as one. It also undercuts a motivation the field has for
+concept rehearsal: in this setting the worry that models get *stuck* on stale groundings does not
+materialise. What actually limits sequential grounding is that later constraints are only partly
+exploited — not that earlier shortcuts persist.
+
+### Other preregistered outcomes
+
+- **P2 MET, but weakly.** `replay − naive = 0.241`, CI **[−0.004, 0.472]** — the interval essentially
+  touches zero. Rehearsal helps, but this does not establish by how much.
+- **P3 MET.** Joint 0.917 vs best sequential (replay) 0.673, difference **0.243 [0.018, 0.476]**,
+  CI excluding zero. **Sequential arrival genuinely costs grounding** even when the final constraint
+  set is identical — the clearest positive result in E4.
+- **P4 NOT MET, and directionally reversed.** The *reverse* order (`|RS|` 6→3→1) beat the greedy
+  order (6→2→1): 0.731 vs 0.596, difference **−0.136 [−0.311, 0.038]**. The CI includes zero, so the
+  reversal is not established either — but the prediction that faster shortcut collapse helps
+  is not supported.
+
+### Caveat 1 — differential exclusion destroys the COOL arm (my design error)
+
+Only **1, 1 and 3 of 8** COOL streams pass the gate, against 7–8 for every other arm. Concept
+rehearsal on the model's *own* pseudo-labels pulls the encoder toward its earlier grounding hard
+enough to break current-task label accuracy. That is a real and interesting effect — and it means
+**no comparison involving COOL is interpretable here.** Its apparent 1.000 scores are one or three
+surviving seeds, and the only non-zero lock-in cell is `alt-taskset|cool` at n=3.
+
+This is the same differential-exclusion trap E1 hit, and I did not anticipate it when designing E4.
+**E4 was not re-run to rescue it**: re-running after seeing the outcome is precisely the post-hoc
+rescue this project has refused for five experiments. The exclusion rate *is* the result.
+
+### Caveat 2 — the third arm is a different task set, not a different order (my design error)
+
+The arm labelled `random` uses `mod3_sum` where greedy/reverse use `mod3_c0`. It is therefore a
+**different task set**, not a permutation of the same one, and its joint reference reaches only
+0.750 against 1.000 — the task set itself is harder. It is renamed **`alt-taskset`** above and must
+not be read as evidence about ordering. P4's greedy-vs-reverse comparison is unaffected: those two
+*are* permutations of the same pair.
+
+### A metric that means the opposite of its name here
+
+Reported "forgetting" (`Acc(C)` at phase 1 minus current) is **negative throughout** (−0.24 to
+−0.84) — grounding *improves* across the stream. That is expected: phase 1 has `|RS| = 6` and is
+shortcut-grounded near zero, so later constraints can only help. The quantity is retained for
+comparability with the continual-learning literature, but in this setting it measures *acquisition*,
+not forgetting, and should be read that way.
+
+### Ledger after E4
+
+| hypothesis | outcome |
+|---|---|
+| H1, H3 | supported |
+| H2, H4 (×2), H5, H6, H7 | falsified / demoted / withdrawn / rejected |
+| **RS lock-in** (E4's distinctive measurement) | **essentially absent** — a clean negative |
+| **Sequential arrival costs grounding** (P3) | **supported**, CI excluding zero |

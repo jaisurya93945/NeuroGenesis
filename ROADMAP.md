@@ -1,11 +1,8 @@
 # ROADMAP.md
 
 ## NOW
-**E4** — the last unrun experiment (preregistered, code committed, queued behind E5 for CPU). It is
-independent of the cost question and measures RS lock-in. We have not identified prior work
-measuring that quantity directly, but the claim is provisional pending the literature re-sweep.
-
-Then the paper's `results.md` and `discussion.md`, which are the only sections still pending.
+**Paper `results.md` and `discussion.md`** — the only sections still pending. Every number comes
+from the `analyze_*.py` scripts.
 
 ## NEXT (independent of the choice above)
 - Tier-M replication of E3's primary instance — everything after E1 is synthetic-perception only.

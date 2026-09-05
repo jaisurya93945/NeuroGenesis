@@ -62,6 +62,19 @@ runs reaching `Acc(Y) ≥ 0.999` only **2.9%** land outside RS (vs 19.0% unrestr
 membership among models that actually learned the task** — the theory is *more* accurate than the
 preregistered test implied. See `RESULTS.md` §7.5.
 
+## E4 outcomes (RS lock-in)
+
+**Lock-in — essentially absent.** 2 of 98 gated streams, both inside the one unusable cell.
+Models escape shortcuts once the forbidding constraint arrives. Preregistered as a real finding
+either way; see `RESULTS.md` §10.
+
+**Sequential arrival costs grounding — supported.** Joint 0.917 vs best sequential 0.673,
+difference 0.243 [0.018, 0.476]. The clearest positive result in E4.
+
+**Order (fast vs slow shortcut collapse) — not supported, directionally reversed.** Reverse order
+0.731 vs greedy 0.596, difference −0.136 [−0.311, 0.038]; CI includes zero, so neither direction is
+established.
+
 ## Standing commitments
 
 - Novelty is described as a **"potential research gap"**, never as "novel", until E1 has run.
