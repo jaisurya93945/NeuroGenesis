@@ -389,3 +389,68 @@ a negative answer.
 That is the honest state. It is a publishable negative — the cost comparison against concept
 supervision is exactly the question the JAIR 2026 survey poses, and answering it "no, on this
 instance class" is informative — but it is not the contribution the project set out to make.
+
+## 9. E5 — does the cost verdict flip at larger vocabularies? No. It gets worse. (M11)
+
+Preregistered in `paper/preregistration_e5.md`, committed with no data. 864 runs, absolute gate
+`Acc(Y) ≥ 0.99` — **100% passed**. Reproduce: `python scripts/analyze_e5.py`.
+
+E3 killed H4 at `k = 6`. E5 was the one remaining route to reviving it: the hypothesis that concept
+labels must scale with vocabulary size while rules need not, so the comparison flips at large `k`.
+
+**The asymmetry exists and points the wrong way.**
+
+| `k` | factors | `L(k)` labels to ground | `R(k)` rules to ground | base `Acc(C)` |
+|---|---|---|---|---|
+| 6 | 2·3 | **80** | 2 | 0.125 |
+| 8 | 2³ | 40 | **never** | 0.125 |
+| 10 | 2·5 | 40 | 2 | 0.125 |
+| 12 | 2²·3 | 40 | 2 | 0.000 |
+| 15 | 3·5 | 40 | 2 | 0.000 |
+| 16 | 2⁴ | 40 | **never** | 0.250 |
+| 20 | 2²·5 | 40 | 2 | 0.000 |
+| 24 | 2³·3 | 20 | 2 | 0.000 |
+| 30 | 2·3·5 | **10** | 2 | 0.000 |
+
+- **P1 NOT MET — and reversed.** Predicted Spearman(`k`, `L`) > 0.8; observed **−0.906**.
+  Predicted `L(30)/L(6) ≥ 4`; observed **0.12**. Labels needed to ground *fall* by 8× as the
+  vocabulary grows 5×.
+- **P2 MET.** `R(k) = 2` for every composite `k`, as the combinatorics require.
+- **P3 NOT MET.** A crossover exists only at `τ = 25` and only at `k = 6`. At `τ ≥ 50` there is no
+  `k ≤ 30` where selection is cheaper.
+- **P4 MET.** Prime powers are a structural blind spot: at `k = 8, 16` no rule budget grounds
+  (best `Acc(C)` 0.500 and 0.625), while 40 concept labels do.
+
+### The artifact check that had to pass first
+
+A −0.906 correlation invites the obvious suspicion that large-`k` tasks ground on their own, making
+`L(k)` meaningless. They do not: base `Acc(C)` with zero rules and zero labels is **0.000–0.250 at
+every `k`** (column above). Nothing grounds spontaneously; the labels are doing the work.
+
+### What this means
+
+**H4 is permanently dead.** The cost-model attack was the last route to a design contribution, and
+it failed in the strongest possible way — not ambiguously, but with the key quantity moving opposite
+to the hypothesis. Concept supervision does not merely win at `k = 6`; it becomes **more**
+competitive as vocabularies grow, while rule cost stays flat and rules stop working entirely on
+prime powers.
+
+*Exploratory, not preregistered:* the mechanism is plausibly that breaking a cyclic shortcut group
+needs `O(1)` label information at any `k` — one correctly-labelled concept determines the shift —
+so labels never had to scale. What does scale is how hard it is for SGD to maintain a *consistent*
+30-way rotation while a handful of supervised examples contradict it. That is a hypothesis about
+optimisation dynamics, on 9 vocabulary sizes in one shortcut-group family, and would need its own
+preregistration to be more than a story.
+
+### Ledger after E5
+
+| hypothesis | outcome |
+|---|---|
+| H1 `\|RS\|` predicts grounding | **supported** |
+| H3 survives confound controls | **supported** |
+| H2 margin beats binary | falsified |
+| **H4 selection beats baselines on cost** | **falsified twice** — E3 at `k=6`, E5 across `k ≤ 30` |
+| H5, H6, H7 | demoted / withdrawn / rejected |
+
+Six of eight hypotheses failed. What survives is analysis, not design, and the design question now
+has a decisive negative answer rather than an open one — which is a better outcome than ambiguity.

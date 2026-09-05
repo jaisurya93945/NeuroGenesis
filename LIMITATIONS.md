@@ -44,8 +44,10 @@ quietly dropped:
   once out-of-set runs were shown to be the unconverged ones (2.9% out-of-set among runs reaching
   `Acc(Y) ≥ 0.999`, vs 19.0% unrestricted).
 
-- **H4 (selection beats the baselines on cost) — falsified by E3.** The method works as designed and
-  still loses: concept supervision grounds with 50 labels, greedy needs 2 authored rules.
+- **H4 (selection beats the baselines on cost) — falsified twice.** E3 at `k = 6`; E5 across
+  `k ≤ 30`, where the last defence (that labels scale with vocabulary size) turned out to be
+  backwards — labels needed *fall* 8× as `k` grows 5×, while rules stay flat and fail entirely on
+  prime powers.
 
 What remains is H1/H3 — real, robust, and a generalisation of known results rather than a new
 mechanism — plus the corrected membership result (97.1%), which strengthens the *existing* theory
@@ -53,10 +55,16 @@ rather than replacing it. That is a smaller claim than the project set out to ma
 as such. E3 was the remaining route to a design contribution and it closed. **The project's honest status
 is a well-executed negative result**, not the mitigation it set out to build.
 
-**The single load-bearing assumption in that negative result** is the cost model: `cost(rule) = τ`
-versus `cost(concept label) = 1`. E3's verdict reduces to "50 concept labels are cheaper than 2
-authored rules". Nobody has measured that, here or in the literature, and it decides the entire
-question. It is the most attackable point of the finding and is flagged as such rather than buried.
+**The cost model was the load-bearing assumption, and E5 tested it.** E3's verdict reduced to
+"50 concept labels are cheaper than 2 authored rules", which depends on an unmeasured exchange rate
+`τ`. E5 attacked the one structural argument that could have made `τ` irrelevant — that label cost
+must grow with vocabulary size while rule cost need not. It does not: label cost *falls* with `k`.
+So the negative no longer rests on a contestable constant; it holds across a 5× range of vocabulary
+size and in the direction that makes selection *less* attractive, not more.
+
+What remains genuinely unmeasured is `τ` itself for real annotators on real domains. That is now the
+only route by which this conclusion could reverse, and it is an HCI/annotation-economics question
+rather than a machine-learning one.
 
 ## Threats to validity
 

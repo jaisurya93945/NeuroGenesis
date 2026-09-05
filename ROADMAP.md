@@ -1,35 +1,10 @@
 # ROADMAP.md
 
 ## NOW
-**A direction decision, and it is the user's to make.** E3 answered the design question and the
-answer is no (`RESULTS.md` §8). Five of seven hypotheses have failed, including both proposed
-contributions. The machinery is correct and well-tested; the science did not go where it was aimed.
+**E4** — the last unrun experiment (preregistered, code committed, queued behind E5 for CPU). It is
+independent of the cost question and measures RS lock-in, which no prior work measures directly.
 
-Three defensible options, in the order I would rank them:
-
-**A. Write up the negative result as it stands.** The cost comparison against concept supervision is
-precisely the question the JAIR 2026 survey poses, and "no, not on this instance class" is a real
-answer supported by 1382 preregistered runs. Add: a Tier-M replication, a wider instance class than
-`mod k`, and an honest scope statement. This is the shortest path to something submittable, most
-likely as a workshop paper or a short empirical note. Its weakness is that a negative result on one
-instance family is thin.
-
-**B. Attack the cost model instead of the method.** E3's verdict rests entirely on "50 concept
-labels < 2 authored rules". That is an *empirical* claim about annotation effort that nobody has
-measured, and it decides the whole question. Measuring it — or finding a regime where rules are
-genuinely cheap (rules reused across many tasks, rules already existing as domain knowledge,
-rules covering large concept spaces where labelling scales but rule-writing does not) — could
-overturn P4 legitimately. The `k`-scaling angle is the strongest: concept-label cost grows with
-`k`, rule cost may not.
-
-**C. Change the question to one the evidence supports.** The most robust result in the project is
-that the oracle predicts *which* wrong grounding a converged model adopts (97.1%). That is a
-prediction about failure modes, not a mitigation. "Given a task, which shortcut will your model
-take?" is answerable, useful for diagnosis, and already largely evidenced.
-
-**I recommend B**, because it is the only option that could restore a design contribution and its
-central claim is genuinely untested rather than already refuted. But this is a research-direction
-call with no purely technical answer, so it goes to the user.
+Then the paper's `results.md` and `discussion.md`, which are the only sections still pending.
 
 ## NEXT (independent of the choice above)
 - Tier-M replication of E3's primary instance — everything after E1 is synthetic-perception only.
