@@ -17,7 +17,8 @@ from pathlib import Path
 
 import numpy as np
 
-from neurogenesis.data.tuples import make_synthetic_codebook, render_synthetic
+from neurogenesis.data import mnist
+from neurogenesis.data.tuples import make_synthetic_codebook, render_mnist, render_synthetic
 from neurogenesis.generators.algebraic import modular_task
 from neurogenesis.generators.pool import divisor_modular_pool
 from neurogenesis.models.encoders import build_encoder
@@ -37,12 +38,16 @@ NOISE, DIM, N_TRAIN, N_EVAL, EPOCHS = 0.1, 32, 8000, 1500, 30
 CONCEPT_BUDGETS = (25, 50, 100, 200, 400)
 TASK_BUDGETS = (0, 1, 2, 3)
 
+#: Tier M (MNIST digits) recipe, frozen by the dev screen in ``paper/preregistration_e6.md``.
+#: Kept separate from the Tier S constants above so a replication cannot silently retune Tier S.
+M_N_TRAIN, M_N_EVAL, M_EPOCHS = 8000, 1500, 30
+
 
 def base_and_pool(k: int):
     return modular_task([1, k - 1], k), divisor_modular_pool(k)
 
 
-def selections(k: int) -> list[dict]:
+def selections(k: int, concept_budgets: tuple[int, ...] = CONCEPT_BUDGETS) -> list[dict]:
     """Every (method, budget) cell, resolved to a concrete task subset."""
     base, pool = base_and_pool(k)
     out: list[dict] = []
@@ -78,29 +83,48 @@ def selections(k: int) -> list[dict]:
     # the distractor-only arm (P5): costs budget, eliminates nothing
     inv = [i for i, t in enumerate(pool) if t.meta.get("shift_invariant")]
     out.append({"method": "distractors_only", "budget": len(inv), "idx": inv})
-    for n in CONCEPT_BUDGETS:
+    for n in concept_budgets:
         out.append({"method": "concept_supervision", "budget": 0, "idx": [], "n_labels": n})
     return out
 
 
-def _run(job: tuple[int, dict, int]) -> dict:
-    k, sel, seed = job
+def _render(base, k: int, seed: int, tier: str):
+    """Tier S = synthetic codebook vectors; Tier M = MNIST digit images.
+
+    The only thing that changes between tiers is perception. The task, the pool, the
+    oracle and the selection methods are identical, which is what makes the
+    replication a test of the *conclusion* rather than of a different experiment.
+    """
+    rng = np.random.default_rng(seed)
+    if tier == "M":
+        data = mnist.load()
+        tr = render_mnist(base, M_N_TRAIN, "train", data, rng)
+        te = render_mnist(base, M_N_EVAL, "test", data, rng)
+        return tr, te, "cnn", {}, M_EPOCHS
+    book = make_synthetic_codebook(k, DIM, np.random.default_rng(12345))
+    tr = render_synthetic(base, N_TRAIN, book, NOISE, rng)
+    te = render_synthetic(base, N_EVAL, book, NOISE, rng, "test")
+    return tr, te, "mlp", {"in_dim": DIM}, EPOCHS
+
+
+def _run(job: tuple[int, dict, int, str, int | None]) -> dict:
+    k, sel, seed, tier, epochs_override = job
     base, pool = base_and_pool(k)
     tasks = [base] + [pool[i] for i in sel["idx"]]
     rs = en.rs_set(tasks, **ORACLE)
 
-    book = make_synthetic_codebook(k, DIM, np.random.default_rng(12345))
-    rng = np.random.default_rng(seed)
-    tr = render_synthetic(base, N_TRAIN, book, NOISE, rng)
-    te = render_synthetic(base, N_EVAL, book, NOISE, rng, "test")
+    tr, te, kind, enc_kwargs, epochs = _render(base, k, seed, tier)
+    if epochs_override is not None:
+        epochs = epochs_override
 
-    enc = build_encoder("mlp", k=k, in_dim=DIM, seed=seed)
+    # seed inside the factory, before the weights are drawn -- never afterwards
+    enc = build_encoder(kind, k=k, seed=seed, **enc_kwargs)
     res = train_multitask(
         tasks,
         enc,
         tr,
         {"test": te},
-        TrainConfig(epochs=EPOCHS, encoder="mlp"),
+        TrainConfig(epochs=epochs, encoder=kind),
         seed,
         rs=rs,
         n_concept_labels=sel.get("n_labels", 0),
@@ -108,6 +132,7 @@ def _run(job: tuple[int, dict, int]) -> dict:
     m = res.metrics["test"]
     return {
         "experiment": "e3",
+        "tier": tier,
         "k": k,
         "method": sel["method"],
         "budget": sel["budget"],
@@ -132,11 +157,31 @@ def main() -> None:
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--seeds", type=int, default=8)
     ap.add_argument("--ks", type=int, nargs="+", default=[6, 8])
+    ap.add_argument("--tier", choices=["S", "M"], default="S")
+    ap.add_argument("--seed-offset", type=int, default=0, help="use >=900 for dev screens")
+    ap.add_argument("--methods", nargs="+", default=None, help="restrict to these methods")
+    ap.add_argument("--concept-budgets", type=int, nargs="+", default=list(CONCEPT_BUDGETS))
+    ap.add_argument("--epochs", type=int, default=None, help="override the frozen tier recipe")
     ap.add_argument("--store", type=Path, default=STORE)
     args = ap.parse_args()
 
-    jobs = [(k, sel, s) for k in args.ks for sel in selections(k) for s in range(args.seeds)]
-    print(f"E3: {len(jobs)} runs ({len(args.ks)} instances, {args.seeds} seeds)", flush=True)
+    if args.tier == "M" and max(args.ks) > 10:
+        raise SystemExit("Tier M renders MNIST digits: k <= 10")
+
+    sels = {k: selections(k, tuple(args.concept_budgets)) for k in args.ks}
+    if args.methods:
+        keep = set(args.methods)
+        sels = {k: [s for s in v if s["method"] in keep] for k, v in sels.items()}
+    jobs = [
+        (k, sel, args.seed_offset + s, args.tier, args.epochs)
+        for k in args.ks
+        for sel in sels[k]
+        for s in range(args.seeds)
+    ]
+    print(
+        f"E3 (tier {args.tier}): {len(jobs)} runs ({len(args.ks)} instances, {args.seeds} seeds)",
+        flush=True,
+    )
 
     args.store.parent.mkdir(parents=True, exist_ok=True)
     with ProcessPoolExecutor(max_workers=args.workers) as ex:
