@@ -124,6 +124,27 @@ class MultiTaskNeSyModel(nn.Module):
             total = li if total is None else total + li
         return total / len(self.tasks)
 
+    def loss_subset(
+        self, x: torch.Tensor, labels: torch.Tensor, task_indices: list[int]
+    ) -> torch.Tensor:
+        """Loss from only the named tasks -- the continual setting's supervision.
+
+        In a sequential stream the model is shown one task at a time, so it must be
+        possible to compute a loss over a subset while the masks for every task
+        remain registered (rehearsal and evaluation still need them). ``labels`` is
+        ``(B, n_tasks)``; only the listed columns are used.
+        """
+        slot_lp = self.slot_log_probs(x)
+        total = None
+        for i in task_indices:
+            li = semantic_nll(slot_lp, labels[:, i], self._mask(i)).mean()
+            total = li if total is None else total + li
+        return total / max(1, len(task_indices))
+
+    def masks(self) -> list[torch.Tensor]:
+        """All registered label masks, in task order."""
+        return [self._mask(i) for i in range(len(self.tasks))]
+
     @torch.no_grad()
     def predict(self, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
         """Predicted label for the **primary** task (index 0), plus concepts."""

@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+title: "NeuroGenesis: provable identifiability and the cost of symbol grounding"
+message: "If you use this software or its findings, please cite it."
+type: software
+authors:
+  - alias: jaisurya93945
+repository-code: "https://github.com/jaisurya93945/NeuroGenesis"
+abstract: >-
+  A preregistered study of reasoning shortcuts in neuro-symbolic learning. The
+  size of the reasoning-shortcut set, computed offline before training, predicts
+  whether a model grounds its concepts, and the oracle predicts which wrong
+  grounding a converged model adopts. Selecting auxiliary tasks by shortcut
+  coverage collapses that set optimally and still loses on cost to plain concept
+  supervision -- a negative answer to an open question posed by the 2026 JAIR
+  survey on symbol grounding. Includes a triple-validated shortcut oracle, all
+  raw run records, and the preregistrations committed before each experiment ran.
+keywords:
+  - neuro-symbolic
+  - reasoning shortcuts
+  - symbol grounding
+  - identifiability
+  - preregistration
+  - negative results
+license: MIT

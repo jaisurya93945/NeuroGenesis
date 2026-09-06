@@ -24,7 +24,7 @@ handful of very low-probability support tuples (`generators/threadbare.py` const
 `H(Y)`, `|Y|`, `k`, `n`, render noise, and the realised-vs-declared support gap. Partial Spearman
 with bootstrap CI; residual scatter shown, not just a coefficient.
 
-**H4 — FALSIFIED by E3.** Greedy RS-cover works as designed (grounds at budget 2, matches the exhaustive optimum, beats information-greedy which never grounds and random by +0.625) but **loses on cost**: the cheapest concept supervision that grounds needs 50 labels, so greedy wins only if authoring a rule costs under 25 labels. See `RESULTS.md` §8.2. Original statement: Greedy RS-cover selection ≥ information-greedy
+**H4 — FALSIFIED TWICE (E3, then E5).** E5 tested the last defence — that labels scale with vocabulary size so the verdict flips at large `k`. The opposite holds: Spearman(`k`, `L`) = **−0.906**, labels needed *fall* from 80 at `k=6` to 10 at `k=30` while rules stay flat at 2. Concept supervision gets *more* competitive as vocabularies grow. See `RESULTS.md` §9. Original E3 finding: Greedy RS-cover works as designed (grounds at budget 2, matches the exhaustive optimum, beats information-greedy which never grounds and random by +0.625) but **loses on cost**: the cheapest concept supervision that grounds needs 50 labels, so greedy wins only if authoring a rule costs under 25 labels. See `RESULTS.md` §8.2. Original statement: Greedy RS-cover selection ≥ information-greedy
 selection and ≥ per-concept supervision at matched annotation cost, on `Acc(C)`, across the whole
 budget curve (not at one cherry-picked point).
 
@@ -61,6 +61,19 @@ gap in the formalism: out-of-set runs average `Acc(Y)` 0.908 versus 1.000 for in
 runs reaching `Acc(Y) ≥ 0.999` only **2.9%** land outside RS (vs 19.0% unrestricted). **97.1%
 membership among models that actually learned the task** — the theory is *more* accurate than the
 preregistered test implied. See `RESULTS.md` §7.5.
+
+## E4 outcomes (RS lock-in)
+
+**Lock-in — essentially absent.** 2 of 98 gated streams, both inside the one unusable cell.
+Models escape shortcuts once the forbidding constraint arrives. Preregistered as a real finding
+either way; see `RESULTS.md` §10.
+
+**Sequential arrival costs grounding — supported.** Joint 0.917 vs best sequential 0.673,
+difference 0.243 [0.018, 0.476]. The clearest positive result in E4.
+
+**Order (fast vs slow shortcut collapse) — not supported, directionally reversed.** Reverse order
+0.731 vs greedy 0.596, difference −0.136 [−0.311, 0.038]; CI includes zero, so neither direction is
+established.
 
 ## Standing commitments
 
