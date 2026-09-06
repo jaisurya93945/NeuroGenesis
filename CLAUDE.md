@@ -19,10 +19,12 @@ informativeness; **H4** greedy RS-cover ≥ information-greedy and ≥ concept s
 ## Status
 | | |
 |---|---|
-| Phase | **All five experiments complete (E1–E5, ~2,600 runs).** Six of eight hypotheses failed; H4 falsified twice. Remaining: Tier-M replication, literature re-sweep, paper results/discussion. |
+| Phase | **E1–E5 complete (~2,600 runs); paper drafted in full.** Six of eight hypotheses failed; H4 falsified twice. **E6 (Tier-M replication) is IN FLIGHT** — preregistered data-free in `529146e`. |
 | Experiments run | **E1, run twice** (before/after a seeding fix). Post-fix `Acc(C)` = 0.986 / 0.988 / 0.297 / 0.100 for `\|RS\|` = 1/2/5/10. P2 met (Δ=0.886, Cliff's δ +0.96); **P1 monotonicity NOT met**; `α̂ ∈ RS` 100% in both runs. See `RESULTS.md` §6. |
 | Open caveat | Thin cells (`\|RS\|`=1,2 keep 5 and 3 of 10 runs) are **unstable across the re-run**; 10-run cells reproduced to 3 decimals. Nothing is concluded from the middle of the table. Exploratory H6 withdrawn — did not replicate. |
-| Paper | Not started; skeleton at M10. |
+| Paper | All sections written. `results.md` and `discussion.md` landed in `3973061`; every number regenerates byte-identically from `results/runs/*.jsonl` via `scripts/reproduce_all.sh`. |
+| ⚠️ In flight | `results/runs/e6.jsonl` is **partial (264 runs expected)** and not analysable. The E2-subset arm (P3) has not started. |
+| Literature | Re-sweep retried 2026-09-06 with web tooling: search works, **every primary source is egress-blocked** (arxiv, JAIR, ACM, OpenReview, CEUR, neurips.cc). Still `[S]`, still blocking for novelty language. Two summary findings now recorded because they cut against us — see `LITERATURE.md`. |
 
 ## Architecture (one line each)
 - `concepts.py` — `ConceptSpace(k, n_slots)`, the latent vocabulary.
@@ -59,4 +61,9 @@ No fabricated numbers. `RESULTS.md` carries only numbers traceable to a run mani
 labelled a *"potential research gap"* until E1 has run. Negative results are preserved, not buried.
 
 ## Next action
-Write `paper/results.md` and `paper/discussion.md` from the analysis scripts, then the Tier-M replication (M13). The literature re-sweep stays **blocking** for any novelty language — arXiv is still unreachable (re-verified 2026-09-05).
+Wait for E6 to finish (264 runs), then `scripts/analyze_e6_tierm.py`, then run the E2-subset arm
+(`experiments/e2_margin_vs_binary.py --tier M --seeds 3 --store results/runs/e6_e2subset.jsonl`) for
+P3. Write E6 into `RESULTS.md` and the paper **whichever way it comes out** — a P4 failure means
+greedy wins on cost under real perception and H4 is partially revived, and
+`preregistration_e6.md` §6 commits to reporting that as a headline. The literature re-sweep stays
+**blocking** for any novelty language — every primary source is egress-blocked here (2026-09-06).
