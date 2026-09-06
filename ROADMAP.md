@@ -1,9 +1,17 @@
 # ROADMAP.md
 
 ## NOW
-**M13 — Tier-M replication.** Everything after E1 is synthetic-perception only. Replicate E3's
-primary instance and a `k ≤ 10` subset of E2 on MNIST digits. If the rank order disagrees with
-Tier S, every Tier-S conclusion is demoted to tier-specific, per `preregistration_e2.md` §3.
+**M13 / E6 — Tier-M replication, IN FLIGHT.** Everything after E1 is synthetic-perception only.
+Preregistered data-free in `529146e` (`paper/preregistration_e6.md`); the confirmatory run is
+executing now.
+
+> ⚠️ **`results/runs/e6.jsonl` is a PARTIAL, IN-FLIGHT store — 264 runs expected, not yet complete.
+> It is not analysable and no number from it may be reported until the run finishes.** The same
+> marker was used for the E5 snapshot in `5e5a3f4`.
+
+The E2-subset arm (P3, 24 tasks × 3 seeds → `results/runs/e6_e2subset.jsonl`) has not started.
+If the rank order disagrees with Tier S, every Tier-S conclusion is demoted to tier-specific, per
+`preregistration_e2.md` §3.
 
 ## DONE
 - E1–E5 complete (~2,600 runs), each preregistered in a data-free commit.
