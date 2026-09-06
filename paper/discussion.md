@@ -82,9 +82,26 @@ fixed surjection onto a smaller label set), and re-measure `L(k)`. If `L` stops 
 reversal was a label-alphabet effect and the vocabulary-scaling argument is untested rather than
 refuted. That experiment is specified but not run, and no claim here depends on its outcome.
 
+**A tension with the literature, stated rather than omitted.** Search summaries of the RS literature
+report that the concept supervision required *grows linearly with the number of possible concept
+combinations* — which is the assumption E5 was built to test, and E5 found the opposite sign. The two
+may not actually conflict: the literature statement appears to concern concept combinations (`k^n`,
+an asymptotic claim) while E5 measures empirical labels-to-ground for one training protocol at
+`n = 2` within a single cyclic family, over `6 ≤ k ≤ 30`. We cannot currently tell, because the
+primary sources are unreachable from this environment (`LITERATURE.md`), and we will not adjudicate
+a published claim from a search summary. **Verifying the exact form of that claim is the highest
+priority item in the blocking re-sweep**, and if it does concern the same quantity, E5's reversal
+becomes a finding that needs explaining rather than a settled negative.
+
 ## What would overturn the negative
 
-Three routes, in decreasing order of how much they threaten the conclusion.
+Three routes, in decreasing order of how much they threaten the conclusion. First, though, a caveat
+that runs the *other* way and so belongs before them: our concept-supervision baseline selects labels
+**at random**, and search summaries of the RS literature report active-learning selection reaching
+>90% concept accuracy in ~50 queries against ~75% for random sampling. If that holds, the baseline
+that already beats shortcut-cover selection is the *weak* form of itself, and strengthening it would
+widen the gap rather than close it. None of the three routes below is helped by this; it is recorded
+because it is the honest direction of the error.
 
 **1. Non-cyclic shortcut groups.** Every base task studied has a cyclic shortcut group `Z_k`, which
 has a special property: one correctly identified concept determines the entire shift. That is very

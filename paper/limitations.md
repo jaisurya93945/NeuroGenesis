@@ -16,6 +16,16 @@ instance class studied. That is bounded in specific ways:
   *scaling* argument, but the exchange rate for real annotators on real domains is still unmeasured
   — and it is now the only route by which the conclusion could reverse. That is an
   annotation-economics question rather than a machine-learning one.
+- **The concept-supervision baseline is the weak form, which understates the negative.** Labels are
+  selected **at random**. Search summaries of the RS literature report active-learning selection
+  reaching >90% concept accuracy in ~50 queries against ~75% for random sampling
+  (`LITERATURE.md`, re-sweep 2026-09-06, still `[S]`). A stronger baseline would widen the gap
+  against shortcut-cover selection, not close it, so this limitation cannot rescue H4.
+- **A published claim we could not check.** Search summaries state that required concept supervision
+  "grows linearly with the number of possible concept combinations", which is the assumption E5 tested
+  and found reversed in sign. The two may address different quantities (`k^n` asymptotics versus
+  empirical labels-to-ground at `n = 2`), but we cannot adjudicate it without the primary source,
+  which is egress-blocked here. It is the top item in the blocking re-sweep.
 
 ## Scope of the positive results
 

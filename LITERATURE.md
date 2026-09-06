@@ -18,6 +18,38 @@ Re-verified on 2026-09-05: `arxiv.org` and `openreview.net` are **still unreacha
 environment (both return no response through the egress proxy). Every entry below therefore remains
 `[S]` — assembled from search-result summaries, never read as a primary source.
 
+### Re-sweep attempt, 2026-09-06 — still blocked, but two findings that change the write-up
+
+A second attempt used the session's web tooling rather than `curl`. **Web *search* works; fetching
+any primary source does not.** Confirmed blocked by the egress proxy, each with an explicit
+`EGRESS_BLOCKED` response: `arxiv.org`, `dl.acm.org`, `www.jair.org`, `openreview.net`,
+`ceur-ws.org`, `neurips.cc`, `www.alphaxiv.org`. The proxy's `noProxy` allowlist covers package
+registries only, so this is the environment's network policy, not a transient failure.
+**The review therefore remains INCOMPLETE and every entry stays `[S]`.**
+
+Search summaries did, however, surface two things that bear directly on our results and are recorded
+here because they cut *against* or *around* our own findings, not in favour of them:
+
+1. **A literature claim in tension with E5.** Summaries state that "the amount of concept supervision
+   required grows linearly with the number of possible concept combinations." E5 measured
+   labels-to-ground *decreasing* in `k` (Spearman −0.906). These are not necessarily contradictory —
+   the literature claim appears to concern concept *combinations* (`k^n`, an asymptotic/theoretical
+   statement) while E5 measures empirical labels-to-ground for one protocol at `n = 2` in one cyclic
+   family — but the tension is real, it is exactly the assumption E5 was built to test, and it must
+   be confronted rather than omitted. **Verifying the precise form of that claim against the primary
+   source is now the single most important item in the blocking re-sweep.**
+2. **Our concept-supervision baseline is the weak form.** Summaries report active-learning selection
+   of concept labels reaching >90% accuracy in ~50 queries against ~75% for random sampling. E3/E5
+   supervise on **randomly chosen** labels. So the baseline that already beats shortcut-cover
+   selection is the *weaker* version of itself; a stronger one would widen the gap. This makes our
+   negative result more robust, and is recorded in `LIMITATIONS.md` as such.
+
+Bibliographic metadata upgraded by this sweep (still `[S]` for *claims*): the survey is Marconato,
+Bortolotti, van Krieken, Morettin, Umili, Vergari, Tsamoura, Passerini & Teso, *Symbol Grounding in
+Neuro-Symbolic AI: A Gentle Introduction to Reasoning Shortcuts*, **JAIR 86, Article 40, July 2026**,
+63 pp. Search summaries also restate the survey's open problem in the form we rely on: "it remains
+unclear how to construct such tasks effectively" for multitask removal of reasoning shortcuts.
+
 **This literature review is not complete, and no claim in this project may rest on it.** It is
 sufficient to establish that the area is active and to locate the open problem being answered; it is
 **not** sufficient to support any statement of novelty. Re-reading the primary sources from a network
