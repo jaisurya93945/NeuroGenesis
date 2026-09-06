@@ -78,16 +78,34 @@ def task_specs() -> list[TaskSpec]:
     return out
 
 
-def build_configs(n_seeds: int) -> list[RunConfig]:
+#: Tier M (MNIST) overrides for the E6 replication arm. MNIST supplies 10 digits, so
+#: only k <= 10 tasks can be rendered; noise/dim are Tier-S-only and are dropped.
+M_DATA = dict(tier="M", n_train=8000, n_val=1500, n_test=1500)
+
+
+def tier_m_subset(every: int = 7) -> list[TaskSpec]:
+    """A spread-out `k <= 10` subset of the E2 task set, for the Tier-M replication.
+
+    Taking every ``every``-th eligible spec keeps all five generator families
+    represented rather than over-sampling whichever family happens to come first.
+    """
+    eligible = [s for s in task_specs() if (s.k or s.m) <= 10]
+    return eligible[::every]
+
+
+def build_configs(n_seeds: int, tier: str = "S", specs: list[TaskSpec] | None = None):
+    specs = specs if specs is not None else task_specs()
+    data = M_DATA if tier == "M" else DATA
+    encoder = "cnn" if tier == "M" else "mlp"
     return [
         RunConfig(
-            experiment="e2",
+            experiment="e2" if tier == "S" else "e6_e2subset",
             task=spec,
-            data=DataSpec(**DATA, data_seed=s),
-            model=ModelSpec(encoder="mlp", init_seed=s),
+            data=DataSpec(**data, data_seed=s),
+            model=ModelSpec(encoder=encoder, init_seed=s),
             optim=OptimSpec(**OPTIM),
         )
-        for spec in task_specs()
+        for spec in specs
         for s in range(n_seeds)
     ]
 
@@ -108,15 +126,18 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--seeds", type=int, default=5)
+    ap.add_argument("--tier", choices=["S", "M"], default="S")
+    ap.add_argument("--subset-every", type=int, default=7, help="Tier M: take every Nth k<=10 task")
     ap.add_argument("--store", type=Path, default=DEFAULT_STORE)
     args = ap.parse_args()
 
-    configs = build_configs(args.seeds)
+    specs = tier_m_subset(args.subset_every) if args.tier == "M" else task_specs()
+    configs = build_configs(args.seeds, args.tier, specs)
     done = existing_hashes(args.store)
     todo = [c for c in configs if c.config_hash() not in done]
     print(
-        f"E2: {len(task_specs())} tasks, {len(configs)} runs, {len(todo)} to do, "
-        f"{args.workers} workers",
+        f"E2 (tier {args.tier}): {len(specs)} tasks, {len(configs)} runs, "
+        f"{len(todo)} to do, {args.workers} workers",
         flush=True,
     )
 

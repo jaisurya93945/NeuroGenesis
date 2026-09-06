@@ -35,6 +35,12 @@ for e in e4 e5; do
   fi
 done
 
+if [ -f "results/runs/e6.jsonl" ]; then
+  echo
+  echo "== E6: does the negative survive real perception (Tier M, MNIST)? =="
+  $PY scripts/analyze_e6_tierm.py
+fi
+
 echo
 echo "== figures =="
 $PY scripts/make_all_figures.py
@@ -49,4 +55,6 @@ To re-run the experiments from scratch (hours, not minutes):
   python experiments/e3_selection.py        --workers 4 --seeds 8
   python experiments/e4_continual.py        --workers 4 --seeds 8
   python experiments/e5_cost_scaling.py     --workers 4 --seeds 8
+  python experiments/e3_selection.py --tier M --ks 6 --seeds 8 \
+         --concept-budgets 2 5 10 15 25 50 --workers 4 --store results/runs/e6.jsonl
 NOTE

@@ -49,8 +49,9 @@ contrast does not depend on it.
 
 ## E2 — Does a graded margin predict better? No.
 
-155 tasks from five generator families × 5 seeds = 830 runs, synthetic perception. After the declared
-exclusions (2 degenerate `|Y|=1`, 1 truncated oracle), **152 analysable tasks**.
+166 task specifications from five generator families × 5 seeds = 830 runs, synthetic perception. Some
+specifications coincide (an algebraic task can be an addition task), leaving **155 distinct tasks**;
+after the declared exclusions (2 degenerate `|Y|=1`, 1 truncated oracle), **152 are analysable**.
 
 - **H2 falsified.** Adding `margin(T)` to a model that already knows binary identifiability yields
   `ΔR² = 0.0015` [0.0004, 0.0042]. The interval excludes zero, so the letter of P1 reads "met" — it

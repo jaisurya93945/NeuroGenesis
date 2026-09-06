@@ -17,7 +17,6 @@ from collections.abc import Iterable, Iterator
 from pathlib import Path
 
 import numpy as np
-import torch
 
 from .config import RunConfig, environment_fingerprint
 from .data import mnist
@@ -126,9 +125,15 @@ def run(cfg: RunConfig, store: Path | None = DEFAULT_STORE, verbose: bool = Fals
     in_dim = cfg.data.dim if cfg.data.tier == "S" else None
     # Seed BEFORE the encoder exists: torch initialises weights at construction
     # time, so seeding afterwards (as train() also does, for batch order) leaves
-    # the initialisation uncontrolled and the run unreproducible.
-    torch.manual_seed(cfg.model.init_seed)
-    enc = build_encoder(cfg.model.encoder, k=task.space.k, **({"in_dim": in_dim} if in_dim else {}))
+    # the initialisation uncontrolled and the run unreproducible. Passing the seed
+    # *through the factory* removes the ordering hazard rather than relying on the
+    # two statements staying adjacent -- this bug shipped twice when they drifted.
+    enc = build_encoder(
+        cfg.model.encoder,
+        k=task.space.k,
+        seed=cfg.model.init_seed,
+        **({"in_dim": in_dim} if in_dim else {}),
+    )
     tcfg = TrainConfig(
         epochs=cfg.optim.epochs,
         batch_size=cfg.optim.batch_size,
